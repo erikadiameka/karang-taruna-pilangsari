@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .navbar-scrolled {
+        background: rgba(7, 17, 43, 0.95) !important;
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    .glass-card {
+        background: rgba(8, 31, 92, 0.4);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(212, 175, 55, 0.15);
+        border-radius: 1rem;
+    }
+    .btn-gold {
+        @apply bg-gold hover:bg-gold-light text-navy-dark font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2;
+    }
+    .btn-outline-white {
+        @apply border border-white/30 text-white hover:bg-white/10 font-medium px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2;
+    }
+    .section-badge {
+        @apply inline-flex items-center gap-2 bg-gold/10 text-gold border border-gold/30 text-sm font-medium px-4 py-1.5 rounded-full;
+    }
+    .sidebar-item {
+        @apply flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition-all duration-200 cursor-pointer;
+    }
+    .sidebar-item.active {
+        @apply bg-gold/20 text-gold border border-gold/20;
+    }
+}
+
+.floating {
+    animation: floating 4s ease-in-out infinite;
+}
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+.marquee-content {
+    display: inline-block;
+    animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+    from { transform: translateX(100vw); }
+    to { transform: translateX(-100%); }
+}
