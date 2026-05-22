@@ -33,8 +33,10 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex gap-2">
-                        <a href="{{ route('admin.kegiatan.edit', $k) }}" class="text-gold text-xs border border-gold/30 px-3 py-1.5 rounded-lg">Edit</a>
-                        <form action="{{ route('admin.kegiatan.destroy', $k) }}" method="POST" onsubmit="return confirm('Hapus kegiatan ini?')">
+                        <a href="{{ route('admin.kegiatan.edit', $k) }}"
+                            class="text-gold text-xs border border-gold/30 px-3 py-1.5 rounded-lg">Edit</a>
+                        <form action="{{ route('admin.kegiatan.destroy', $k) }}" method="POST"
+                            onsubmit="return confirm('Hapus kegiatan ini?')">
                             @csrf @method('DELETE')
                             <button class="text-red-400 text-xs border border-red-400/30 px-3 py-1.5 rounded-lg">Hapus</button>
                         </form>
