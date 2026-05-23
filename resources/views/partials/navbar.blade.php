@@ -1,12 +1,11 @@
-<nav id="main-navbar" class="fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-500">
+<nav id="main-navbar" class="fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-500
+    {{ request()->routeIs('beranda') ? '' : 'navbar-scrolled' }}">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between relative">
 
             <a href="{{ route('beranda') }}" class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#07112B">
-                        <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z" />
-                    </svg>
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <img src="/images/Logo.jpeg" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <p class="text-white font-bold text-sm leading-tight">Karang Taruna</p>
@@ -46,12 +45,25 @@
                         <rect x="14" y="14" width="7" height="7" rx="1" />
                         <rect x="3" y="14" width="7" height="7" rx="1" />
                     </svg>
-                    Dashboard
+                    Admin
                 </a>
+                <form method="POST" action="{{ route('logout') }}" class="hidden md:block">
+                    @csrf
+                    <button type="submit"
+                        class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-all duration-300 hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </button>
+                </form>
                 @else
                 <a href="{{ route('login') }}"
                     class="hidden md:flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl transition-all duration-300 hover:scale-105">
-                    Dashboard
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Login
                 </a>
                 @endauth
 
@@ -72,7 +84,7 @@
                 </button>
 
                 {{-- Mobile Menu Button --}}
-                <button class="lg:hidden p-2 text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <button id="menu-toggle" class="lg:hidden p-2 text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -81,8 +93,8 @@
         </div>
 
         {{-- Mobile Menu --}}
-        <div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-white/10">
-            <ul class="flex flex-col gap-1 pt-4">
+        <div id="mobile-menu" class="hidden lg:hidden mt-2 bg-navy-dark/90 rounded-lg border border-gold/20 shadow-lg overflow-hidden transition-all duration-300 ease-out origin-top scale-y-0 opacity-0 w-full">
+            <ul class="flex flex-col w-full">
                 @foreach([
                 ['beranda', 'Beranda'],
                 ['tentang', 'Tentang'],
@@ -92,13 +104,35 @@
                 ['anggota.index', 'Anggota'],
                 ['kontak', 'Kontak'],
                 ] as [$route, $label])
-                <li>
-                    <a href="{{ route($route) }}" class="block text-white/80 hover:text-gold py-2 px-3 rounded-lg hover:bg-white/5 text-sm transition-colors">
+                <li class="border-b border-white/10 last:border-b-0">
+                    <a href="{{ route($route) }}" class="block text-white/80 hover:text-gold hover:bg-white/5 py-3 px-4 text-sm font-medium transition-all w-full">
                         {{ $label }}
                     </a>
                 </li>
                 @endforeach
             </ul>
         </div>
+
+        <script>
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+
+                setTimeout(() => {
+                    mobileMenu.classList.toggle('scale-y-0');
+                    mobileMenu.classList.toggle('opacity-0');
+                }, 5);
+            });
+
+            // Close menu saat klik link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('scale-y-0', 'opacity-0');
+                    setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                });
+            });
+        </script>
     </div>
 </nav>

@@ -10,11 +10,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-navy-dark font-sans" x-data="{ sidebarOpen: true }">
+<body class="bg-navy-dark font-sans" x-data="{ sidebarOpen: false }">
     <div class="flex min-h-screen">
 
         {{-- SIDEBAR --}}
-        <aside class="w-64 bg-navy flex-shrink-0 flex flex-col"
+        <aside class="fixed lg:static top-0 left-0 h-screen w-64 bg-navy flex-shrink-0 flex flex-col z-50 transform lg:transform-none transition-transform duration-300"
+            :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
             style="background: linear-gradient(180deg, #07112B 0%, #081F5C 100%);">
 
             {{-- Logo --}}
@@ -37,7 +38,8 @@
                 <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-2">Menu Utama</p>
 
                 <a href="{{ route('admin.dashboard') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <rect x="3" y="3" width="7" height="7" rx="1" />
                         <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -50,7 +52,8 @@
                 <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Konten</p>
 
                 <a href="{{ route('admin.berita.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" />
                         <line x1="9" y1="10" x2="15" y2="10" />
@@ -60,7 +63,8 @@
                 </a>
 
                 <a href="{{ route('admin.kegiatan.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
                         <line x1="16" y1="2" x2="16" y2="6" />
@@ -71,7 +75,8 @@
                 </a>
 
                 <a href="{{ route('admin.galeri.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <rect x="3" y="3" width="18" height="18" rx="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
@@ -81,7 +86,8 @@
                 </a>
 
                 <a href="{{ route('admin.anggota.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.anggota.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.anggota.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                         <circle cx="9" cy="7" r="4" />
@@ -92,7 +98,8 @@
                 </a>
 
                 <a href="{{ route('admin.pengumuman.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
                         <path d="M13.73 21a2 2 0 01-3.46 0" />
@@ -103,7 +110,8 @@
                 @if(auth()->user()->isSuperAdmin())
                 <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Admin</p>
                 <a href="{{ route('admin.users.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    class="sidebar-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
@@ -145,17 +153,29 @@
             </div>
         </aside>
 
+        {{-- Sidebar Overlay Mobile --}}
+        <div class="lg:hidden fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+            :class="{'opacity-100': sidebarOpen, 'opacity-0 pointer-events-none': !sidebarOpen}"
+            @click="sidebarOpen = false"></div>
+
         {{-- MAIN CONTENT --}}
-        <main class="flex-1 overflow-auto">
+        <main class="flex-1 overflow-auto w-full">
             {{-- Top Bar --}}
-            <div class="bg-navy/50 border-b border-white/5 px-8 py-4 flex items-center justify-between backdrop-blur-sm sticky top-0 z-10">
-                <h1 class="text-white font-semibold">@yield('page-title', 'Dashboard')</h1>
-                <div class="flex items-center gap-3 text-white/50 text-sm">
+            <div class="bg-navy/50 border-b border-white/5 px-4 lg:px-8 py-4 flex items-center justify-between backdrop-blur-sm sticky top-0 z-10">
+                <div class="flex items-center gap-4">
+                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-white/60 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                            <path d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <h1 class="text-white font-semibold">@yield('page-title', 'Dashboard')</h1>
+                </div>
+                <div class="flex items-center gap-3 text-white/50 text-xs lg:text-sm">
                     <span>{{ now()->format('d F Y') }}</span>
                 </div>
             </div>
 
-            <div class="p-8">
+            <div class="p-4 lg:p-8">
                 @if(session('success'))
                 <div class="bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-3 rounded-xl mb-6 text-sm">
                     {{ session('success') }}

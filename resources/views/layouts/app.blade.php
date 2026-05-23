@@ -13,7 +13,7 @@
 
 <body class="bg-white font-sans antialiased">
     @include('partials.navbar')
-    <main>
+    <main class="page-enter">
         @yield('content')
     </main>
     @include('partials.footer')
