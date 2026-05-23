@@ -12,11 +12,17 @@
 </head>
 
 <body class="bg-white font-sans antialiased">
+
+    @if(request()->routeIs('beranda'))
     @include('partials.navbar')
+    @endif
+
     <main class="page-enter">
         @yield('content')
     </main>
+
     @include('partials.footer')
+
     @stack('scripts')
 </body>
 

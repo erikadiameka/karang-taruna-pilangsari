@@ -10,13 +10,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-navy-dark font-sans" x-data="{ sidebarOpen: false }">
+<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 font-sans" x-data="{ sidebarOpen: false }">
     <div class="flex min-h-screen">
 
         {{-- SIDEBAR --}}
         <aside class="fixed lg:static top-0 left-0 h-screen w-64 bg-navy flex-shrink-0 flex flex-col z-50 transform lg:transform-none transition-transform duration-300"
             :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
-            style="background: linear-gradient(180deg, #07112B 0%, #081F5C 100%);">
+            style="background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);">
 
             {{-- Logo --}}
             <div class="p-6 border-b border-white/10">
@@ -35,7 +35,7 @@
 
             {{-- Nav Menu --}}
             <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-                <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-2">Menu Utama</p>
+                <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-2">Menu Utama</p>
 
                 <a href="{{ route('admin.dashboard') }}"
                     class="sidebar-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
@@ -49,7 +49,7 @@
                     Dashboard
                 </a>
 
-                <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Konten</p>
+                <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Konten</p>
 
                 <a href="{{ route('admin.berita.index') }}"
                     class="sidebar-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"
@@ -108,7 +108,7 @@
                 </a>
 
                 @if(auth()->user()->isSuperAdmin())
-                <p class="text-white/30 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Admin</p>
+                <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Admin</p>
                 <a href="{{ route('admin.users.index') }}"
                     class="sidebar-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
                     @click="sidebarOpen = false">
@@ -161,16 +161,16 @@
         {{-- MAIN CONTENT --}}
         <main class="flex-1 overflow-auto w-full">
             {{-- Top Bar --}}
-            <div class="bg-navy/50 border-b border-white/5 px-4 lg:px-8 py-4 flex items-center justify-between backdrop-blur-sm sticky top-0 z-10">
+            <div class="bg-white border-b border-gray-200 px-4 lg:px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-10">
                 <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-white/60 hover:text-white">
+                    <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-gray-600 hover:text-gray-900">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                             <path d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <h1 class="text-white font-semibold">@yield('page-title', 'Dashboard')</h1>
+                    <h1 class="text-gray-800 font-semibold">@yield('page-title', 'Dashboard')</h1>
                 </div>
-                <div class="flex items-center gap-3 text-white/50 text-xs lg:text-sm">
+                <div class="flex items-center gap-3 text-gray-500 text-xs lg:text-sm">
                     <span>{{ now()->format('d F Y') }}</span>
                 </div>
             </div>
