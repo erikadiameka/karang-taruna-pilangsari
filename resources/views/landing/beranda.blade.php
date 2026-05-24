@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <div class="text-2xl font-black text-gold" data-counter="{{ $stat['value'] }}">{{ $stat['value'] }}+</div>
-                    <div class="text-white/60 text-xs mt-0.5">{{ $stat['label'] }}</div>
+                    <div class="text-gray-600 text-xs mt-0.5">{{ $stat['label'] }}</div>
                 </div>
             </div>
             @endforeach
