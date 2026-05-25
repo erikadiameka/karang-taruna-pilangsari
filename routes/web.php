@@ -50,4 +50,9 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
     Route::resource('users', UserController::class)->middleware('role:super_admin');
 });
 
+// ===== SEEDER ROUTE (LOCAL ONLY) =====
+if (app()->environment('local')) {
+    Route::get('/seed-anggota', [\App\Http\Controllers\SeederController::class, 'seed'])->name('seed.anggota');
+}
+
 require __DIR__ . '/auth.php';
