@@ -20,7 +20,9 @@ class Anggota extends Model
         'jabatan',
         'divisi',
         'tahun_masuk',
-        'status'
+        'status',
+        'posisi_inti',
+        'urutan_struktur'
     ];
 
     protected $casts = [

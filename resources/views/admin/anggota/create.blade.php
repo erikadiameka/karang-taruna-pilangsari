@@ -46,22 +46,31 @@
                         class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
                 <div>
-                    <label class="text-gray-700 text-sm font-medium mb-2 block">Divisi</label>
+                    <label class="text-gray-700 text-sm font-medium mb-2 block">Bidang</label>
                     <select name="divisi" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">-- Pilih Divisi --</option>
-                        @foreach(['Humas','Sosial','Ekonomi','Seni Budaya','Olahraga','Pendidikan'] as $div)
-                        <option value="{{ $div }}">{{ $div }}</option>
+                        <option value="">-- Pilih Bidang --</option>
+                        @foreach(['Humas dan Keamanan','Seni Kreatif dan Medafor','Keagamaan','Kepemudaan dan Olahraga'] as $div)
+                        <option value="{{ $div }}" {{ old('divisi') == $div ? 'selected' : '' }}>{{ $div }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div>
-                    <label class="text-gray-700 text-sm font-medium mb-2 block">Status *</label>
-                    <select name="status" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="aktif">Aktif</option>
-                        <option value="tidak_aktif">Tidak Aktif</option>
-                        <option value="alumni">Alumni</option>
+                    <label class="text-gray-700 text-sm font-medium mb-2 block">Posisi Inti</label>
+                    <select name="posisi_inti" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="">-- Pilih Posisi --</option>
+                        @foreach(['Ketua','Wakil Ketua','Sekretaris 1','Sekretaris 2','Bendahara 1','Bendahara 2'] as $pos)
+                        <option value="{{ $pos }}" {{ old('posisi_inti') == $pos ? 'selected' : '' }}>{{ $pos }}</option>
+                        @endforeach
                     </select>
                 </div>
+            </div>
+            <div>
+                <label class="text-gray-700 text-sm font-medium mb-2 block">Status *</label>
+                <select name="status" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                    <option value="tidak_aktif" {{ old('status') == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    <option value="alumni" {{ old('status') == 'alumni' ? 'selected' : '' }}>Alumni</option>
+                </select>
             </div>
             <div class="grid grid-cols-2 gap-5">
                 <div>
@@ -81,7 +90,7 @@
             </div>
         </div>
         <div class="flex gap-3">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">Simpan Anggota</button>
+            <button type="submit" onclick="this.disabled=true;this.form.submit();" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">Simpan Anggota</button>
             <a href="{{ route('admin.anggota.index') }}" class="border border-gray-300 text-gray-700 hover:bg-gray-100 font-medium px-6 py-3 rounded-xl transition-all duration-300 inline-flex items-center gap-2">Batal</a>
         </div>
     </form>

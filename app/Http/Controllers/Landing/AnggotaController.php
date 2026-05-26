@@ -22,52 +22,51 @@ class AnggotaController extends Controller
         // Untuk Tab Bagan Struktur Organisasi (Memerlukan semua anggota aktif)
         $allAnggota = Anggota::where('status', 'aktif')->get();
 
-        // Cari Ketua (Case-insensitive matching)
-        $ketua = $allAnggota->first(fn($a) => strtolower($a->jabatan ?? '') === 'ketua');
+        // ===== STRUKTUR INTI =====
+        // Cari Ketua
+        $ketua = $allAnggota->first(fn($a) => $a->posisi_inti === 'Ketua');
 
         // Cari Wakil Ketua
-        $wakilKetua = $allAnggota->first(fn($a) => str_contains(strtolower($a->jabatan ?? ''), 'wakil ketua'));
+        $wakilKetua = $allAnggota->first(fn($a) => $a->posisi_inti === 'Wakil Ketua');
 
-        // Cari Sekretaris
-        $sekretaris = $allAnggota->filter(fn($a) => str_contains(strtolower($a->jabatan ?? ''), 'sekretaris'));
+        // Cari Sekretaris (1 & 2)
+        $sekretaris = $allAnggota->filter(fn($a) => in_array($a->posisi_inti, ['Sekretaris 1', 'Sekretaris 2']));
 
-        // Cari Bendahara
-        $bendahara = $allAnggota->filter(fn($a) => str_contains(strtolower($a->jabatan ?? ''), 'bendahara'));
+        // Cari Bendahara (1 & 2)
+        $bendahara = $allAnggota->filter(fn($a) => in_array($a->posisi_inti, ['Bendahara 1', 'Bendahara 2']));
 
-        // Cari Divisi
-        $divisiList = ['Humas', 'Sosial', 'Ekonomi', 'Seni Budaya', 'Olahraga', 'Pendidikan'];
-        $divisiMembers = [];
+        // ===== BIDANG BARU =====
+        $bidangList = ['Humas dan Keamanan', 'Seni Kreatif dan Medafor', 'Keagamaan', 'Kepemudaan dan Olahraga'];
+        $bidangMembers = [];
 
-        foreach ($divisiList as $divisi) {
-            $members = $allAnggota->filter(fn($a) => $a->divisi === $divisi);
+        foreach ($bidangList as $bidang) {
+            $members = $allAnggota->filter(fn($a) => $a->divisi === $bidang);
 
             $koordinator = $members->first(fn($a) => 
-                str_contains(strtolower($a->jabatan ?? ''), 'koordinator') || 
-                str_contains(strtolower($a->jabatan ?? ''), 'ketua divisi') || 
-                str_contains(strtolower($a->jabatan ?? ''), 'kepala divisi')
+                str_contains(strtolower($a->jabatan ?? ''), 'koordinator')
             );
 
-            // Anggota divisi selain koordinator
+            // Anggota bidang selain koordinator
             $regularMembers = $members->filter(fn($a) => $a->id !== ($koordinator->id ?? null));
 
-            $divisiMembers[$divisi] = [
+            $bidangMembers[$bidang] = [
                 'koordinator' => $koordinator,
                 'anggota' => $regularMembers
             ];
         }
 
-        // Hitung ID anggota yang sudah masuk struktur inti dan divisi
+        // Hitung ID anggota yang sudah masuk struktur inti dan bidang
         $coreIds = collect([$ketua, $wakilKetua])->filter()->pluck('id')
             ->concat($sekretaris->pluck('id'))
             ->concat($bendahara->pluck('id'));
 
-        $divisionMemberIds = collect();
-        foreach ($divisiMembers as $div) {
-            if ($div['koordinator']) $divisionMemberIds->push($div['koordinator']->id);
-            $divisionMemberIds = $divisionMemberIds->concat($div['anggota']->pluck('id'));
+        $bidangMemberIds = collect();
+        foreach ($bidangMembers as $bidang) {
+            if ($bidang['koordinator']) $bidangMemberIds->push($bidang['koordinator']->id);
+            $bidangMemberIds = $bidangMemberIds->concat($bidang['anggota']->pluck('id'));
         }
 
-        $excludedIds = $coreIds->concat($divisionMemberIds)->unique();
+        $excludedIds = $coreIds->concat($bidangMemberIds)->unique();
         // Sisa anggota yang tidak masuk bagan hierarki
         $anggotaLain = $allAnggota->filter(fn($a) => !$excludedIds->contains($a->id));
 
@@ -77,7 +76,7 @@ class AnggotaController extends Controller
             'wakilKetua',
             'sekretaris',
             'bendahara',
-            'divisiMembers',
+            'bidangMembers',
             'anggotaLain',
             'search'
         ));

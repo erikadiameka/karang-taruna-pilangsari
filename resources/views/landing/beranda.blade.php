@@ -217,23 +217,48 @@
                 @endforelse
             </div>
 
-            {{-- Galeri --}}
+            {{-- Berita RSS / Eksternal --}}
             <div data-aos="fade-up" data-aos-delay="300">
                 <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-bold text-navy-dark">Galeri Kegiatan</h3>
-                    <a href="{{ route('galeri.index') }}" class="text-gold text-xs font-semibold hover:underline">Lihat Semua</a>
+                    <h3 class="text-lg font-bold text-navy-dark">Berita Nasional</h3>
+                    <a href="https://kompas.com" target="_blank" class="text-gold text-xs font-semibold hover:underline">Kompas.com →</a>
                 </div>
-                <div class="grid grid-cols-2 gap-2">
-                    @forelse($galeriTerbaru as $i => $g)
-                    <div class="{{ $i === 0 ? 'col-span-2 aspect-video' : 'aspect-square' }} rounded-xl overflow-hidden group cursor-pointer">
-                        <img src="{{ Storage::url($g->file_path) }}" alt="{{ $g->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                @php
+                $rssBerita = [];
+                try {
+                $rss = @simplexml_load_file('https://rss.kompas.com/rss/topic/nasional', 'SimpleXMLElement', LIBXML_NOCDATA);
+                if ($rss && isset($rss->channel->item)) {
+                $count = 0;
+                foreach ($rss->channel->item as $item) {
+                if ($count >= 3) break;
+                $rssBerita[] = [
+                'judul' => (string)$item->title,
+                'link' => (string)$item->link,
+                'desc' => strip_tags((string)$item->description),
+                'date' => (string)$item->pubDate,
+                ];
+                $count++;
+                }
+                }
+                } catch(\Exception $e) {}
+                @endphp
+
+                @forelse($rssBerita as $r)
+                <a href="{{ $r['link'] }}" target="_blank"
+                    class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
+                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
+                    <div class="p-3 flex-1 min-w-0">
+                        <div class="text-gray-400 text-xs">{{ \Carbon\Carbon::parse($r['date'])->format('d M Y') }}</div>
+                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r['judul'] }}</div>
+                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r['desc'], 80) }}</div>
                     </div>
-                    @empty
-                    <div class="col-span-2 bg-gray-100 rounded-xl aspect-video flex items-center justify-center">
-                        <p class="text-gray-400 text-sm">Belum ada galeri.</p>
-                    </div>
-                    @endforelse
+                </a>
+                @empty
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <p class="text-3xl mb-2">📡</p>
+                    <p class="text-gray-400 text-sm">Berita tidak tersedia.</p>
                 </div>
+                @endforelse
             </div>
 
         </div>

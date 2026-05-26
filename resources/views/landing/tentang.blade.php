@@ -43,7 +43,7 @@
                     ['value' => '120+', 'label' => 'Anggota Aktif'],
                     ['value' => '48+', 'label' => 'Kegiatan'],
                     ['value' => '14+', 'label' => 'Tahun Berdiri'],
-                    ['value' => '6', 'label' => 'Divisi'],
+                    ['value' => '4', 'label' => 'Bidang'],
                     ] as $s)
                     <div class="bg-navy-dark rounded-2xl p-5 text-center">
                         <div class="text-2xl font-black text-gold">{{ $s['value'] }}</div>
@@ -100,32 +100,56 @@
     </div>
 </section>
 
-{{-- Struktur Divisi --}}
+{{-- Struktur Organisasi --}}
 <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12" data-aos="fade-up">
             <div class="section-badge mb-4">
-
                 <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
                 Struktur
             </div>
-            <h2 class="text-3xl font-black text-navy-dark">Divisi <span class="text-gold">Organisasi</span></h2>
+            <h2 class="text-3xl font-black text-navy-dark">Struktur <span class="text-gold">Organisasi</span></h2>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            @foreach([
-            ['emoji' => '📢', 'nama' => 'Humas'],
-            ['emoji' => '❤️', 'nama' => 'Sosial'],
-            ['emoji' => '💼', 'nama' => 'Ekonomi'],
-            ['emoji' => '🎭', 'nama' => 'Seni Budaya'],
-            ['emoji' => '⚽', 'nama' => 'Olahraga'],
-            ['emoji' => '📚', 'nama' => 'Pendidikan'],
-            ] as $i => $div)
-            <div class="bg-gray-50 rounded-2xl p-5 text-center hover:bg-navy-dark transition-all duration-300 group cursor-pointer"
-                data-aos="fade-up" data-aos-delay="{{ ($i+1) * 50 }}">
-                <div class="text-3xl mb-3">{{ $div['emoji'] }}</div>
-                <div class="font-bold text-navy-dark group-hover:text-white text-sm transition-colors">{{ $div['nama'] }}</div>
+
+        {{-- Posisi Inti --}}
+        <div class="mb-16">
+            <h3 class="text-xl font-bold text-navy-dark mb-6 text-center">Pengurus Inti</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                @foreach([
+                ['emoji' => '👑', 'posisi' => 'Ketua'],
+                ['emoji' => '🎖️', 'posisi' => 'Wakil Ketua'],
+                ['emoji' => '📝', 'posisi' => 'Sekretaris 1'],
+                ['emoji' => '📋', 'posisi' => 'Sekretaris 2'],
+                ['emoji' => '💰', 'posisi' => 'Bendahara 1'],
+                ['emoji' => '💵', 'posisi' => 'Bendahara 2'],
+                ] as $i => $pos)
+                <div class="bg-gradient-to-br from-gold/10 to-gold/5 rounded-2xl p-5 text-center border border-gold/20 hover:border-gold/50 transition-all duration-300 group cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="{{ ($i+1) * 50 }}">
+                    <div class="text-3xl mb-3">{{ $pos['emoji'] }}</div>
+                    <div class="font-bold text-navy-dark text-sm transition-colors">{{ $pos['posisi'] }}</div>
+                </div>
+                @endforeach
             </div>
-            @endforeach
+        </div>
+
+        {{-- Bidang --}}
+        <div>
+            <h3 class="text-xl font-bold text-navy-dark mb-6 text-center">Bidang Organisasi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                @foreach([
+                ['emoji' => '📢', 'nama' => 'Humas dan Keamanan', 'deskripsi' => 'Bidang komunikasi dan keamanan organisasi'],
+                ['emoji' => '🎭', 'nama' => 'Seni Kreatif dan Medafor', 'deskripsi' => 'Bidang seni, kreativitas dan media'],
+                ['emoji' => '🙏', 'nama' => 'Keagamaan', 'deskripsi' => 'Bidang pembinaan spiritual dan keagamaan'],
+                ['emoji' => '⚽', 'nama' => 'Kepemudaan dan Olahraga', 'deskripsi' => 'Bidang pemberdayaan pemuda dan olahraga'],
+                ] as $i => $bidang)
+                <div class="bg-gray-50 rounded-2xl p-6 text-center hover:bg-navy-dark transition-all duration-300 group cursor-pointer border border-gray-200 hover:border-gold"
+                    data-aos="fade-up" data-aos-delay="{{ ($i+1) * 100 }}">
+                    <div class="text-4xl mb-3 group-hover:scale-110 transition-transform">{{ $bidang['emoji'] }}</div>
+                    <div class="font-bold text-navy-dark group-hover:text-white text-sm mb-2 transition-colors">{{ $bidang['nama'] }}</div>
+                    <div class="text-gray-600 group-hover:text-white/70 text-xs transition-colors">{{ $bidang['deskripsi'] }}</div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
 </section>

@@ -11,7 +11,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-white font-sans antialiased">
+<body class="bg-white font-sans antialiased" x-data>
 
     @if(request()->routeIs('beranda'))
     @include('partials.navbar')

@@ -24,10 +24,13 @@ class BerandaController extends Controller
             ->where('status', 'published')
             ->latest('published_at')->take(3)->get();
 
+        // Kalau berita internal kosong, ambil dari RSS Kompas
+        if ($beritaTerbaru->count() === 0) {
+            $beritaTerbaru = $this->getBeritaRSS();
+        }
+
         $kegiatanTerbaru = Kegiatan::latest('tanggal_mulai')->take(3)->get();
-
         $galeriTerbaru = Galeri::where('tipe', 'foto')->latest()->take(6)->get();
-
         $pengumuman = Pengumuman::where('is_active', true)
             ->where(function ($q) {
                 $q->whereNull('expired_at')->orWhere('expired_at', '>', now());
@@ -48,5 +51,35 @@ class BerandaController extends Controller
             'pengumuman',
             'programUnggulan'
         ));
+    }
+
+    private function getBeritaRSS(): array
+    {
+        try {
+            $rss = @simplexml_load_file('https://rss.kompas.com/rss/topic/desa', 'SimpleXMLElement', LIBXML_NOCDATA);
+            if (!$rss) {
+                // Fallback ke berita nasional
+                $rss = @simplexml_load_file('https://rss.kompas.com/rss/topic/nasional', 'SimpleXMLElement', LIBXML_NOCDATA);
+            }
+            $berita = [];
+            if ($rss && isset($rss->channel->item)) {
+                $items = array_slice((array)$rss->channel->item, 0, 3);
+                foreach ($items as $item) {
+                    $berita[] = (object)[
+                        'judul' => (string)($item['title'] ?? ''),
+                        'slug' => '#',
+                        'ringkasan' => strip_tags((string)($item['description'] ?? '')),
+                        'thumbnail' => null,
+                        'published_at' => now(),
+                        'kategori' => (object)['nama' => 'Nasional'],
+                        'is_rss' => true,
+                        'link' => (string)($item['link'] ?? '#'),
+                    ];
+                }
+            }
+            return $berita;
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 }

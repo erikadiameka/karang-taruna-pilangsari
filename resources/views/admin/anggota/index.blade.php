@@ -12,7 +12,8 @@
             <tr class="border-b border-gray-200 bg-gray-50">
                 <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3">Nama</th>
                 <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3 hidden md:table-cell">NIK</th>
-                <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3 hidden sm:table-cell">Divisi</th>
+                <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3 hidden sm:table-cell">Bidang</th>
+                <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3 hidden lg:table-cell">Posisi</th>
                 <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3">Status</th>
                 <th class="text-left text-gray-600 text-xs uppercase tracking-wider px-4 py-3">Aksi</th>
             </tr>
@@ -37,6 +38,7 @@
                 </td>
                 <td class="px-4 py-3 text-gray-600 text-xs hidden md:table-cell">{{ Str::limit($a->nik, 10) }}</td>
                 <td class="px-4 py-3 text-gray-600 text-xs hidden sm:table-cell">{{ Str::limit($a->divisi ?? '-', 12) }}</td>
+                <td class="px-4 py-3 text-gray-600 text-xs hidden lg:table-cell">{{ Str::limit($a->posisi_inti ?? '-', 12) }}</td>
                 <td class="px-4 py-3">
                     <span class="text-xs px-2 py-1 rounded-full whitespace-nowrap
                         {{ $a->status === 'aktif' ? 'bg-green-100 text-green-700' :
@@ -47,8 +49,8 @@
                 </td>
                 <td class="px-4 py-3">
                     <div class="flex gap-1 flex-wrap">
-                        <a href="{{ route('admin.anggota.edit', $a) }}" class="text-blue-600 text-xs border border-blue-300 px-2 py-1 rounded">Edit</a>
-                        <form action="{{ route('admin.anggota.destroy', $a) }}" method="POST" onsubmit="return confirm('Hapus anggota ini?')">
+                        <a href="{{ route('admin.anggota.edit', $a->id) }}" class="text-gold text-xs border border-gold/30 px-2 py-1 rounded">Edit</a>
+                        <form action="{{ route('admin.anggota.destroy', $a->id) }}" method="POST" onsubmit="return confirm('Hapus anggota ini?')">
                             @csrf @method('DELETE')
                             <button class="text-red-400 text-xs border border-red-400/30 px-2 py-1 rounded">Hapus</button>
                         </form>

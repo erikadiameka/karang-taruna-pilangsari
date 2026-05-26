@@ -148,87 +148,81 @@
                     {{-- Line Connector down to Divisions --}}
                     <div class="h-12 w-0.5 bg-gradient-to-b from-gold/20 to-gold/50 my-4"></div>
                     
-                    {{-- 4. LEVEL DIVISI-DIVISI --}}
+                    {{-- 4. LEVEL BIDANG OPERASIONAL --}}
                     <div class="w-full text-center mb-6">
-                        <h3 class="text-lg font-black uppercase tracking-widest text-navy-dark dark:text-white mb-2">Divisi Operasional</h3>
+                        <h3 class="text-lg font-black uppercase tracking-widest text-navy-dark dark:text-white mb-2">Bidang Organisasi</h3>
                         <div class="w-16 h-1 bg-gold mx-auto rounded-full"></div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mt-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-6" data-aos="fade-up" data-aos-delay="300">
                         @php
-                            $emojis = [
-                                'Humas' => '📢',
-                                'Sosial' => '❤️',
-                                'Ekonomi' => '💼',
-                                'Seni Budaya' => '🎭',
-                                'Olahraga' => '⚽',
-                                'Pendidikan' => '📚'
+                            $bidangEmojis = [
+                                'Humas dan Keamanan' => '📢',
+                                'Seni Kreatif dan Medafor' => '🎭',
+                                'Keagamaan' => '🙏',
+                                'Kepemudaan dan Olahraga' => '⚽'
                             ];
                         @endphp
 
-                        @foreach($divisiMembers as $divName => $div)
+                        @foreach($bidangMembers as $bidangName => $bidang)
                         <div class="bg-white dark:bg-navy-light border border-gray-200/60 dark:border-white/5 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full">
                             
-                            {{-- Divisi Header --}}
+                            {{-- Bidang Header --}}
                             <div class="flex items-center gap-3 border-b border-gray-100 dark:border-white/5 pb-4 mb-4">
                                 <div class="w-10 h-10 bg-gold/10 dark:bg-gold/5 rounded-xl flex items-center justify-center text-xl">
-                                    {{ $emojis[$divName] ?? '👥' }}
+                                    {{ $bidangEmojis[$bidangName] ?? '👥' }}
                                 </div>
                                 <div class="text-left">
-                                    <h5 class="font-black text-navy-dark dark:text-white text-sm">Divisi {{ $divName }}</h5>
+                                    <h5 class="font-black text-navy-dark dark:text-white text-sm">{{ $bidangName }}</h5>
                                     <p class="text-[10px] text-gray-400">Bidang Operasional</p>
                                 </div>
                             </div>
 
-                            {{-- Koordinator Divisi --}}
+                            {{-- Koordinator Bidang --}}
                             <div class="mb-4 text-left">
                                 <span class="text-[9px] font-black uppercase tracking-wider text-gold block mb-2">Koordinator</span>
-                                @if($div['koordinator'])
+                                @if($bidang['koordinator'])
                                 <div class="bg-gray-50 dark:bg-navy-dark/40 border border-gold/20 rounded-xl p-3 flex items-center gap-2.5">
-                                    @if($div['koordinator']->foto)
-                                    <img src="{{ Storage::url($div['koordinator']->foto) }}" alt="{{ $div['koordinator']->nama_lengkap }}" class="w-9 h-9 rounded-full object-cover border border-gold/30 flex-shrink-0">
+                                    @if($bidang['koordinator']->foto)
+                                    <img src="{{ Storage::url($bidang['koordinator']->foto) }}" alt="{{ $bidang['koordinator']->nama_lengkap }}" class="w-9 h-9 rounded-full object-cover border border-gold/30 flex-shrink-0">
                                     @else
                                     <div class="w-9 h-9 rounded-full bg-navy/10 dark:bg-navy-dark flex items-center justify-center border border-gold/30 flex-shrink-0 text-navy dark:text-white font-bold text-xs">
-                                        {{ strtoupper(substr($div['koordinator']->nama_lengkap, 0, 2)) }}
+                                        {{ strtoupper(substr($bidang['koordinator']->nama_lengkap, 0, 2)) }}
                                     </div>
                                     @endif
                                     <div class="min-w-0">
-                                        <h6 class="font-bold text-navy-dark dark:text-white text-xs truncate">{{ $div['koordinator']->nama_lengkap }}</h6>
-                                        <p class="text-gray-400 text-[9px] mt-0.5">{{ $div['koordinator']->jabatan }}</p>
+                                        <h6 class="font-bold text-navy-dark dark:text-white text-xs truncate">{{ $bidang['koordinator']->nama_lengkap }}</h6>
+                                        <p class="text-gray-400 text-[9px] mt-0.5">{{ $bidang['koordinator']->jabatan }}</p>
                                     </div>
                                 </div>
                                 @else
-                                <div class="border border-dashed border-gray-200 dark:border-white/10 rounded-xl p-3 text-center">
-                                    <p class="text-[10px] text-gray-400 italic">Belum ditentukan</p>
-                                </div>
+                                <p class="text-xs text-gray-400 italic">Belum ditentukan</p>
                                 @endif
                             </div>
 
-                            {{-- Anggota Divisi --}}
-                            <div class="text-left flex-1">
-                                <span class="text-[9px] font-black uppercase tracking-wider text-gray-400 block mb-2">Anggota</span>
-                                @if($div['anggota']->count() > 0)
-                                <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
-                                    @foreach($div['anggota'] as $a)
-                                    <div class="bg-gray-50/50 dark:bg-navy-dark/20 rounded-xl p-2.5 flex items-center gap-2.5 border border-transparent hover:border-gray-100 dark:hover:border-white/5 transition-all">
-                                        @if($a->foto)
-                                        <img src="{{ Storage::url($a->foto) }}" alt="{{ $a->nama_lengkap }}" class="w-8 h-8 rounded-full object-cover flex-shrink-0">
+                            {{-- Anggota Bidang --}}
+                            <div>
+                                <span class="text-[9px] font-black uppercase tracking-wider text-gold block mb-2">Anggota ({{ $bidang['anggota']->count() }})</span>
+                                <div class="flex flex-col gap-2 flex-grow">
+                                    @forelse($bidang['anggota'] as $member)
+                                    <div class="bg-gray-50 dark:bg-navy-dark/40 border border-gray-100/50 dark:border-white/5 rounded-lg p-2 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-navy-dark/60 transition-colors">
+                                        @if($member->foto)
+                                        <img src="{{ Storage::url($member->foto) }}" alt="{{ $member->nama_lengkap }}" class="w-7 h-7 rounded-full object-cover border border-gold/20 flex-shrink-0">
                                         @else
-                                        <div class="w-8 h-8 rounded-full bg-navy/5 dark:bg-navy-dark flex items-center justify-center flex-shrink-0 text-navy dark:text-white font-bold text-xs">
-                                            {{ strtoupper(substr($a->nama_lengkap, 0, 2)) }}
+                                        <div class="w-7 h-7 rounded-full bg-navy/10 dark:bg-navy-dark flex items-center justify-center border border-gold/20 flex-shrink-0 text-navy dark:text-white font-bold text-[10px]">
+                                            {{ strtoupper(substr($member->nama_lengkap, 0, 1)) }}
                                         </div>
                                         @endif
-                                        <div class="min-w-0">
-                                            <h6 class="font-semibold text-navy-dark dark:text-white text-[11px] truncate">{{ $a->nama_lengkap }}</h6>
+                                        <div class="min-w-0 flex-grow">
+                                            <p class="text-navy-dark dark:text-white text-xs font-semibold truncate">{{ $member->nama_lengkap }}</p>
+                                            <p class="text-gray-400 text-[8px]">{{ $member->jabatan ?? '-' }}</p>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    @empty
+                                    <p class="text-xs text-gray-400 italic">Belum ada anggota</p>
+                                    @endforelse
                                 </div>
-                                @else
-                                <p class="text-[10px] text-gray-400 italic text-center py-2 bg-gray-50/30 dark:bg-navy-dark/10 rounded-xl">Belum ada anggota</p>
-                                @endif
                             </div>
-
                         </div>
                         @endforeach
                     </div>
