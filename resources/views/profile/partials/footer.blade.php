@@ -38,8 +38,14 @@
             {{-- Tautan Cepat --}}
             <div>
                 <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Tautan Cepat</h4>
-                @foreach(['Program Kerja', 'Struktur Organisasi', 'Dokumentasi', 'Pengumuman', 'FAQ'] as $item)
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">{{ $item }}</a>
+                @foreach([
+                    'Program Kerja' => 'kegiatan.index',
+                    'Struktur Organisasi' => 'anggota.index',
+                    'Dokumentasi' => 'dokumentasi',
+                    'Pengumuman' => 'pengumuman.index',
+                    'FAQ' => 'faq'
+                ] as $label => $route)
+                <a href="{{ route($route) }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">{{ $label }}</a>
                 @endforeach
             </div>
 

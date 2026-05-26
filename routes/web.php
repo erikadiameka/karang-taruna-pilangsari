@@ -6,6 +6,7 @@ use App\Http\Controllers\Landing\BeritaController as LandingBerita;
 use App\Http\Controllers\Landing\KegiatanController as LandingKegiatan;
 use App\Http\Controllers\Landing\GaleriController as LandingGaleri;
 use App\Http\Controllers\Landing\AnggotaController as LandingAnggota;
+use App\Http\Controllers\Landing\PengumumanController as LandingPengumuman;
 use App\Http\Controllers\Landing\KontakController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -33,6 +34,14 @@ Route::prefix('kegiatan')->name('kegiatan.')->group(function () {
 
 Route::get('/galeri', [LandingGaleri::class, 'index'])->name('galeri.index');
 Route::get('/anggota', [LandingAnggota::class, 'index'])->name('anggota.index');
+
+Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
+    Route::get('/', [LandingPengumuman::class, 'index'])->name('index');
+    Route::get('/{id}', [LandingPengumuman::class, 'show'])->name('show');
+});
+
+Route::get('/faq', fn() => view('landing.faq'))->name('faq');
+Route::get('/dokumentasi', fn() => view('landing.dokumentasi'))->name('dokumentasi');
 
 // ===== REDIRECT SETELAH LOGIN =====
 Route::get('/dashboard', function () {
