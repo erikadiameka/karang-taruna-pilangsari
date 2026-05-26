@@ -48,4 +48,8 @@ class Berita extends Model
     {
         return $q->where('status', 'published');
     }
+
+    public function incrementViews() {
+    $this->increment('views');
+}
 }

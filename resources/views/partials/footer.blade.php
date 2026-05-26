@@ -78,4 +78,27 @@
             </div>
         </div>
     </div>
+
+    {{-- Back to Top Button --}}
+<button id="backToTop"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        style="display:none; position:fixed; bottom:24px; right:24px; z-index:999;
+               width:48px; height:48px; background:#D4AF37; color:#07112B;
+               border:none; border-radius:12px; cursor:pointer; font-size:20px;
+               box-shadow:0 8px 24px rgba(212,175,55,0.4); transition:all 0.3s;">
+    ↑
+</button>
+
+<script>
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'flex';
+            backToTop.style.alignItems = 'center';
+            backToTop.style.justifyContent = 'center';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+</script>
 </footer>
