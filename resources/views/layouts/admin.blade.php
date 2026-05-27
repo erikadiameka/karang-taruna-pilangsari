@@ -107,6 +107,16 @@
                     Pengumuman
                 </a>
 
+                <a href="{{ route('admin.kontak.index') }}"
+                    class="sidebar-item {{ request()->routeIs('admin.kontak.*') ? 'active' : '' }}"
+                    @click="sidebarOpen = false">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path d="M4 4h16v16H4z" />
+                        <path d="M22 6l-10 7L2 6" />
+                    </svg>
+                    Kontak
+                </a>
+
                 @if(auth()->user()->isSuperAdmin())
                 <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Admin</p>
                 <a href="{{ route('admin.users.index') }}"

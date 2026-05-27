@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'Detail Pesan Kontak — Admin')
+@section('page-title', 'Detail Pesan Kontak')
 
 @section('content')
     <div class="container mx-auto p-6">
