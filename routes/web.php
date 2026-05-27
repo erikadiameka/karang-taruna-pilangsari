@@ -58,7 +58,9 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
     Route::resource('galeri', GaleriController::class);
     Route::resource('anggota', AnggotaController::class);
     Route::resource('pengumuman', PengumumanController::class);
-    Route::resource('kontak', AdminKontakController::class)->only(['index','show']);
+    Route::resource('kontak', AdminKontakController::class)->only(['index','show','destroy']);
+    Route::delete('kontak', [AdminKontakController::class, 'destroySelected'])->name('kontak.destroySelected');
+    Route::delete('kontak/read', [AdminKontakController::class, 'destroyRead'])->name('kontak.destroyRead');
     Route::resource('users', UserController::class)->middleware('role:super_admin');
 });
 
