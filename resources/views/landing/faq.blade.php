@@ -95,8 +95,8 @@
 
         {{-- Contact --}}
         <div class="mt-16 bg-gradient-to-r from-gold/10 to-gold/5 border border-gold/20 rounded-2xl p-8 md:p-12 text-center">
-            <h3 class="text-2xl font-bold text-white mb-3">Tidak menemukan jawaban?</h3>
-            <p class="text-white/70 mb-6">Hubungi kami langsung untuk pertanyaan lebih lanjut.</p>
+            <h3 class="text-2xl font-bold text-navy-dark mb-3">Tidak menemukan jawaban?</h3>
+                <p class="text-navy-dark/70 mb-6">Hubungi kami langsung untuk pertanyaan lebih lanjut.</p>
             <a href="{{ route('kontak') }}" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-bold px-6 py-3 rounded-xl transition-all">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

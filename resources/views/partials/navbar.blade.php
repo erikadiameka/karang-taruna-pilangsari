@@ -110,6 +110,30 @@
                     </a>
                 </li>
                 @endforeach
+
+                {{-- Login/Dashboard di Mobile --}}
+                <li class="border-t border-gold/20 pt-2 pb-2 px-4">
+                    @auth
+                    <div class="flex gap-2 mt-1">
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="flex-1 flex items-center justify-center gap-2 bg-gold text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl">
+                            Admin
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="flex items-center gap-2 bg-red-600 text-white font-semibold text-sm px-4 py-2.5 rounded-xl">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                    @else
+                    <a href="{{ route('login') }}"
+                        class="flex items-center justify-center gap-2 bg-gold text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl mt-1">
+                        Login
+                    </a>
+                    @endauth
+                </li>
             </ul>
         </div>
 

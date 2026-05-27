@@ -55,11 +55,11 @@
 
             <div>
                 <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Tautan Cepat</h4>
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Program Kerja</a>
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Struktur Organisasi</a>
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dokumentasi</a>
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Pengumuman</a>
-                <a href="#" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
+                <a href="{{ route('kegiatan.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Program Kerja</a>
+                <a href="{{ route('anggota.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Struktur Organisasi</a>
+                <a href="{{ route('dokumentasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dokumentasi</a>
+                <a href="{{ route('pengumuman.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Pengumuman</a>
+                <a href="{{ route('faq') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
             </div>
 
             <div>

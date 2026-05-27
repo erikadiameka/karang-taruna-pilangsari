@@ -15,12 +15,14 @@ use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\AnggotaController;
 use App\Http\Controllers\Admin\PengumumanController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\KontakController as AdminKontakController;
 
 // ===== LANDING =====
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/tentang', fn() => view('landing.tentang'))->name('tentang');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim');
+Route::get('/pengumuman', [App\Http\Controllers\Landing\PengumumanController::class, 'index'])->name('pengumuman.index');
 
 Route::prefix('berita')->name('berita.')->group(function () {
     Route::get('/', [LandingBerita::class, 'index'])->name('index');
@@ -56,6 +58,7 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
     Route::resource('galeri', GaleriController::class);
     Route::resource('anggota', AnggotaController::class);
     Route::resource('pengumuman', PengumumanController::class);
+    Route::resource('kontak', AdminKontakController::class)->only(['index','show']);
     Route::resource('users', UserController::class)->middleware('role:super_admin');
 });
 
