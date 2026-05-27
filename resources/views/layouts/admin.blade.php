@@ -14,7 +14,7 @@
     <div class="flex min-h-screen">
 
         {{-- SIDEBAR --}}
-        <aside class="fixed lg:static top-0 left-0 h-screen w-64 bg-navy flex-shrink-0 flex flex-col z-50 transform lg:transform-none transition-transform duration-300"
+        <aside class="fixed lg:static top-0 left-0 h-screen w-64 bg-navy flex-shrink-0 flex flex-col z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300"
             :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
             style="background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);">
 
