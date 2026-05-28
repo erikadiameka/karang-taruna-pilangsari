@@ -1,0 +1,15 @@
+name: Trigger News Fetch
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger news fetch webhook
+        run: |
+          curl -X POST -H "x-news-token: ${{ secrets.NEWS_FETCH_TOKEN }}" "${{ secrets.NEWS_FETCH_URL }}"
+        env:
+          NEWS_FETCH_TOKEN: ${{ secrets.NEWS_FETCH_TOKEN }}

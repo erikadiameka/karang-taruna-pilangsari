@@ -72,3 +72,14 @@ if (app()->environment('local')) {
 }
 
 require __DIR__ . '/auth.php';
+
+// Webhook to trigger news fetch (protected by NEWS_FETCH_TOKEN env)
+use Illuminate\Http\Request;
+Route::post('/webhook/news-fetch', function (Request $request) {
+    $token = $request->header('x-news-token') ?? $request->query('token');
+    if (! $token || $token !== env('NEWS_FETCH_TOKEN')) {
+        return response('Unauthorized', 401);
+    }
+    \Artisan::call('fetch:national-news');
+    return response('OK');
+});
