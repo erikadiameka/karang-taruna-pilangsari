@@ -19,7 +19,6 @@
                 ['tentang', 'Tentang'],
                 ['kegiatan.index', 'Kegiatan'],
                 ['berita.index', 'Berita'],
-                ['galeri.index', 'Galeri'],
                 ['anggota.index', 'Anggota'],
                 ['kontak', 'Kontak'],
                 ] as [$route, $label])

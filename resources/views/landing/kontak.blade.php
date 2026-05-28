@@ -3,6 +3,8 @@
 
 @section('content')
 
+<a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
+
 <section class="relative py-32"
     style="background: linear-gradient(135deg, #07112B 0%, #081F5C 100%);">
     <div class="max-w-7xl mx-auto px-4 text-center">
@@ -85,5 +87,11 @@
         </div>
     </div>
 </section>
+
+<div class="bg-gray-50 py-10 text-center">
+    <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">
+        ← Kembali ke Beranda
+    </a>
+</div>
 
 @endsection
