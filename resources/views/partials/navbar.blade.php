@@ -5,7 +5,7 @@
 
             <a href="{{ route('beranda') }}" class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
-                    <img src="/images/Logo.jpeg" alt="Logo" class="w-full h-full object-cover">
+                    <img src="/images/Logo2.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <p class="text-white font-bold text-sm leading-tight">Karang Taruna</p>

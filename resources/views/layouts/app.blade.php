@@ -18,7 +18,7 @@
     <meta property="og:site_name" content="Karang Taruna Desa Pilangsari">
     <meta property="og:title" content="@yield('title', 'Karang Taruna Desa Pilangsari')">
     <meta property="og:description" content="@yield('description', 'Karang Taruna Desa Pilangsari - Organisasi pemuda yang bergerak untuk kemajuan masyarakat.')">
-    <meta property="og:image" content="@yield('og_image', asset('images/Logo.jpeg'))">
+    <meta property="og:image" content="@yield('og_image', asset('images/Logo2.png'))">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:locale" content="id_ID">
 
@@ -26,13 +26,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('title', 'Karang Taruna Desa Pilangsari')">
     <meta name="twitter:description" content="@yield('description', 'Karang Taruna Desa Pilangsari')">
-    <meta name="twitter:image" content="@yield('og_image', asset('images/Logo.jpeg'))">
+    <meta name="twitter:image" content="@yield('og_image', asset('images/Logo2.png'))">
 
     {{-- Canonical URL --}}
     <link rel="canonical" href="{{ request()->url() }}">
 
     {{-- Favicon --}}
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/Logo.jpeg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/Logo2.png') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -3,7 +3,7 @@
 @section('title', $berita->judul)
 @section('description', $berita->ringkasan ?? Str::limit(strip_tags($berita->konten), 160))
 @section('keywords', 'Karang Taruna, Berita, Pilangsari')
-@section('og_image', $berita->thumbnail ? Storage::url($berita->thumbnail) : asset('images/Logo.jpeg'))
+@section('og_image', $berita->thumbnail ? Storage::url($berita->thumbnail) : asset('images/Logo2.png'))
 
 @section('content')
 
