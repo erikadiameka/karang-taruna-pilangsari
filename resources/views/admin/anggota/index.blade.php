@@ -4,35 +4,16 @@
 @section('content')
 <div class="mb-6">
     {{-- Header Stats --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {{-- Total Anggota Card --}}
-        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium mb-1">Total Anggota</p>
-                    <p class="text-4xl font-bold text-blue-600">{{ $anggota->total() }}</p>
-                </div>
-                <div class="bg-blue-500 text-white rounded-full p-4">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z" />
-                    </svg>
-                </div>
+    <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 shadow-sm mb-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm font-medium mb-1">Total Anggota</p>
+                <p class="text-4xl font-bold text-blue-600">{{ $anggota->total() }}</p>
             </div>
-        </div>
-
-        {{-- Date & Add Button Card --}}
-        <div class="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl p-6 shadow-sm">
-            <div class="flex items-center justify-between h-full">
-                <div>
-                    <p class="text-gray-600 text-sm font-medium mb-1">Tanggal Hari Ini</p>
-                    <p class="text-2xl font-bold text-green-600">{{ now()->isoFormat('DD MMM YYYY') }}</p>
-                </div>
-                <a href="{{ route('admin.anggota.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 shadow-md">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M12 4v16m8-8H4" />
-                    </svg>
-                    Tambah Anggota
-                </a>
+            <div class="bg-blue-500 text-white rounded-full p-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z" />
+                </svg>
             </div>
         </div>
     </div>

@@ -18,13 +18,11 @@
             :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
             style="background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);">
 
-            {{-- Logo --}}
+            {{-- Logo (IKKAPII) --}}
             <div class="p-6 border-b border-white/10">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#07112B">
-                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z" />
-                        </svg>
+                    <div class="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center bg-white/0">
+                        <img src="{{ asset('images/ikkapii-logo.png') }}" alt="Ikkapii" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <p class="text-white font-bold text-sm leading-tight">Karang Taruna</p>
