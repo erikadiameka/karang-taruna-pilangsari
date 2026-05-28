@@ -8,10 +8,35 @@ use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $anggota = Anggota::latest()->paginate(10);
-        return view('admin.anggota.index', compact('anggota'));
+        $query = Anggota::query();
+
+        // Filter berdasarkan divisi/bidang
+        if ($request->filled('divisi')) {
+            $query->where('divisi', $request->divisi);
+        }
+
+        // Filter berdasarkan status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan nama
+        if ($request->filled('search')) {
+            $query->where('nama_lengkap', 'like', '%' . $request->search . '%');
+        }
+
+        $anggota = $query->latest()->paginate(10)->withQueryString();
+
+        // Ambil list divisi unik untuk dropdown
+        $divisiList = Anggota::whereNotNull('divisi')
+            ->distinct()
+            ->pluck('divisi')
+            ->sort()
+            ->values();
+
+        return view('admin.anggota.index', compact('anggota', 'divisiList'));
     }
 
     public function create()
