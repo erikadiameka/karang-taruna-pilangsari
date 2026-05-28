@@ -224,11 +224,7 @@
                     <a href="https://kompas.com" target="_blank" class="text-gold text-xs font-semibold hover:underline">Kompas.com →</a>
                 </div>
 
-                @php
-                $externalNews = \App\Models\ExternalNews::orderBy('published_at', 'desc')->take(3)->get();
-                @endphp
-
-                @if($externalNews->count() > 0)
+                @if(($externalNews ?? collect())->count() > 0)
                     @foreach($externalNews as $r)
                     <a href="{{ $r->url }}" target="_blank"
                         class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
@@ -241,32 +237,14 @@
                     </a>
                     @endforeach
                 @else
-                    @php
-                    $rssBerita = [];
-                    try {
-                        $rss = @simplexml_load_file(env('NATIONAL_NEWS_RSS', 'https://rss.kompas.com/rss/topic/nasional'), 'SimpleXMLElement', LIBXML_NOCDATA);
-                        if ($rss && isset($rss->channel->item)) {
-                            $count = 0;
-                            foreach ($rss->channel->item as $item) {
-                                if ($count >= 3) break;
-                                $rssBerita[] = [
-                                    'judul' => (string)$item->title,
-                                    'link' => (string)$item->link,
-                                    'desc' => strip_tags((string)$item->description),
-                                    'date' => (string)$item->pubDate,
-                                ];
-                                $count++;
-                            }
-                        }
-                    } catch(\Exception $e) {}
-                    @endphp
-
-                    @forelse($rssBerita as $r)
+                    @forelse(($rssBerita ?? []) as $r)
                     <a href="{{ $r['link'] }}" target="_blank"
                         class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
                         <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
                         <div class="p-3 flex-1 min-w-0">
-                            <div class="text-gray-400 text-xs">{{ \Carbon\Carbon::parse($r['date'])->format('d M Y') }}</div>
+                            <div class="text-gray-400 text-xs">
+                                {{ !empty($r['published_at']) ? \Carbon\Carbon::parse($r['published_at'])->format('d M Y') : '' }}
+                            </div>
                             <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r['judul'] }}</div>
                             <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r['desc'], 80) }}</div>
                         </div>

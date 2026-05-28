@@ -8,6 +8,8 @@ use App\Models\Kegiatan;
 use App\Models\Galeri;
 use App\Models\Pengumuman;
 use App\Models\Anggota;
+use App\Models\ExternalNews;
+use Illuminate\Support\Facades\Http;
 
 class BerandaController extends Controller
 {
@@ -43,13 +45,18 @@ class BerandaController extends Controller
             ['nama' => 'Seni & Budaya', 'deskripsi' => 'Melestarikan seni dan budaya lokal Desa Pilangsari.'],
         ];
 
+        $externalNews = ExternalNews::orderBy('published_at', 'desc')->take(3)->get();
+        $rssBerita = $externalNews->count() ? [] : $this->getNationalNewsRSS();
+
         return view('landing.beranda', compact(
             'stats',
             'beritaTerbaru',
             'kegiatanTerbaru',
             'galeriTerbaru',
             'pengumuman',
-            'programUnggulan'
+            'programUnggulan',
+            'externalNews',
+            'rssBerita'
         ));
     }
 
@@ -79,6 +86,72 @@ class BerandaController extends Controller
             }
             return $berita;
         } catch (\Exception $e) {
+            return [];
+        }
+    }
+
+    private function getNationalNewsRSS(int $limit = 3): array
+    {
+        $rssUrl = (string) config('services.national_news.rss', 'https://rss.kompas.com/rss/topic/nasional');
+
+        try {
+            $http = Http::timeout(15)->withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                    'Accept' => 'application/rss+xml, application/xml, text/xml, */*',
+                ]);
+
+            $verify = config('services.national_news.verify', true);
+            $caBundle = config('services.national_news.ca_bundle');
+            $insecureFallback = (bool) config('services.national_news.insecure_fallback', false);
+
+            if (! $verify) {
+                $http = $http->withOptions(['verify' => false]);
+            } elseif (is_string($caBundle) && $caBundle !== '') {
+                $http = $http->withOptions(['verify' => $caBundle]);
+            }
+
+            try {
+                $response = $http->get($rssUrl);
+            } catch (\Throwable $e) {
+                if ($insecureFallback) {
+                    $response = Http::timeout(15)
+                        ->withOptions(['verify' => false])
+                        ->withHeaders([
+                            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+                            'Accept' => 'application/rss+xml, application/xml, text/xml, */*',
+                        ])
+                        ->get($rssUrl);
+                } else {
+                    throw $e;
+                }
+            }
+
+            if ($response->failed() || ! $response->body()) {
+                return [];
+            }
+
+            $xml = @simplexml_load_string($response->body(), 'SimpleXMLElement', LIBXML_NOCDATA);
+            if (! $xml || ! isset($xml->channel->item)) {
+                return [];
+            }
+
+            $items = [];
+            $count = 0;
+            foreach ($xml->channel->item as $item) {
+                if ($count >= $limit) break;
+                $pubDate = (string) $item->pubDate;
+                $publishedAt = $pubDate ? strtotime($pubDate) : false;
+                $items[] = [
+                    'judul' => (string) $item->title,
+                    'link' => (string) $item->link,
+                    'desc' => strip_tags((string) $item->description),
+                    'published_at' => $publishedAt ? date('Y-m-d H:i:s', $publishedAt) : null,
+                ];
+                $count++;
+            }
+
+            return $items;
+        } catch (\Throwable $e) {
             return [];
         }
     }

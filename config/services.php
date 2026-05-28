@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'national_news' => [
+        'rss' => env('NATIONAL_NEWS_RSS', 'https://rss.kompas.com/rss/topic/nasional'),
+        // true = verify SSL normally, false = disable SSL verification (insecure; use only in dev)
+        'verify' => env('NATIONAL_NEWS_SSL_VERIFY', true),
+        // Optional: path to CA bundle file (cacert.pem). If set, this value is passed to Guzzle "verify".
+        'ca_bundle' => env('NATIONAL_NEWS_CA_BUNDLE'),
+        // If true and SSL verify fails, retry once with verify=false (insecure; use only in dev).
+        'insecure_fallback' => env('NATIONAL_NEWS_SSL_INSECURE_FALLBACK', false),
+    ],
+
 ];
