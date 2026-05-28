@@ -52,6 +52,8 @@ Route::get('/dashboard', function () {
 
 // ===== ADMIN =====
 Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admin,admin'])->group(function () {
+        // Autocomplete route for anggota search (used by admin UI)
+        Route::get('anggota/search', [\App\Http\Controllers\Admin\AnggotaController::class, 'autocomplete'])->name('anggota.search');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('berita', BeritaController::class);
     Route::resource('kegiatan', KegiatanController::class);

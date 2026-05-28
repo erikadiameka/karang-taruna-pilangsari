@@ -105,4 +105,23 @@ class AnggotaController extends Controller
         $anggota->delete();
         return back()->with('success', 'Anggota berhasil dihapus!');
     }
+
+    /**
+     * Autocomplete endpoint for anggota names.
+     * Returns JSON array of {id, nama_lengkap} matches.
+     */
+    public function autocomplete(Request $request)
+    {
+        $q = $request->query('q');
+        if (! $q) {
+            return response()->json([]);
+        }
+
+        $results = Anggota::where('nama_lengkap', 'like', '%' . $q . '%')
+            ->orderBy('nama_lengkap')
+            ->limit(10)
+            ->get(['id', 'nama_lengkap']);
+
+        return response()->json($results);
+    }
 }

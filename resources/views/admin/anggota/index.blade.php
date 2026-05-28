@@ -16,6 +16,63 @@
                 </svg>
             </div>
         </div>
+            <script>
+                (function(){
+                    const input = document.getElementById('search-input');
+                    const suggestions = document.getElementById('search-suggestions');
+                    const form = input ? input.closest('form') : null;
+                    if (!input) return;
+
+                    let timeout = null;
+
+                    function clearSuggestions(){
+                        suggestions.innerHTML = '';
+                        suggestions.classList.add('hidden');
+                    }
+
+                    function render(items){
+                        if (!items.length) { clearSuggestions(); return; }
+                        suggestions.innerHTML = '';
+                        items.forEach(item => {
+                            const el = document.createElement('button');
+                            el.type = 'button';
+                            el.className = 'w-full text-left px-3 py-2 text-sm hover:bg-gray-100';
+                            el.textContent = item.nama_lengkap;
+                            el.addEventListener('click', () => {
+                                input.value = item.nama_lengkap;
+                                clearSuggestions();
+                                if (form) form.submit();
+                            });
+                            suggestions.appendChild(el);
+                        });
+                        suggestions.classList.remove('hidden');
+                    }
+
+                    async function fetchSuggestions(q){
+                        if (!q) { clearSuggestions(); return; }
+                        try {
+                            const url = '{{ route("admin.anggota.search") }}';
+                            const res = await fetch(url + '?q=' + encodeURIComponent(q));
+                            if (!res.ok) return clearSuggestions();
+                            const data = await res.json();
+                            render(data);
+                        } catch (e) { console.error(e); }
+                    }
+
+                    input.addEventListener('input', (e) => {
+                        const q = e.target.value.trim();
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => fetchSuggestions(q), 250);
+                    });
+
+                    // Close when clicking outside
+                    document.addEventListener('click', (ev) => {
+                        if (!suggestions.contains(ev.target) && ev.target !== input) {
+                            clearSuggestions();
+                        }
+                    });
+                })();
+            </script>
     </div>
 
     {{-- Filter Section --}}
@@ -35,9 +92,10 @@
                     <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <input type="text" name="search" value="{{ request('search') }}" 
+                    <input id="search-input" type="text" name="search" value="{{ request('search') }}" 
                         placeholder="Nama anggota..." 
                         class="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <div id="search-suggestions" class="hidden absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-md z-50 max-h-60 overflow-auto"></div>
                 </div>
             </div>
 
