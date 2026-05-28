@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 dark:bg-navy-dark pt-32 pb-20 transition-colors duration-300">
+    <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- Header Section --}}
@@ -319,7 +320,7 @@
 
         {{-- Bottom Back Button --}}
         <div class="text-center mt-16" data-aos="fade-up">
-            <a href="{{ route('beranda') }}" class="btn-gold">
+            <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">
                 ← Kembali ke Beranda
             </a>
         </div>

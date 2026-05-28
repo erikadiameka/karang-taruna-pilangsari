@@ -2,6 +2,7 @@
 @section('title', 'Tentang Kami — Karang Taruna Desa Pilangsari')
 
 @section('content')
+<a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
 
 {{-- Hero --}}
 <section class="relative py-32 overflow-hidden"
@@ -156,7 +157,7 @@
 
 {{-- Tombol Kembali --}}
 <div class="bg-gray-50 py-10 text-center">
-    <a href="{{ route('beranda') }}" class="btn-gold">
+    <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">
         ← Kembali ke Beranda
     </a>
 </div>

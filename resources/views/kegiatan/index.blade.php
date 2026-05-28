@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 pt-32 pb-20">
+    <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12" data-aos="fade-up">
@@ -70,7 +71,7 @@
         <div class="mt-10">{{ $kegiatan->links() }}</div>
 
         <div class="text-center mt-8">
-            <a href="{{ route('beranda') }}" class="btn-gold">← Kembali ke Beranda</a>
+            <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">← Kembali ke Beranda</a>
         </div>
     </div>
 </div>

@@ -140,22 +140,38 @@
         <script>
             const menuToggle = document.getElementById('menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
+            let menuOpen = false;
+
+            function openMenu() {
+                mobileMenu.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    mobileMenu.classList.remove('scale-y-0', 'opacity-0');
+                });
+                menuOpen = true;
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.add('scale-y-0', 'opacity-0');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                menuOpen = false;
+            }
 
             menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-
-                setTimeout(() => {
-                    mobileMenu.classList.toggle('scale-y-0');
-                    mobileMenu.classList.toggle('opacity-0');
-                }, 5);
+                if (!menuOpen) openMenu(); else closeMenu();
             });
 
             // Close menu saat klik link
             document.querySelectorAll('#mobile-menu a').forEach(link => {
                 link.addEventListener('click', function() {
-                    mobileMenu.classList.add('scale-y-0', 'opacity-0');
-                    setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+                    closeMenu();
                 });
+            });
+
+            // Ensure menu closed on wider screens or when resizing
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024 && menuOpen) {
+                    closeMenu();
+                }
             });
         </script>
     </div>

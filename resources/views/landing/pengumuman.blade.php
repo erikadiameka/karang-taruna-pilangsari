@@ -6,6 +6,7 @@
 {{-- HEADER --}}
 <section class="bg-navy-dark pt-32 pb-16 border-b border-gold/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <a href="{{ route('beranda') }}" class="inline-flex btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
         <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/40 text-gold text-sm font-medium px-4 py-2 rounded-full mb-6">
             <span class="w-2 h-2 bg-gold rounded-full"></span>
             Informasi Penting
@@ -98,7 +99,7 @@
             </div>
             <h3 class="text-2xl font-bold text-white mb-2">Tidak Ada Pengumuman</h3>
             <p class="text-white/60 mb-8">Saat ini belum ada pengumuman. Silakan cek kembali nanti.</p>
-            <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-bold px-6 py-3 rounded-xl transition-all">
+            <a href="{{ route('beranda') }}" class="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-bold px-6 py-3 rounded-xl transition-all">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>

@@ -2,10 +2,12 @@
 @section('title', 'Berita — Karang Taruna Desa Pilangsari')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 pt-32 pb-20">
+<div class="min-h-screen bg-gray-50 pt-28 pb-20">
+    <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="text-center mb-12" data-aos="fade-up">
+        {{-- Header --}}
+        <div class="text-center mb-10" data-aos="fade-up">
             <div class="section-badge mb-4">
                 <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
                 Informasi Terkini
@@ -13,11 +15,49 @@
             <h1 class="text-4xl font-black text-navy-dark">
                 Berita <span class="text-gold">Terbaru</span>
             </h1>
-            <p class="text-gray-500 mt-3 max-w-xl mx-auto text-sm">
-                Informasi terkini seputar kegiatan dan program Karang Taruna Desa Pilangsari.
-            </p>
         </div>
 
+        {{-- Search & Filter --}}
+        <form method="GET" action="{{ route('berita.index') }}"
+            class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-8 flex gap-3 flex-wrap"
+            data-aos="fade-up">
+            <div class="flex-1 min-w-[200px]">
+                <input type="text" name="search" value="{{ request('search') }}"
+                    placeholder="🔍 Cari berita..."
+                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/20">
+            </div>
+            <div>
+                <select name="kategori"
+                    class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gold/50 bg-white">
+                    <option value="">Semua Kategori</option>
+                    @foreach($kategori as $k)
+                    <option value="{{ $k->id }}" {{ request('kategori') == $k->id ? 'selected' : '' }}>
+                        {{ $k->nama }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit"
+                class="bg-navy-dark hover:bg-navy text-white font-semibold text-sm px-6 py-2.5 rounded-xl transition-all">
+                Cari
+            </button>
+            @if(request('search') || request('kategori'))
+            <a href="{{ route('berita.index') }}"
+                class="bg-gray-100 hover:bg-gray-200 text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl transition-all">
+                Reset
+            </a>
+            @endif
+        </form>
+
+        {{-- Hasil Pencarian --}}
+        @if(request('search'))
+        <p class="text-gray-500 text-sm mb-6">
+            Hasil pencarian untuk <span class="font-semibold text-navy-dark">"{{ request('search') }}"</span>
+            — {{ $berita->total() }} berita ditemukan
+        </p>
+        @endif
+
+        {{-- Grid Berita --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($berita as $b)
             <a href="{{ route('berita.show', $b->slug) }}"
@@ -45,7 +85,12 @@
             @empty
             <div class="col-span-3 text-center py-20">
                 <p class="text-5xl mb-4">📰</p>
-                <p class="text-gray-400 text-lg">Belum ada berita.</p>
+                <p class="text-gray-400 text-lg">
+                    {{ request('search') ? 'Berita tidak ditemukan.' : 'Belum ada berita.' }}
+                </p>
+                @if(request('search'))
+                <a href="{{ route('berita.index') }}" class="btn-gold mt-4 inline-flex">Reset Pencarian</a>
+                @endif
             </div>
             @endforelse
         </div>
@@ -53,7 +98,7 @@
         <div class="mt-10">{{ $berita->links() }}</div>
 
         <div class="text-center mt-8">
-            <a href="{{ route('beranda') }}" class="btn-gold">← Kembali ke Beranda</a>
+            <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">← Kembali ke Beranda</a>
         </div>
     </div>
 </div>
