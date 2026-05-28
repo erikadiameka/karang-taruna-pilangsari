@@ -44,7 +44,7 @@
                         <rect x="14" y="14" width="7" height="7" rx="1" />
                         <rect x="3" y="14" width="7" height="7" rx="1" />
                     </svg>
-                    Admin
+                    Dashboard
                 </a>
                 <form method="POST" action="{{ route('logout') }}" class="hidden md:block">
                     @csrf
@@ -99,7 +99,7 @@
                     <div class="flex gap-2 mt-1">
                         <a href="{{ route('admin.dashboard') }}"
                             class="flex-1 flex items-center justify-center gap-2 bg-gold text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl">
-                            Admin
+                            Dashboard
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
