@@ -24,6 +24,7 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim');
 Route::get('/sejarah', fn() => view('landing.sejarah'))->name('sejarah');
 Route::get('/pengumuman', [App\Http\Controllers\Landing\PengumumanController::class, 'index'])->name('pengumuman.index');
+Route::get('/dasar-hukum', fn() => view('landing.dasar-hukum'))->name('dasar-hukum');
 
 Route::prefix('berita')->name('berita.')->group(function () {
     Route::get('/', [LandingBerita::class, 'index'])->name('index');

@@ -60,6 +60,7 @@
                 <a href="{{ route('sejarah') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Sejarah Organisasi</a>
                 <a href="{{ route('dokumentasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dokumentasi</a>
                 <a href="{{ route('pengumuman.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Pengumuman</a>
+                <a href="{{ route('dasar-hukum') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dasar Hukum</a>
                 <a href="{{ route('faq') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
             </div>
 
