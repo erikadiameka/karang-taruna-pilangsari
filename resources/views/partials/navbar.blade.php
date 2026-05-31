@@ -17,6 +17,7 @@
                 @foreach([
                 ['beranda', 'Beranda'],
                 ['tentang', 'Tentang'],
+                
                 ['kegiatan.index', 'Kegiatan'],
                 ['berita.index', 'Berita'],
                 ['anggota.index', 'Anggota'],
@@ -139,7 +140,8 @@
             }
 
             menuToggle.addEventListener('click', function() {
-                if (!menuOpen) openMenu(); else closeMenu();
+                if (!menuOpen) openMenu();
+                else closeMenu();
             });
 
             // Close menu saat klik link
