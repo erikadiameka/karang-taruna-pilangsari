@@ -47,6 +47,9 @@ Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
 
 Route::get('/faq', fn() => view('landing.faq'))->name('faq');
 Route::get('/dokumentasi', fn() => view('landing.dokumentasi'))->name('dokumentasi');
+Route::get('/transparansi', fn() => view('landing.transparansi'))->name('transparansi');
+Route::get('/kemitraan', fn() => view('landing.kemitraan'))->name('kemitraan');
+Route::get('/aspirasi', fn() => view('landing.aspirasi'))->name('aspirasi');
 
 // ===== REDIRECT SETELAH LOGIN =====
 Route::get('/dashboard', function () {

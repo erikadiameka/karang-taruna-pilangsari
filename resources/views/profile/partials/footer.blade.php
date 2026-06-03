@@ -43,7 +43,10 @@
                     'Struktur Organisasi' => 'anggota.index',
                     'Dokumentasi' => 'dokumentasi',
                     'Pengumuman' => 'pengumuman.index',
-                    'FAQ' => 'faq'
+                    'FAQ' => 'faq',
+                    'Transparansi Keuangan' => 'transparansi',
+                    'Kemitraan & Kolaborasi' => 'kemitraan',
+                    'Kotak Aspirasi' => 'aspirasi'
                 ] as $label => $route)
                 <a href="{{ route($route) }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">{{ $label }}</a>
                 @endforeach
