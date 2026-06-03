@@ -88,6 +88,25 @@
     </div>
 </section>
 
+{{-- Google Maps Section --}}
+<section class="pb-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
+        <div class="bg-white rounded-3xl p-4 border border-gray-150 shadow-sm overflow-hidden">
+            <div class="w-full h-[400px] rounded-2xl overflow-hidden shadow-inner">
+                <iframe 
+                    src="https://maps.google.com/maps?q=96J7%2BG2Q%2C%20Jl.%20Raya%20Pilangsari%2C%20Pilangsari%2C%20Kec.%20Jatitujuh%2C%20Kabupaten%20Majalengka%2C%20Jawa%20Barat%2045458&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div class="bg-gray-50 py-10 text-center">
     <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">
         ← Kembali ke Beranda

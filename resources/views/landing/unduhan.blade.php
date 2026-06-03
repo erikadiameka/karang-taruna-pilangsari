@@ -75,10 +75,17 @@
                     <div class="flex items-center gap-3 flex-shrink-0">
                         <span class="bg-red-50 text-red-500 text-xs font-bold px-2 py-1 rounded-lg">{{ $doc[2] }}</span>
                         <span class="text-gray-400 text-xs">{{ $doc[3] }}</span>
+                        @if($doc[0] === 'Formulir Pendaftaran Anggota')
+                        <a href="{{ route('daftar-anggota') }}"
+                            class="flex items-center gap-1 bg-gold hover:bg-gold-light text-navy-dark text-xs font-semibold px-3 py-2 rounded-lg transition-all" style="background-color: #D4AF37; color: #07112B;">
+                            📝 Daftar Online
+                        </a>
+                        @else
                         <a href="#" onclick="alert('Dokumen akan tersedia segera!')"
                             class="flex items-center gap-1 bg-navy-dark hover:bg-navy text-white text-xs font-semibold px-3 py-2 rounded-lg transition-all">
                             ⬇ Download
                         </a>
+                        @endif
                     </div>
                 </div>
                 @endforeach

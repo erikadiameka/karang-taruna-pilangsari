@@ -50,6 +50,7 @@ Route::get('/dokumentasi', fn() => view('landing.dokumentasi'))->name('dokumenta
 Route::get('/umkm', fn() => view('landing.umkm'))->name('umkm');
 Route::get('/klub', fn() => view('landing.klub'))->name('klub');
 Route::get('/aspirasi', fn() => view('landing.aspirasi'))->name('aspirasi');
+Route::get('/daftar-anggota', fn() => view('landing.daftar'))->name('daftar-anggota');
 
 // ===== REDIRECT SETELAH LOGIN =====
 Route::get('/dashboard', function () {
