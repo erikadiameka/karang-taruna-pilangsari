@@ -67,4 +67,94 @@ class KegiatanController extends Controller
         $kegiatan->delete();
         return back()->with('success', 'Kegiatan berhasil dihapus!');
     }
+
+    public function importForm()
+    {
+        return view('admin.kegiatan.import');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt|max:5120',
+        ]);
+
+        $file = $request->file('file');
+        $filePath = $file->getRealPath();
+        $handle = fopen($filePath, 'r');
+        $header = fgetcsv($handle);
+        
+        $errors = [];
+        $successCount = 0;
+        $rowNum = 2;
+
+        while (($row = fgetcsv($handle)) !== false) {
+            try {
+                if (count($row) < 6 || empty($row[0])) continue;
+
+                $data = [
+                    'nama' => trim($row[0]),
+                    'kategori' => trim($row[1]),
+                    'deskripsi' => trim($row[2]),
+                    'lokasi' => trim($row[3]),
+                    'tanggal_mulai' => trim($row[4]),
+                    'tanggal_selesai' => trim($row[5]),
+                    'status' => trim($row[6] ?? 'akan_datang'),
+                    'peserta' => intval($row[7] ?? 0),
+                ];
+
+                $validator = \Validator::make($data, [
+                    'nama' => 'required|string|max:255',
+                    'kategori' => 'required|string',
+                    'deskripsi' => 'required|string',
+                    'lokasi' => 'required|string',
+                    'tanggal_mulai' => 'required|date',
+                    'tanggal_selesai' => 'nullable|date',
+                    'status' => 'required|in:akan_datang,berlangsung,selesai',
+                    'peserta' => 'nullable|integer',
+                ]);
+
+                if ($validator->fails()) {
+                    $errors[] = "Baris $rowNum: " . implode(', ', $validator->errors()->all());
+                    $rowNum++;
+                    continue;
+                }
+
+                $data['user_id'] = auth()->id();
+                $data['slug'] = Str::slug($data['nama']) . '-' . time();
+
+                Kegiatan::create($data);
+                $successCount++;
+            } catch (\Exception $e) {
+                $errors[] = "Baris $rowNum: " . $e->getMessage();
+            }
+            $rowNum++;
+        }
+        fclose($handle);
+
+        if ($errors) {
+            return back()->with('warning', "Berhasil import $successCount kegiatan. Ada " . count($errors) . " error: " . implode(' | ', array_slice($errors, 0, 5)));
+        }
+
+        return redirect()->route('admin.kegiatan.index')->with('success', "Berhasil import $successCount kegiatan!");
+    }
+
+    public function downloadTemplate()
+    {
+        $csv = "nama,kategori,deskripsi,lokasi,tanggal_mulai,tanggal_selesai,status,peserta\n";
+        $csv .= "\"Acara Sosial 1\",Sosial,\"Deskripsi kegiatan sosial yang menarik\",\"Lokasi Acara\",\"2026-06-05 09:00\",\"2026-06-05 17:00\",akan_datang,50\n";
+        $csv .= "\"Kegiatan Olahraga\",Olahraga,\"Kegiatan olahraga untuk semua kalangan\",\"Lapangan Umum\",\"2026-06-10 15:00\",\"2026-06-10 18:00\",berlangsung,30\n";
+        $csv .= "\"Acara Selesai\",Pendidikan,\"Acara pendidikan yang sudah dilaksanakan\",\"Aula Utama\",\"2026-05-20 10:00\",\"2026-05-20 14:00\",selesai,100\n";
+
+        return response()->streamDownload(
+            function () use ($csv) {
+                echo $csv;
+            },
+            'template-kegiatan.csv',
+            [
+                'Content-Type' => 'text/csv; charset=utf-8',
+                'Content-Disposition' => 'attachment; filename="template-kegiatan.csv"'
+            ]
+        );
+    }
 }

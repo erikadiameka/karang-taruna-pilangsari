@@ -63,7 +63,13 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
         Route::get('anggota/search', [\App\Http\Controllers\Admin\AnggotaController::class, 'autocomplete'])->name('anggota.search');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('berita', BeritaController::class);
+    Route::get('berita-import/form', [BeritaController::class, 'importForm'])->name('berita.import-form');
+    Route::post('berita-import', [BeritaController::class, 'import'])->name('berita.import');
+    Route::get('berita-template', [BeritaController::class, 'downloadTemplate'])->name('berita.template');
     Route::resource('kegiatan', KegiatanController::class);
+    Route::get('kegiatan-import/form', [KegiatanController::class, 'importForm'])->name('kegiatan.import-form');
+    Route::post('kegiatan-import', [KegiatanController::class, 'import'])->name('kegiatan.import');
+    Route::get('kegiatan-template', [KegiatanController::class, 'downloadTemplate'])->name('kegiatan.template');
     Route::resource('galeri', GaleriController::class);
     Route::resource('anggota', AnggotaController::class);
     Route::resource('pengumuman', PengumumanController::class);

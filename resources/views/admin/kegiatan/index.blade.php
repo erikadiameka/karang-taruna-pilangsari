@@ -4,7 +4,10 @@
 @section('content')
 <div class="flex justify-between items-center mb-6">
     <p class="text-gray-600 text-sm">Total {{ $kegiatan->total() }} kegiatan</p>
-    <a href="{{ route('admin.kegiatan.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">+ Tambah Kegiatan</a>
+    <div class="flex gap-2">
+        <a href="{{ route('admin.kegiatan.import-form') }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">📥 Import CSV</a>
+        <a href="{{ route('admin.kegiatan.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">+ Tambah Kegiatan</a>
+    </div>
 </div>
 <div class="glass-card overflow-hidden">
     <table class="w-full">

@@ -1,0 +1,4 @@
+judul,kategori_berita_id,ringkasan,konten,status
+"Berita Penting 1",1,"Ringkasan singkat berita 1","Isi konten berita yang sangat penting dan perlu diketahui semua orang",published
+"Berita Penting 2",2,"Ringkasan singkat berita 2","Isi konten berita yang sangat penting dan perlu diketahui semua orang",draft
+"Berita Penting 3",1,"Ringkasan singkat berita 3","Isi konten berita yang sangat penting dan perlu diketahui semua orang",published

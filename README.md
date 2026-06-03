@@ -7,6 +7,36 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+---
+
+## 📥 Fitur Import Berita & Kegiatan (BARU!)
+
+Aplikasi Karang Taruna Pilangsari kini dilengkapi dengan **fitur import bulk** untuk menambahkan berita dan kegiatan dalam jumlah besar!
+
+### ✨ Fitur Utama:
+- ✅ Download template CSV siap pakai
+- ✅ Upload multiple items sekaligus
+- ✅ Validasi otomatis per baris
+- ✅ Error handling yang detail
+- ✅ Support format CSV, XLSX, XLS, TXT
+
+### 🚀 Cara Menggunakan:
+```
+1. Dashboard → Berita/Kegiatan → 📥 Import CSV
+2. Download template
+3. Isi data di Excel
+4. Save as CSV
+5. Upload file
+✓ Selesai!
+```
+
+📖 **Dokumentasi Lengkap:**
+- 👉 **PANDUAN_CEPAT.md** - Quick start 5 langkah
+- 👉 **PANDUAN_IMPORT.md** - Tutorial detail + troubleshooting
+- 👉 **TEMPLATE_DOWNLOAD_FIXED.md** - Info template CSV
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

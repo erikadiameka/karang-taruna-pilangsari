@@ -82,4 +82,93 @@ class BeritaController extends Controller
         $berita->delete();
         return back()->with('success', 'Berita berhasil dihapus!');
     }
+
+    public function importForm()
+    {
+        $kategori = KategoriBerita::all();
+        return view('admin.berita.import', compact('kategori'));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt|max:5120',
+        ]);
+
+        $file = $request->file('file');
+        $filePath = $file->getRealPath();
+        $handle = fopen($filePath, 'r');
+        $header = fgetcsv($handle);
+        
+        $errors = [];
+        $successCount = 0;
+        $rowNum = 2;
+
+        while (($row = fgetcsv($handle)) !== false) {
+            try {
+                if (count($row) < 5 || empty($row[0])) continue;
+
+                $data = [
+                    'judul' => trim($row[0]),
+                    'kategori_berita_id' => trim($row[1]),
+                    'ringkasan' => trim($row[2]),
+                    'konten' => trim($row[3]),
+                    'status' => trim($row[4]),
+                ];
+
+                $validator = \Validator::make($data, [
+                    'judul' => 'required|string|max:255',
+                    'kategori_berita_id' => 'required|exists:kategori_beritas,id',
+                    'ringkasan' => 'nullable|string|max:500',
+                    'konten' => 'required|string',
+                    'status' => 'required|in:draft,published,archived',
+                ]);
+
+                if ($validator->fails()) {
+                    $errors[] = "Baris $rowNum: " . implode(', ', $validator->errors()->all());
+                    $rowNum++;
+                    continue;
+                }
+
+                $data['user_id'] = auth()->id();
+                $data['slug'] = Str::slug($data['judul']) . '-' . time();
+                
+                if ($data['status'] === 'published') {
+                    $data['published_at'] = now();
+                }
+
+                Berita::create($data);
+                $successCount++;
+            } catch (\Exception $e) {
+                $errors[] = "Baris $rowNum: " . $e->getMessage();
+            }
+            $rowNum++;
+        }
+        fclose($handle);
+
+        if ($errors) {
+            return back()->with('warning', "Berhasil import $successCount berita. Ada " . count($errors) . " error: " . implode(' | ', array_slice($errors, 0, 5)));
+        }
+
+        return redirect()->route('admin.berita.index')->with('success', "Berhasil import $successCount berita!");
+    }
+
+    public function downloadTemplate()
+    {
+        $csv = "judul,kategori_berita_id,ringkasan,konten,status\n";
+        $csv .= "\"Judul Berita 1\",1,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",published\n";
+        $csv .= "\"Judul Berita 2\",2,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",draft\n";
+        $csv .= "\"Judul Berita 3\",1,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",archived\n";
+
+        return response()->streamDownload(
+            function () use ($csv) {
+                echo $csv;
+            },
+            'template-berita.csv',
+            [
+                'Content-Type' => 'text/csv; charset=utf-8',
+                'Content-Disposition' => 'attachment; filename="template-berita.csv"'
+            ]
+        );
+    }
 }

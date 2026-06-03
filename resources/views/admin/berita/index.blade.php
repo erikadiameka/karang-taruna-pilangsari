@@ -5,9 +5,14 @@
 @section('content')
 <div class="flex justify-between items-center mb-6">
     <p class="text-gray-600 text-sm">Total {{ $berita->total() }} berita</p>
-    <a href="{{ route('admin.berita.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
-        + Tambah Berita
-    </a>
+    <div class="flex gap-2">
+        <a href="{{ route('admin.berita.import-form') }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
+            📥 Import CSV
+        </a>
+        <a href="{{ route('admin.berita.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2">
+            + Tambah Berita
+        </a>
+    </div>
 </div>
 
 <div class="glass-card overflow-hidden">
