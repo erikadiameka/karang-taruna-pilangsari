@@ -63,8 +63,8 @@
                 <a href="{{ route('dasar-hukum') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dasar Hukum</a>
                 <a href="{{ route('unduhan') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Unduhan</a>
                 <a href="{{ route('faq') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
-                <a href="{{ route('transparansi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Transparansi Keuangan</a>
-                <a href="{{ route('kemitraan') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kemitraan & Kolaborasi</a>
+                <a href="{{ route('umkm') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">UMKM & Karya Pemuda</a>
+                <a href="{{ route('klub') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Klub & Komunitas</a>
                 <a href="{{ route('aspirasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kotak Aspirasi</a>
             </div>
 
