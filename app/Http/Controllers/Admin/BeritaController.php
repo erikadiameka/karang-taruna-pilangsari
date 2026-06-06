@@ -168,8 +168,14 @@ class BeritaController extends Controller
     {
         $rows = [];
         $handle = fopen($filePath, 'r');
+        $isFirstRow = true;
         
         while (($row = fgetcsv($handle)) !== false) {
+            // Skip header row
+            if ($isFirstRow) {
+                $isFirstRow = false;
+                continue;
+            }
             $rows[] = $row;
         }
         

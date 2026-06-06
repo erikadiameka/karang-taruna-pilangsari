@@ -101,8 +101,8 @@ class KegiatanController extends Controller
             $rowNum++;
             
             try {
-                // Skip empty rows
-                if (empty($row) || count($row) < 6 || empty($row[0])) {
+                // Skip empty rows - need at least 8 columns
+                if (empty($row) || count($row) < 8 || empty($row[0])) {
                     continue;
                 }
 
@@ -113,8 +113,8 @@ class KegiatanController extends Controller
                     'lokasi' => trim($row[3]),
                     'tanggal_mulai' => trim($row[4]),
                     'tanggal_selesai' => trim($row[5]),
-                    'status' => trim($row[6] ?? 'akan_datang'),
-                    'peserta' => intval($row[7] ?? 0),
+                    'status' => trim($row[6]),
+                    'peserta' => intval($row[7]),
                 ];
 
                 $validator = \Validator::make($data, [
@@ -154,8 +154,14 @@ class KegiatanController extends Controller
     {
         $rows = [];
         $handle = fopen($filePath, 'r');
+        $isFirstRow = true;
         
         while (($row = fgetcsv($handle)) !== false) {
+            // Skip header row
+            if ($isFirstRow) {
+                $isFirstRow = false;
+                continue;
+            }
             $rows[] = $row;
         }
         
