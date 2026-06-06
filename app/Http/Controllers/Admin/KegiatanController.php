@@ -76,21 +76,35 @@ class KegiatanController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv,txt|max:5120',
+            'file' => 'required|file|mimes:csv,txt,xlsx,xls|max:5120',
         ]);
 
         $file = $request->file('file');
         $filePath = $file->getRealPath();
-        $handle = fopen($filePath, 'r');
-        $header = fgetcsv($handle);
         
+        // Detect file type
+        $ext = strtolower($file->getClientOriginalExtension());
+        
+        // If Excel file, convert to array first
+        if ($ext === 'xlsx' || $ext === 'xls') {
+            $rows = $this->readExcelFile($filePath);
+        } else {
+            // Read CSV file
+            $rows = $this->readCsvFile($filePath);
+        }
+
         $errors = [];
         $successCount = 0;
-        $rowNum = 2;
+        $rowNum = 1;
 
-        while (($row = fgetcsv($handle)) !== false) {
+        foreach ($rows as $row) {
+            $rowNum++;
+            
             try {
-                if (count($row) < 6 || empty($row[0])) continue;
+                // Skip empty rows
+                if (empty($row) || count($row) < 6 || empty($row[0])) {
+                    continue;
+                }
 
                 $data = [
                     'nama' => trim($row[0]),
@@ -116,7 +130,6 @@ class KegiatanController extends Controller
 
                 if ($validator->fails()) {
                     $errors[] = "Baris $rowNum: " . implode(', ', $validator->errors()->all());
-                    $rowNum++;
                     continue;
                 }
 
@@ -128,9 +141,7 @@ class KegiatanController extends Controller
             } catch (\Exception $e) {
                 $errors[] = "Baris $rowNum: " . $e->getMessage();
             }
-            $rowNum++;
         }
-        fclose($handle);
 
         if ($errors) {
             return back()->with('warning', "Berhasil import $successCount kegiatan. Ada " . count($errors) . " error: " . implode(' | ', array_slice($errors, 0, 5)));
@@ -139,12 +150,60 @@ class KegiatanController extends Controller
         return redirect()->route('admin.kegiatan.index')->with('success', "Berhasil import $successCount kegiatan!");
     }
 
+    private function readCsvFile($filePath)
+    {
+        $rows = [];
+        $handle = fopen($filePath, 'r');
+        
+        while (($row = fgetcsv($handle)) !== false) {
+            $rows[] = $row;
+        }
+        
+        fclose($handle);
+        return $rows;
+    }
+
+    private function readExcelFile($filePath)
+    {
+        $rows = [];
+        
+        try {
+            // Try using PHPOffice if available
+            if (class_exists('\PhpOffice\PhpSpreadsheet\IOFactory')) {
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+                $worksheet = $spreadsheet->getActiveSheet();
+                
+                foreach ($worksheet->getRowIterator(2) as $row) {
+                    $cellIterator = $row->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(false);
+                    $rowData = [];
+                    
+                    foreach ($cellIterator as $cell) {
+                        $rowData[] = $cell->getValue();
+                    }
+                    
+                    if (!empty(array_filter($rowData))) {
+                        $rows[] = $rowData;
+                    }
+                }
+            } else {
+                // Fallback: treat as CSV
+                return $this->readCsvFile($filePath);
+            }
+        } catch (\Exception $e) {
+            // Fallback to CSV reading
+            return $this->readCsvFile($filePath);
+        }
+        
+        return $rows;
+    }
+
     public function downloadTemplate()
     {
         $csv = "nama,kategori,deskripsi,lokasi,tanggal_mulai,tanggal_selesai,status,peserta\n";
-        $csv .= "\"Acara Sosial 1\",Sosial,\"Deskripsi kegiatan sosial yang menarik\",\"Lokasi Acara\",\"2026-06-05 09:00\",\"2026-06-05 17:00\",akan_datang,50\n";
-        $csv .= "\"Kegiatan Olahraga\",Olahraga,\"Kegiatan olahraga untuk semua kalangan\",\"Lapangan Umum\",\"2026-06-10 15:00\",\"2026-06-10 18:00\",berlangsung,30\n";
-        $csv .= "\"Acara Selesai\",Pendidikan,\"Acara pendidikan yang sudah dilaksanakan\",\"Aula Utama\",\"2026-05-20 10:00\",\"2026-05-20 14:00\",selesai,100\n";
+        $csv .= "Acara Sosial 1,Sosial,Deskripsi kegiatan sosial yang menarik,Lokasi Acara,2026-06-05 09:00,2026-06-05 17:00,akan_datang,50\n";
+        $csv .= "Kegiatan Olahraga,Olahraga,Kegiatan olahraga untuk semua kalangan,Lapangan Umum,2026-06-10 15:00,2026-06-10 18:00,berlangsung,30\n";
+        $csv .= "Acara Selesai,Pendidikan,Acara pendidikan yang sudah dilaksanakan,Aula Utama,2026-05-20 10:00,2026-05-20 14:00,selesai,100\n";
 
         return response()->streamDownload(
             function () use ($csv) {

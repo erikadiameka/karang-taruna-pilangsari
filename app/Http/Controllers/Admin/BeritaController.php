@@ -92,21 +92,35 @@ class BeritaController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv,txt|max:5120',
+            'file' => 'required|file|mimes:csv,txt,xlsx,xls|max:5120',
         ]);
 
         $file = $request->file('file');
         $filePath = $file->getRealPath();
-        $handle = fopen($filePath, 'r');
-        $header = fgetcsv($handle);
         
+        // Detect file type
+        $ext = strtolower($file->getClientOriginalExtension());
+        
+        // If Excel file, convert to CSV first
+        if ($ext === 'xlsx' || $ext === 'xls') {
+            $rows = $this->readExcelFile($filePath);
+        } else {
+            // Read CSV file
+            $rows = $this->readCsvFile($filePath);
+        }
+
         $errors = [];
         $successCount = 0;
-        $rowNum = 2;
+        $rowNum = 1;
 
-        while (($row = fgetcsv($handle)) !== false) {
+        foreach ($rows as $row) {
+            $rowNum++;
+            
             try {
-                if (count($row) < 5 || empty($row[0])) continue;
+                // Skip empty rows
+                if (empty($row) || count($row) < 5 || empty($row[0])) {
+                    continue;
+                }
 
                 $data = [
                     'judul' => trim($row[0]),
@@ -126,7 +140,6 @@ class BeritaController extends Controller
 
                 if ($validator->fails()) {
                     $errors[] = "Baris $rowNum: " . implode(', ', $validator->errors()->all());
-                    $rowNum++;
                     continue;
                 }
 
@@ -142,9 +155,7 @@ class BeritaController extends Controller
             } catch (\Exception $e) {
                 $errors[] = "Baris $rowNum: " . $e->getMessage();
             }
-            $rowNum++;
         }
-        fclose($handle);
 
         if ($errors) {
             return back()->with('warning', "Berhasil import $successCount berita. Ada " . count($errors) . " error: " . implode(' | ', array_slice($errors, 0, 5)));
@@ -153,12 +164,60 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita.index')->with('success', "Berhasil import $successCount berita!");
     }
 
+    private function readCsvFile($filePath)
+    {
+        $rows = [];
+        $handle = fopen($filePath, 'r');
+        
+        while (($row = fgetcsv($handle)) !== false) {
+            $rows[] = $row;
+        }
+        
+        fclose($handle);
+        return $rows;
+    }
+
+    private function readExcelFile($filePath)
+    {
+        $rows = [];
+        
+        try {
+            // Try using PHPOffice if available
+            if (class_exists('\PhpOffice\PhpSpreadsheet\IOFactory')) {
+                $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+                $worksheet = $spreadsheet->getActiveSheet();
+                
+                foreach ($worksheet->getRowIterator(2) as $row) {
+                    $cellIterator = $row->getCellIterator();
+                    $cellIterator->setIterateOnlyExistingCells(false);
+                    $rowData = [];
+                    
+                    foreach ($cellIterator as $cell) {
+                        $rowData[] = $cell->getValue();
+                    }
+                    
+                    if (!empty(array_filter($rowData))) {
+                        $rows[] = $rowData;
+                    }
+                }
+            } else {
+                // Fallback: treat as CSV
+                return $this->readCsvFile($filePath);
+            }
+        } catch (\Exception $e) {
+            // Fallback to CSV reading
+            return $this->readCsvFile($filePath);
+        }
+        
+        return $rows;
+    }
+
     public function downloadTemplate()
     {
         $csv = "judul,kategori_berita_id,ringkasan,konten,status\n";
-        $csv .= "\"Judul Berita 1\",1,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",published\n";
-        $csv .= "\"Judul Berita 2\",2,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",draft\n";
-        $csv .= "\"Judul Berita 3\",1,\"Ringkasan singkat berita\",\"Isi konten berita yang lengkap dan detail\",archived\n";
+        $csv .= "Judul Berita 1,1,Ringkasan singkat berita,Isi konten berita yang lengkap dan detail,published\n";
+        $csv .= "Judul Berita 2,2,Ringkasan singkat berita,Isi konten berita yang lengkap dan detail,draft\n";
+        $csv .= "Judul Berita 3,1,Ringkasan singkat berita,Isi konten berita yang lengkap dan detail,archived\n";
 
         return response()->streamDownload(
             function () use ($csv) {

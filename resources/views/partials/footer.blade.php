@@ -51,6 +51,7 @@
                 <a href="{{ route('galeri.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Galeri</a>
                 <a href="{{ route('anggota.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Anggota</a>
                 <a href="{{ route('kontak') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kontak</a>
+                <a href="{{ route('faq') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
             </div>
 
             <div>
@@ -62,7 +63,7 @@
                 <a href="{{ route('pengumuman.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Pengumuman</a>
                 <a href="{{ route('dasar-hukum') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dasar Hukum</a>
                 <a href="{{ route('unduhan') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Unduhan</a>
-                <a href="{{ route('faq') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">FAQ</a>
+
                 <a href="{{ route('umkm') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">UMKM & Karya Pemuda</a>
                 <a href="{{ route('klub') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Klub & Komunitas</a>
                 <a href="{{ route('aspirasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kotak Aspirasi</a>

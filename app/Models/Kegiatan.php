@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class Kegiatan extends Model
 {
     protected $table = 'kegiatans';
+    protected $routeKeyName = 'id';
     protected $fillable = [
         'user_id',
         'nama',
