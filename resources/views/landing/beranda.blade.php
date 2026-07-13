@@ -89,10 +89,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="relative" data-aos="fade-right">
                 <div class="rounded-2xl overflow-hidden aspect-[4/3]">
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Karang Taruna" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/program.jpeg') }}" alt="Karang Taruna" class="w-full h-full object-cover">
                 </div>
-                <div class="absolute -bottom-5 -right-5 w-40 h-28 rounded-xl overflow-hidden border-4 border-white shadow-xl">
-                    <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?w=300&q=80" alt="Kegiatan" class="w-full h-full object-cover">
+                <div class="absolute -bottom-3 -right-3 w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl flex items-center justify-center bg-white">
+                    <img src="{{ asset('images/ikkapii-logo.png') }}" alt="Logo IKKAPII" class="w-12 h-12 object-contain">
                 </div>
             </div>
             <div data-aos="fade-left">
@@ -225,36 +225,36 @@
                 </div>
 
                 @if(($externalNews ?? collect())->count() > 0)
-                    @foreach($externalNews as $r)
-                    <a href="{{ $r->url }}" target="_blank"
-                        class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
-                        <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
-                        <div class="p-3 flex-1 min-w-0">
-                            <div class="text-gray-400 text-xs">{{ $r->published_at?->format('d M Y') }}</div>
-                            <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r->title }}</div>
-                            <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r->summary, 80) }}</div>
-                        </div>
-                    </a>
-                    @endforeach
-                @else
-                    @forelse(($rssBerita ?? []) as $r)
-                    <a href="{{ $r['link'] }}" target="_blank"
-                        class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
-                        <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
-                        <div class="p-3 flex-1 min-w-0">
-                            <div class="text-gray-400 text-xs">
-                                {{ !empty($r['published_at']) ? \Carbon\Carbon::parse($r['published_at'])->format('d M Y') : '' }}
-                            </div>
-                            <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r['judul'] }}</div>
-                            <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r['desc'], 80) }}</div>
-                        </div>
-                    </a>
-                    @empty
-                    <div class="bg-gray-50 rounded-xl p-6 text-center">
-                        <p class="text-3xl mb-2">📡</p>
-                        <p class="text-gray-400 text-sm">Berita tidak tersedia.</p>
+                @foreach($externalNews as $r)
+                <a href="{{ $r->url }}" target="_blank"
+                    class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
+                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
+                    <div class="p-3 flex-1 min-w-0">
+                        <div class="text-gray-400 text-xs">{{ $r->published_at?->format('d M Y') }}</div>
+                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r->title }}</div>
+                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r->summary, 80) }}</div>
                     </div>
-                    @endforelse
+                </a>
+                @endforeach
+                @else
+                @forelse(($rssBerita ?? []) as $r)
+                <a href="{{ $r['link'] }}" target="_blank"
+                    class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
+                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
+                    <div class="p-3 flex-1 min-w-0">
+                        <div class="text-gray-400 text-xs">
+                            {{ !empty($r['published_at']) ? \Carbon\Carbon::parse($r['published_at'])->format('d M Y') : '' }}
+                        </div>
+                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r['judul'] }}</div>
+                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r['desc'], 80) }}</div>
+                    </div>
+                </a>
+                @empty
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <p class="text-3xl mb-2">📡</p>
+                    <p class="text-gray-400 text-sm">Berita tidak tersedia.</p>
+                </div>
+                @endforelse
                 @endif
             </div>
 

@@ -115,7 +115,7 @@
                     Kontak
                 </a>
 
-                @if(auth()->user()->isSuperAdmin())
+                @if(auth()->check() && auth()->user()->isSuperAdmin())
                 <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Admin</p>
                 <a href="{{ route('admin.users.index') }}"
                     class="sidebar-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
@@ -131,13 +131,14 @@
 
             {{-- User Info & Logout --}}
             <div class="p-4 border-t border-white/10">
+                @if(auth()->check())
                 <div class="flex items-center gap-3 mb-3">
                     <div class="w-9 h-9 bg-gold/20 rounded-xl flex items-center justify-center text-gold font-bold text-sm">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        {{ strtoupper(substr(auth()->user()->name ?? '', 0, 1)) }}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-white text-sm font-semibold truncate">{{ auth()->user()->name }}</p>
-                        <p class="text-white/40 text-xs">{{ auth()->user()->role }}</p>
+                        <p class="text-white text-sm font-semibold truncate">{{ auth()->user()->name ?? 'User' }}</p>
+                        <p class="text-white/40 text-xs">{{ auth()->user()->role ?? 'Member' }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}">
@@ -151,6 +152,7 @@
                         Logout
                     </button>
                 </form>
+                @endif
                 <a href="{{ route('beranda') }}" class="w-full flex items-center gap-2 text-white/50 hover:text-gold text-sm px-3 py-2 rounded-lg hover:bg-white/5 transition-all mt-1">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />

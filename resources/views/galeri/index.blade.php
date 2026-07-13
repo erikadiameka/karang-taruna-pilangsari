@@ -1,42 +1,33 @@
-@extends('layouts.app')
-@section('title', 'Galeri — Karang Taruna Desa Pilangsari')
-
+@extends('layouts.admin')
+@section('title', 'Kelola Galeri')
+@section('page-title', 'Kelola Galeri')
 @section('content')
-<div class="min-h-screen bg-gray-50 pt-32 pb-20">
-    <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div class="text-center mb-12" data-aos="fade-up">
-            <div class="section-badge mb-4">
-                <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
-                Dokumentasi
+<div class="flex justify-between items-center mb-6">
+    <p class="text-white/50 text-sm">Total {{ $galeri->total() }} foto</p>
+    <a href="{{ route('admin.galeri.create') }}" class="btn-gold">+ Upload Foto</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    @forelse($galeri as $g)
+    <div class="glass-card overflow-hidden group">
+        <div class="aspect-square relative">
+            <img src="{{ Storage::url($g->file_path) }}" alt="{{ $g->judul }}"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 bg-navy-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <form action="{{ route('admin.galeri.destroy', $g) }}" method="POST"
+                    onsubmit="return confirm('Hapus foto ini?')">
+                    @csrf @method('DELETE')
+                    <button class="bg-red-500 text-white text-xs px-4 py-2 rounded-lg">Hapus</button>
+                </form>
             </div>
-            <h1 class="text-4xl font-black text-navy-dark">
-                Galeri <span class="text-gold">Kegiatan</span>
-            </h1>
-            <p class="text-gray-500 mt-3 text-sm">Dokumentasi foto kegiatan Karang Taruna Desa Pilangsari.</p>
         </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            @forelse($galeri as $g)
-            <div class="rounded-2xl overflow-hidden group cursor-pointer aspect-square shadow-sm hover:shadow-xl transition-all duration-300"
-                data-aos="fade-up">
-                <img src="{{ Storage::url($g->file_path) }}" alt="{{ $g->judul }}"
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-400">
-            </div>
-            @empty
-            <div class="col-span-4 text-center py-20">
-                <p class="text-5xl mb-4">🖼️</p>
-                <p class="text-gray-400 text-lg">Belum ada foto.</p>
-            </div>
-            @endforelse
-        </div>
-
-        <div class="mt-10">{{ $galeri->links() }}</div>
-
-        <div class="text-center mt-8">
-            <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">← Kembali ke Beranda</a>
+        <div class="p-3">
+            <p class="text-white text-sm font-medium truncate">{{ $g->judul }}</p>
+            <p class="text-white/40 text-xs mt-1">{{ $g->created_at->format('d M Y') }}</p>
         </div>
     </div>
+    @empty
+    <div class="col-span-4 text-center py-16 text-white/40">Belum ada foto.</div>
+    @endforelse
 </div>
+<div class="mt-6">{{ $galeri->links() }}</div>
 @endsection

@@ -223,3 +223,20 @@ class KegiatanController extends Controller
         );
     }
 }
+
+public function import(Request $request) {
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+    ]);
+
+    try {
+        \Maatwebsite\Excel\Facades\Excel::import(
+            new \App\Imports\KegiatanImport,
+            $request->file('file')
+        );
+        return redirect()->route('admin.kegiatan.index')
+            ->with('success', 'Data kegiatan berhasil diimport!');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Gagal import: ' . $e->getMessage());
+    }
+}
