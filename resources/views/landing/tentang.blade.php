@@ -54,7 +54,6 @@
                 </div>
             </div>
             <div data-aos="fade-left">
-                {{-- Foto Tentang sudah dimasukkan di sini --}}
                 <img src="{{ asset('images/tentang.jpeg') }}"
                     alt="Karang Taruna" class="w-full rounded-2xl shadow-xl object-cover">
             </div>
@@ -149,6 +148,17 @@
                 @endforeach
             </div>
         </div>
+
+        {{-- 👇 TOMBOL KE HALAMAN ANGGOTA 👇 --}}
+        <div class="text-center mt-16" data-aos="fade-up">
+            <a href="{{ route('anggota.index') }}" class="inline-flex items-center gap-2 bg-navy-dark hover:bg-navy text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                Lihat Bagan & Daftar Anggota Lengkap
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+
     </div>
 </section>
 
