@@ -41,24 +41,6 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12" data-aos="fade-up" data-aos-delay="300">
-            @foreach([
-            ['icon' => '👥', 'value' => $stats['anggota'], 'label' => 'Anggota Aktif'],
-            ['icon' => '📅', 'value' => $stats['kegiatan'], 'label' => 'Kegiatan Terlaksana'],
-            ['icon' => '📰', 'value' => $stats['berita'], 'label' => 'Artikel Berita'],
-            ['icon' => '🏆', 'value' => $stats['tahun'], 'label' => 'Tahun Berdiri'],
-            ] as $stat)
-            <div class="glass-card p-5 flex items-center gap-4 hover:-translate-y-1 transition-transform duration-300">
-                <div class="w-12 h-12 bg-gold/20 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
-                    {{ $stat['icon'] }}
-                </div>
-                <div>
-                    <div class="text-2xl font-black text-gold" data-counter="{{ $stat['value'] }}">{{ $stat['value'] }}+</div>
-                    <div class="text-gray-600 text-xs mt-0.5">{{ $stat['label'] }}</div>
-                </div>
-            </div>
-            @endforeach
-        </div>
     </div>
 </section>
 
@@ -91,9 +73,7 @@
                 <div class="rounded-2xl overflow-hidden aspect-[4/3]">
                     <img src="{{ asset('images/program.jpeg') }}" alt="Karang Taruna" class="w-full h-full object-cover">
                 </div>
-                <div class="absolute -bottom-3 -right-3 w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl flex items-center justify-center bg-white">
-                    <img src="{{ asset('images/ikkapii-logo.png') }}" alt="Logo IKKAPII" class="w-12 h-12 object-contain">
-                </div>
+
             </div>
             <div data-aos="fade-left">
                 <div class="section-badge mb-4">
@@ -114,7 +94,7 @@
                     ['emoji' => '🌟', 'title' => 'Berkarya', 'desc' => 'Memberikan kontribusi nyata untuk masyarakat.'],
                     ] as $f)
                     <div class="flex gap-3">
-                        <div class="w-12 h-12 bg-navy-light rounded-xl flex items-center justify-center text-xl flex-shrink-0">{{ $f['emoji'] }}</div>
+
                         <div>
                             <div class="font-bold text-navy-dark text-sm">{{ $f['title'] }}</div>
                             <div class="text-gray-400 text-xs mt-1 leading-relaxed">{{ $f['desc'] }}</div>
@@ -131,25 +111,34 @@
 {{-- PROGRAM KERJA --}}
 <section class="py-24 bg-navy-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-end justify-between mb-12">
-            <div data-aos="fade-up">
+
+        <!-- PERUBAHAN DI SINI: flex diganti text-center -->
+        <div class="text-center mb-12">
+
+            <!-- PERUBAHAN DI SINI: tambah flex flex-col items-center -->
+            <div data-aos="fade-up" class="flex flex-col items-center">
                 <div class="section-badge mb-3">
                     <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
                     Program Unggulan
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black text-white">Program <span class="text-gold">Kerja Kami</span></h2>
             </div>
-            <a href="{{ route('kegiatan.index') }}" class="text-gold text-sm font-semibold border border-gold/30 px-5 py-2.5 rounded-xl hover:bg-gold/10 transition-all flex items-center gap-2" data-aos="fade-up">
-                Lihat Semua →
-            </a>
+
         </div>
+        x
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            @foreach($programUnggulan as $i => $program)
+            @foreach([
+            ['nama' => 'Ambrewek Super Cup', 'deskripsi' => 'Turnamen sepak bola antar blok Desa Pilangsari yang digelar setiap Agustus untuk memeriahkan HUT RI.', 'gambar' => asset('images/ambrewek.jpg')],
+            ['nama' => 'Semarak Kemerdekaan', 'deskripsi' => 'Rangkaian lomba tradisional hingga panggung seni budaya yang melibatkan seluruh lapisan masyarakat.', 'gambar' => asset('images/kemerdekaan.jpg')],
+            ['nama' => 'Sedekah Bumi', 'deskripsi' => 'Tradisi tahunan warga sebagai wujud syukur atas hasil panen dan melestarikan adat budaya lokal.', 'gambar' => asset('images/sedekahbumi.jpg')],
+            ['nama' => 'Bakti Sosial', 'deskripsi' => 'Pengumpulan zakat, infak, sedekah, serta pembekalan pemasaran digital untuk UMKM pemuda desa.', 'gambar' => asset('images/baktisosial.jpg')]
+            ] as $i => $program)
             <div class="relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/3]" data-aos="fade-up" data-aos-delay="{{ ($i+1) * 100 }}">
-                <img src="https://images.unsplash.com/photo-{{ ['1529156069898-49953e39b3ac','1509099836639-18ba1795216d','1556742049-0cfed4f6a45d','1533174072545-7a4b6ad7a6c3'][$i] }}?w=400&q=80"
-                    alt="{{ $program['nama'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                <img src="{{ $program['gambar'] }}" alt="{{ $program['nama'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+
                 <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/95 via-navy-dark/40 to-transparent flex flex-col justify-end p-5">
-                    <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center text-lg mb-3">{{ ['👨‍🎓','❤️','💼','🎭'][$i] }}</div>
+                    <!-- Bagian ikon (div w-10 h-10...) sudah dihapus -->
+
                     <h3 class="text-white font-bold text-base">{{ $program['nama'] }}</h3>
                     <p class="text-white/60 text-xs mt-1 leading-relaxed">{{ $program['deskripsi'] }}</p>
                     <span class="text-gold text-xs font-semibold mt-3 flex items-center gap-1">Selengkapnya →</span>
@@ -163,14 +152,17 @@
 {{-- AGENDA + BERITA + GALERI --}}
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        <!-- UBAHAN UTAMA: lg:grid-cols-3 diganti jadi lg:grid-cols-2 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
             {{-- Agenda --}}
             <div data-aos="fade-up" data-aos-delay="100">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-navy-dark">Agenda Kegiatan</h3>
-                    <a href="{{ route('kegiatan.index') }}" class="text-gold text-xs font-semibold hover:underline">Lihat Semua</a>
+                    <!-- Tombol Lihat Semua sengaja gua hilangin dulu biar ga nyasar ke admin -->
                 </div>
+
                 @forelse($kegiatanTerbaru as $k)
                 <div class="bg-white rounded-xl p-4 flex gap-4 mb-3 border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300">
                     <div class="bg-navy-dark text-white rounded-xl p-3 text-center min-w-[52px] flex-shrink-0">
@@ -189,31 +181,11 @@
                     @endif
                 </div>
                 @empty
-                <p class="text-gray-400 text-sm text-center py-8">Belum ada kegiatan.</p>
-                @endforelse
-            </div>
-
-            {{-- Berita --}}
-            <div data-aos="fade-up" data-aos-delay="200">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-bold text-navy-dark">Berita Terbaru</h3>
-                    <a href="{{ route('berita.index') }}" class="text-gold text-xs font-semibold hover:underline">Lihat Semua</a>
+                <!-- Tampilan kosong dibuat mirip dengan Berita tidak tersedia -->
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <p class="text-3xl mb-2">📅</p>
+                    <p class="text-gray-400 text-sm">Belum ada agenda kegiatan.</p>
                 </div>
-                @forelse($beritaTerbaru as $b)
-                <a href="{{ route('berita.show', $b->slug) }}" class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
-                    @if($b->thumbnail)
-                    <img src="{{ Storage::url($b->thumbnail) }}" alt="{{ $b->judul }}" class="w-20 h-20 object-cover flex-shrink-0">
-                    @else
-                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
-                    @endif
-                    <div class="p-3 flex-1 min-w-0">
-                        <div class="text-gray-400 text-xs">{{ $b->published_at?->format('d M Y') }}</div>
-                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $b->judul }}</div>
-                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ $b->ringkasan }}</div>
-                    </div>
-                </a>
-                @empty
-                <p class="text-gray-400 text-sm text-center py-8">Belum ada berita.</p>
                 @endforelse
             </div>
 

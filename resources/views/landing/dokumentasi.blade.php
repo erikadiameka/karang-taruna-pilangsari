@@ -34,7 +34,7 @@
                             <p class="text-white/60">Dokumen dasar yang mengatur organisasi Karang Taruna</p>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-3 mb-6">
                         <p class="text-white/80 leading-relaxed">
                             AD/ART (Anggaran Dasar dan Anggaran Rumah Tangga) adalah dokumen resmi yang mengatur struktur organisasi, hak dan kewajiban anggota, serta tata cara pengambilan keputusan di Karang Taruna Desa Pilangsari.
@@ -68,7 +68,7 @@
                             <p class="text-white/60">Rencana kerja dan kegiatan sepanjang tahun</p>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-3 mb-6">
                         <p class="text-white/80 leading-relaxed">
                             Program kerja tahunan berisi rencana kegiatan, target, dan timeline pelaksanaan berbagai program yang akan dilakukan oleh Karang Taruna dalam satu tahun berjalan.
@@ -102,7 +102,7 @@
                             <p class="text-white/60">Susunan pengurus dan pembagian bidang</p>
                         </div>
                     </div>
-                    
+
                     <div class="space-y-3 mb-6">
                         <p class="text-white/80 leading-relaxed">
                             Struktur organisasi Karang Taruna terdiri atas pengurus inti dan 4 bidang utama dengan masing-masing koordinator dan anggota aktif.
@@ -136,7 +136,7 @@
                             <p class="text-white/60">Panduan teknis dan prosedur kegiatan</p>
                         </div>
                     </div>
-                    
+
                     <ul class="space-y-3">
                         <li class="flex items-start gap-3">
                             <span class="text-gold flex-shrink-0 mt-1">→</span>
