@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class KegiatanController extends Controller
 {
@@ -14,10 +15,12 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::latest()->paginate(10);
         return view('admin.kegiatan.index', compact('kegiatan'));
     }
+
     public function create()
     {
         return view('admin.kegiatan.create');
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -31,18 +34,23 @@ class KegiatanController extends Controller
             'peserta' => 'nullable|integer',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
         if ($request->hasFile('thumbnail')) {
             $validated['thumbnail'] = $request->file('thumbnail')->store('kegiatan', 'public');
         }
+
         $validated['user_id'] = auth()->id();
         $validated['slug'] = Str::slug($validated['nama']) . '-' . time();
+
         Kegiatan::create($validated);
         return redirect()->route('admin.kegiatan.index')->with('success', 'Kegiatan berhasil ditambahkan!');
     }
+
     public function edit(Kegiatan $kegiatan)
     {
         return view('admin.kegiatan.edit', compact('kegiatan'));
     }
+
     public function update(Request $request, Kegiatan $kegiatan)
     {
         $validated = $request->validate([
@@ -56,12 +64,15 @@ class KegiatanController extends Controller
             'peserta' => 'nullable|integer',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
         if ($request->hasFile('thumbnail')) {
             $validated['thumbnail'] = $request->file('thumbnail')->store('kegiatan', 'public');
         }
+
         $kegiatan->update($validated);
         return redirect()->route('admin.kegiatan.index')->with('success', 'Kegiatan berhasil diperbarui!');
     }
+
     public function destroy(Kegiatan $kegiatan)
     {
         $kegiatan->delete();
@@ -81,15 +92,12 @@ class KegiatanController extends Controller
 
         $file = $request->file('file');
         $filePath = $file->getRealPath();
-        
-        // Detect file type
+
         $ext = strtolower($file->getClientOriginalExtension());
-        
-        // If Excel file, convert to array first
+
         if ($ext === 'xlsx' || $ext === 'xls') {
             $rows = $this->readExcelFile($filePath);
         } else {
-            // Read CSV file
             $rows = $this->readCsvFile($filePath);
         }
 
@@ -99,9 +107,8 @@ class KegiatanController extends Controller
 
         foreach ($rows as $row) {
             $rowNum++;
-            
+
             try {
-                // Skip empty rows - need at least 8 columns
                 if (empty($row) || count($row) < 8 || empty($row[0])) {
                     continue;
                 }
@@ -117,7 +124,7 @@ class KegiatanController extends Controller
                     'peserta' => intval($row[7]),
                 ];
 
-                $validator = \Validator::make($data, [
+                $validator = Validator::make($data, [
                     'nama' => 'required|string|max:255',
                     'kategori' => 'required|string',
                     'deskripsi' => 'required|string',
@@ -155,16 +162,15 @@ class KegiatanController extends Controller
         $rows = [];
         $handle = fopen($filePath, 'r');
         $isFirstRow = true;
-        
+
         while (($row = fgetcsv($handle)) !== false) {
-            // Skip header row
             if ($isFirstRow) {
                 $isFirstRow = false;
                 continue;
             }
             $rows[] = $row;
         }
-        
+
         fclose($handle);
         return $rows;
     }
@@ -172,35 +178,32 @@ class KegiatanController extends Controller
     private function readExcelFile($filePath)
     {
         $rows = [];
-        
+
         try {
-            // Try using PHPOffice if available
             if (class_exists('\PhpOffice\PhpSpreadsheet\IOFactory')) {
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
                 $worksheet = $spreadsheet->getActiveSheet();
-                
+
                 foreach ($worksheet->getRowIterator(2) as $row) {
                     $cellIterator = $row->getCellIterator();
                     $cellIterator->setIterateOnlyExistingCells(false);
                     $rowData = [];
-                    
+
                     foreach ($cellIterator as $cell) {
                         $rowData[] = $cell->getValue();
                     }
-                    
+
                     if (!empty(array_filter($rowData))) {
                         $rows[] = $rowData;
                     }
                 }
             } else {
-                // Fallback: treat as CSV
                 return $this->readCsvFile($filePath);
             }
         } catch (\Exception $e) {
-            // Fallback to CSV reading
             return $this->readCsvFile($filePath);
         }
-        
+
         return $rows;
     }
 
@@ -221,22 +224,5 @@ class KegiatanController extends Controller
                 'Content-Disposition' => 'attachment; filename="template-kegiatan.csv"'
             ]
         );
-    }
-}
-
-public function import(Request $request) {
-    $request->validate([
-        'file' => 'required|mimes:xlsx,xls,csv|max:2048',
-    ]);
-
-    try {
-        \Maatwebsite\Excel\Facades\Excel::import(
-            new \App\Imports\KegiatanImport,
-            $request->file('file')
-        );
-        return redirect()->route('admin.kegiatan.index')
-            ->with('success', 'Data kegiatan berhasil diimport!');
-    } catch (\Exception $e) {
-        return back()->with('error', 'Gagal import: ' . $e->getMessage());
     }
 }
