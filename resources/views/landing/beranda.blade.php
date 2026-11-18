@@ -58,9 +58,6 @@
                 @endforeach
             </div>
         </div>
-        <a href="#" class="flex-shrink-0 text-gold text-sm font-semibold border border-gold/30 px-4 py-2 rounded-lg hover:bg-gold/10 transition-all flex items-center gap-2">
-            Lihat Semua →
-        </a>
     </div>
 </div>
 @endif
@@ -73,7 +70,6 @@
                 <div class="rounded-2xl overflow-hidden aspect-[4/3]">
                     <img src="{{ asset('images/program.jpeg') }}" alt="Karang Taruna" class="w-full h-full object-cover">
                 </div>
-
             </div>
             <div data-aos="fade-left">
                 <div class="section-badge mb-4">
@@ -88,13 +84,12 @@
                 </p>
                 <div class="grid grid-cols-2 gap-5 mb-8">
                     @foreach([
-                    ['emoji' => '🎨', 'title' => 'Kreatif', 'desc' => 'Menciptakan ide dan inovasi untuk kemajuan desa.'],
-                    ['emoji' => '⚡', 'title' => 'Aktif', 'desc' => 'Selalu bergerak dalam kegiatan positif dan bermanfaat.'],
-                    ['emoji' => '🤝', 'title' => 'Solid', 'desc' => 'Bersatu dalam kebersamaan dan kekeluargaan.'],
-                    ['emoji' => '🌟', 'title' => 'Berkarya', 'desc' => 'Memberikan kontribusi nyata untuk masyarakat.'],
+                    ['title' => 'Kreatif', 'desc' => 'Menciptakan ide dan inovasi untuk kemajuan desa.'],
+                    ['title' => 'Aktif', 'desc' => 'Selalu bergerak dalam kegiatan positif dan bermanfaat.'],
+                    ['title' => 'Solid', 'desc' => 'Bersatu dalam kebersamaan dan kekeluargaan.'],
+                    ['title' => 'Berkarya', 'desc' => 'Memberikan kontribusi nyata untuk masyarakat.'],
                     ] as $f)
                     <div class="flex gap-3">
-
                         <div>
                             <div class="font-bold text-navy-dark text-sm">{{ $f['title'] }}</div>
                             <div class="text-gray-400 text-xs mt-1 leading-relaxed">{{ $f['desc'] }}</div>
@@ -112,10 +107,7 @@
 <section class="py-24 bg-navy-dark">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- PERUBAHAN DI SINI: flex diganti text-center -->
         <div class="text-center mb-12">
-
-            <!-- PERUBAHAN DI SINI: tambah flex flex-col items-center -->
             <div data-aos="fade-up" class="flex flex-col items-center">
                 <div class="section-badge mb-3">
                     <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
@@ -123,9 +115,8 @@
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black text-white">Program <span class="text-gold">Kerja Kami</span></h2>
             </div>
-
         </div>
-        x
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             @foreach([
             ['nama' => 'Ambrewek Super Cup', 'deskripsi' => 'Turnamen sepak bola antar blok Desa Pilangsari yang digelar setiap Agustus untuk memeriahkan HUT RI.', 'gambar' => asset('images/ambrewek.jpg')],
@@ -137,8 +128,6 @@
                 <img src="{{ $program['gambar'] }}" alt="{{ $program['nama'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
 
                 <div class="absolute inset-0 bg-gradient-to-t from-navy-dark/95 via-navy-dark/40 to-transparent flex flex-col justify-end p-5">
-                    <!-- Bagian ikon (div w-10 h-10...) sudah dihapus -->
-
                     <h3 class="text-white font-bold text-base">{{ $program['nama'] }}</h3>
                     <p class="text-white/60 text-xs mt-1 leading-relaxed">{{ $program['deskripsi'] }}</p>
                     <span class="text-gold text-xs font-semibold mt-3 flex items-center gap-1">Selengkapnya →</span>
@@ -149,40 +138,56 @@
     </div>
 </section>
 
-{{-- AGENDA + BERITA + GALERI --}}
+{{-- AGENDA + BERITA --}}
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- UBAHAN UTAMA: lg:grid-cols-3 diganti jadi lg:grid-cols-2 -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
-            {{-- Agenda --}}
+            {{-- Agenda Dinamis dari Database --}}
             <div data-aos="fade-up" data-aos-delay="100">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-navy-dark">Agenda Kegiatan</h3>
-                    <!-- Tombol Lihat Semua sengaja gua hilangin dulu biar ga nyasar ke admin -->
+                    <!-- Bisa tambahkan link ke halaman kegiatan publik di sini nanti -->
                 </div>
 
                 @forelse($kegiatanTerbaru as $k)
-                <div class="bg-white rounded-xl p-4 flex gap-4 mb-3 border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300">
-                    <div class="bg-navy-dark text-white rounded-xl p-3 text-center min-w-[52px] flex-shrink-0">
-                        <div class="text-xl font-black leading-none">{{ $k->tanggal_mulai->format('d') }}</div>
-                        <div class="text-xs opacity-60 mt-1">{{ $k->tanggal_mulai->format('M Y') }}</div>
+                <div class="bg-white rounded-2xl overflow-hidden mb-4 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
+                    @if($k->thumbnail)
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="{{ Storage::url($k->thumbnail) }}" alt="{{ $k->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 right-3 bg-gold text-navy-dark text-[10px] font-black uppercase px-3 py-1.5 rounded-lg tracking-widest shadow-lg">
+                            {{ str_replace('_', ' ', $k->status) }}
+                        </div>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="font-semibold text-navy-dark text-sm truncate">{{ $k->nama }}</div>
-                        <div class="text-gray-400 text-xs mt-1">{{ $k->tanggal_mulai->format('H.i') }} WIB</div>
-                        <div class="text-gray-400 text-xs">{{ $k->lokasi }}</div>
+                    @else
+                    <!-- Tampilan jika agenda tidak punya gambar -->
+                    <div class="relative h-32 bg-navy-light flex items-center justify-center text-white/50">
+                        <span class="text-3xl">📅</span>
                     </div>
-                    @if($k->status === 'akan_datang')
-                    <span class="text-amber-600 bg-amber-50 text-xs font-semibold px-2 py-1 rounded-full h-fit flex-shrink-0">Akan Datang</span>
-                    @elseif($k->status === 'selesai')
-                    <span class="text-green-600 bg-green-50 text-xs font-semibold px-2 py-1 rounded-full h-fit flex-shrink-0">Selesai</span>
                     @endif
+
+                    <div class="p-5">
+                        <div class="text-gray-500 text-xs font-bold mb-2 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            {{ $k->tanggal_mulai->format('d M Y') }} &bull; {{ $k->tanggal_mulai->format('H.i') }} WIB
+                        </div>
+                        <h4 class="font-bold text-navy-dark text-base">{{ $k->nama }}</h4>
+                        <p class="text-gray-500 text-xs mt-1.5 leading-relaxed line-clamp-2">
+                            {{ $k->deskripsi }}
+                        </p>
+                        <div class="text-gray-400 text-xs mt-3 flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            {{ $k->lokasi }}
+                        </div>
+                    </div>
                 </div>
                 @empty
-                <!-- Tampilan kosong dibuat mirip dengan Berita tidak tersedia -->
-                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                <div class="bg-gray-50 rounded-xl p-6 text-center border border-gray-100">
                     <p class="text-3xl mb-2">📅</p>
                     <p class="text-gray-400 text-sm">Belum ada agenda kegiatan.</p>
                 </div>
