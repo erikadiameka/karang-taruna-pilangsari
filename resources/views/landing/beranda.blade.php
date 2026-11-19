@@ -154,13 +154,14 @@
                 <div class="bg-white rounded-2xl overflow-hidden mb-4 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
                     @if($k->thumbnail)
                     <div class="relative h-48 overflow-hidden">
-                        <img src="{{ Storage::url($k->thumbnail) }}" alt="{{ $k->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {{-- UBAHAN DI SINI: Pakai asset('storage/...') --}}
+                        <img src="{{ asset('storage/' . $k->thumbnail) }}" alt="{{ $k->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
                         <div class="absolute top-3 right-3 bg-gold text-navy-dark text-[10px] font-black uppercase px-3 py-1.5 rounded-lg tracking-widest shadow-lg">
                             {{ str_replace('_', ' ', $k->status) }}
                         </div>
                     </div>
                     @else
-                    <!-- Tampilan jika agenda tidak punya gambar -->
                     <div class="relative h-32 bg-navy-light flex items-center justify-center text-white/50">
                         <span class="text-3xl">📅</span>
                     </div>
