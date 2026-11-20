@@ -23,11 +23,34 @@ class DashboardController extends Controller
                 ->whereMonth('tanggal_mulai', $i)->count();
         }
 
-        $anggotaPerDivisi = Anggota::selectRaw('divisi, COUNT(*) as total')
+        $divisi = [
+            'Humas dan Keamanan',
+            'Seni Kreatif dan Medafor',
+            'Keagamaan',
+            'Kepemudaan dan Olahraga',
+        ];
+
+        $jumlahPerDivisi = Anggota::selectRaw('divisi, COUNT(*) as total')
+            ->where('status', 'aktif')
             ->whereNotNull('divisi')
             ->groupBy('divisi')
             ->pluck('total', 'divisi')
             ->toArray();
+
+        $anggotaPerDivisi = collect($divisi)
+            ->mapWithKeys(fn ($nama) => [$nama => (int) ($jumlahPerDivisi[$nama] ?? 0)])
+            ->all();
+
+        foreach ($jumlahPerDivisi as $nama => $jumlah) {
+            if (!array_key_exists($nama, $anggotaPerDivisi)) {
+                $anggotaPerDivisi[$nama] = (int) $jumlah;
+            }
+        }
+
+        $belumDitentukan = Anggota::where('status', 'aktif')->whereNull('divisi')->count();
+        if ($belumDitentukan > 0) {
+            $anggotaPerDivisi['Belum ditentukan'] = $belumDitentukan;
+        }
 
         $kegiatanMendatang = Kegiatan::where('status', 'akan_datang')
             ->orderBy('tanggal_mulai')->take(5)->get();

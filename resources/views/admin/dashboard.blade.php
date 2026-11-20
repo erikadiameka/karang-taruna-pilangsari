@@ -70,20 +70,39 @@
     </div>
 
     {{-- Charts --}}
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div class="glass-card p-5 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-right">
-            <h3 class="text-gray-800 font-semibold mb-4 flex items-center gap-2">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="glass-card p-4 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-right">
+            <h3 class="text-gray-800 text-sm font-semibold mb-3 flex items-center gap-2">
                 <span class="w-1.5 h-4 rounded-full bg-gold"></span>
                 Kegiatan per Bulan {{ date('Y') }}
             </h3>
-            <canvas id="kegiatanChart" height="200"></canvas>
+            <div class="relative h-48 sm:h-52">
+                <canvas id="kegiatanChart"></canvas>
+            </div>
         </div>
-        <div class="glass-card p-5 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-left">
-            <h3 class="text-gray-800 font-semibold mb-4 flex items-center gap-2">
+        <div class="glass-card p-4 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-left">
+            <h3 class="text-gray-800 text-sm font-semibold mb-3 flex items-center gap-2">
                 <span class="w-1.5 h-4 rounded-full bg-navy"></span>
                 Anggota per Divisi
             </h3>
-            <canvas id="anggotaChart" height="200"></canvas>
+            <div class="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_170px] items-center gap-3">
+                <div class="relative h-48">
+                    <canvas id="anggotaChart"></canvas>
+                </div>
+                <div class="space-y-2">
+                    @php($divisionColors = ['#07112B', '#0B2A78', '#D4AF37', '#B8961E', '#64748B'])
+                    @foreach($anggotaPerDivisi as $divisi => $jumlah)
+                    <div class="flex items-start gap-2 text-xs">
+                        <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full" style="background-color: {{ $divisionColors[$loop->index % count($divisionColors)] }}"></span>
+                        <span class="min-w-0 flex-1 leading-4 text-slate-600">{{ $divisi }}</span>
+                        <span class="font-semibold tabular-nums text-navy-dark" aria-label="{{ $jumlah }} anggota">{{ $jumlah }}</span>
+                    </div>
+                    @endforeach
+                    @if(array_sum($anggotaPerDivisi) === 0)
+                    <p class="text-[11px] leading-4 text-slate-400">Belum ada data anggota aktif.</p>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 
@@ -142,6 +161,7 @@
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     labels: {
@@ -186,15 +206,10 @@
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#666666',
-                        font: {
-                            family: 'Poppins',
-                            size: 12
-                        }
-                    }
+                    display: false
                 }
             }
         }
