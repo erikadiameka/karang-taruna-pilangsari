@@ -30,7 +30,7 @@
             {{-- Menu --}}
             <div>
                 <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Menu</h4>
-                @foreach(['Beranda' => 'beranda', 'Tentang Kami' => 'tentang', 'Kegiatan' => 'kegiatan.index', 'Berita' => 'berita.index', 'Galeri' => 'galeri.index', 'Anggota' => 'anggota.index', 'Kontak' => 'kontak'] as $label => $route)
+                @foreach(['Beranda' => 'beranda', 'Tentang Kami' => 'tentang', 'Kegiatan' => 'kegiatan.index', 'Galeri' => 'galeri.index', 'Kontak' => 'kontak'] as $label => $route)
                 <a href="{{ route($route) }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">{{ $label }}</a>
                 @endforeach
             </div>
@@ -40,12 +40,9 @@
                 <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Tautan Cepat</h4>
                 @foreach([
                     'Program Kerja' => 'kegiatan.index',
-                    'Struktur Organisasi' => 'anggota.index',
-                    'Dokumentasi' => 'dokumentasi',
-                    'Pengumuman' => 'pengumuman.index',
+                    'Anggota' => 'anggota.index',
                     'FAQ' => 'faq',
-                    'UMKM Pemuda' => 'umkm',
-                    'Klub & Komunitas' => 'klub',
+                    'Potensi Desa' => 'potensi-desa',
                     'Kotak Aspirasi' => 'aspirasi'
                 ] as $label => $route)
                 <a href="{{ route($route) }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">{{ $label }}</a>

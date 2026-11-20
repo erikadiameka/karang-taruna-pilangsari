@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anggota;
-use App\Models\Berita;
 use App\Models\Kegiatan;
 use App\Models\Galeri;
-use App\Models\Pengumuman;
 
 class DashboardController extends Controller
 {
@@ -15,7 +13,6 @@ class DashboardController extends Controller
     {
         $stats = [
             'anggota' => Anggota::where('status', 'aktif')->count(),
-            'berita' => Berita::where('status', 'published')->count(),
             'kegiatan' => Kegiatan::count(),
             'galeri' => Galeri::count(),
         ];
@@ -32,9 +29,6 @@ class DashboardController extends Controller
             ->pluck('total', 'divisi')
             ->toArray();
 
-        $beritaTerbaru = Berita::with('kategori', 'penulis')
-            ->latest()->take(5)->get();
-
         $kegiatanMendatang = Kegiatan::where('status', 'akan_datang')
             ->orderBy('tanggal_mulai')->take(5)->get();
 
@@ -42,7 +36,6 @@ class DashboardController extends Controller
             'stats',
             'kegiatanBulanan',
             'anggotaPerDivisi',
-            'beritaTerbaru',
             'kegiatanMendatang'
         ));
     }

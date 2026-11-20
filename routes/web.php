@@ -1,13 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\KegiatanController as LandingKegiatan;
 use App\Http\Controllers\Landing\GaleriController as LandingGaleri;
 use App\Http\Controllers\Landing\AnggotaController as LandingAnggota;
-use App\Http\Controllers\Landing\PengumumanController as LandingPengumuman;
 use App\Http\Controllers\Landing\KontakController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KegiatanController;
@@ -22,9 +20,12 @@ Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/tentang', fn() => view('landing.tentang'))->name('tentang');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim');
-Route::get('/pengumuman', [App\Http\Controllers\Landing\PengumumanController::class, 'index'])->name('pengumuman.index');
-Route::get('/dasar-hukum', fn() => view('landing.dasar-hukum'))->name('dasar-hukum');
 Route::get('/unduhan', fn() => view('landing.unduhan'))->name('unduhan');
+Route::get('/potensi-desa', fn() => view('landing.potensi-desa'))->name('potensi-desa');
+Route::redirect('/berita', 'https://www.instagram.com/ikappi_pilangsari');
+Route::get('/berita/{slug}', fn() => redirect()->away('https://www.instagram.com/ikappi_pilangsari'));
+Route::redirect('/pengumuman', 'https://www.instagram.com/ikappi_pilangsari');
+Route::get('/pengumuman/{id}', fn() => redirect()->away('https://www.instagram.com/ikappi_pilangsari'))->whereNumber('id');
 
 Route::prefix('kegiatan')->name('kegiatan.')->group(function () {
     Route::get('/', [LandingKegiatan::class, 'index'])->name('index');
@@ -34,22 +35,9 @@ Route::prefix('kegiatan')->name('kegiatan.')->group(function () {
 Route::get('/galeri', [LandingGaleri::class, 'index'])->name('galeri.index');
 Route::get('/anggota', [LandingAnggota::class, 'index'])->name('anggota.index');
 
-Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
-    Route::get('/', [LandingPengumuman::class, 'index'])->name('index');
-    Route::get('/{id}', [LandingPengumuman::class, 'show'])->name('show');
-});
-
 Route::get('/faq', fn() => view('landing.faq'))->name('faq');
-Route::get('/dokumentasi', fn() => view('landing.dokumentasi'))->name('dokumentasi');
-Route::get('/umkm', fn() => view('landing.umkm'))->name('umkm');
-Route::get('/klub', fn() => view('landing.klub'))->name('klub');
 Route::get('/aspirasi', fn() => view('landing.aspirasi'))->name('aspirasi');
 Route::get('/daftar-anggota', fn() => view('landing.daftar'))->name('daftar-anggota');
-
-// ===== REDIRECT SETELAH LOGIN =====
-Route::get('/dashboard', function () {
-    return redirect()->route('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 // ===== ADMIN =====
 Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admin,admin'])->group(function () {
@@ -75,16 +63,6 @@ if (app()->environment('local')) {
 }
 
 require __DIR__ . '/auth.php';
-
-// Webhook to trigger news fetch (protected by NEWS_FETCH_TOKEN env)
-Route::post('/webhook/news-fetch', function (Request $request) {
-    $token = $request->header('x-news-token') ?? $request->query('token');
-    if (! $token || $token !== env('NEWS_FETCH_TOKEN')) {
-        return response('Unauthorized', 401);
-    }
-    \Artisan::call('fetch:national-news');
-    return response('OK');
-});
 
 // ===== JEMBATAN PAKSA STORAGE =====
 Route::get('/storage/{path}', function ($path) {

@@ -30,7 +30,8 @@
         @apply flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/20 hover:text-white transition-all duration-200 cursor-pointer;
     }
     .sidebar-item.active {
-        @apply bg-white/30 text-white border border-white/50;
+        @apply bg-white/10 text-white border border-white/10;
+        box-shadow: inset 3px 0 0 #d4af37;
     }
 }
 
@@ -71,6 +72,100 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+.paddy-sway {
+    transform-origin: 50% 100%;
+    animation: paddySway 4.2s ease-in-out infinite;
+}
+@keyframes paddySway {
+    0%,
+    100% {
+        transform: rotate(-3deg);
+    }
+    50% {
+        transform: rotate(3deg);
+    }
+}
+
+.wa-widget {
+    position: fixed;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+    z-index: 9999;
+    font-family: "Poppins", sans-serif;
+}
+.wa-window {
+    width: min(320px, calc(100vw - 2rem));
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(7, 17, 43, 0.08);
+    border-radius: 1.25rem;
+    background: white;
+    box-shadow: 0 12px 32px rgba(7, 17, 43, 0.15);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.wa-trigger {
+    display: flex;
+    width: 3.5rem;
+    height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    border-radius: 9999px;
+    background: #25d366;
+    color: white;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.34);
+    cursor: pointer;
+    transition: background-color 0.25s ease, filter 0.25s ease;
+}
+.wa-trigger:hover {
+    filter: brightness(1.04);
+}
+.wa-trigger:focus-visible {
+    outline: 3px solid #d4af37;
+    outline-offset: 3px;
+}
+.wa-trigger.is-open {
+    background: #07112b;
+    animation: none;
+}
+.wa-close-icon {
+    display: none;
+}
+.wa-trigger.is-open .wa-icon {
+    display: none;
+}
+.wa-trigger.is-open .wa-close-icon {
+    display: block;
+}
+.wa-pulse {
+    animation: waPulse 5s ease-in-out infinite;
+}
+@keyframes waPulse {
+    0%,
+    74%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(37, 211, 102, 0.34);
+    }
+    3%,
+    12% {
+        transform: scale(1.06);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.38);
+    }
+    7%,
+    16% {
+        transform: scale(1);
+        box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .paddy-sway,
+    .wa-pulse {
+        animation: none;
     }
 }
 

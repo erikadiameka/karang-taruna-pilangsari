@@ -76,7 +76,7 @@
                                     <span class="h-1 w-1 rounded-full bg-gold"></span> Pengurus Inti
                                 </span>
                                 <h4 class="font-extrabold text-navy-dark text-base md:text-lg truncate">{{ $ketua->nama_lengkap }}</h4>
-                                <p class="text-gold text-xs font-bold uppercase tracking-wider mt-0.5">{{ $ketua->jabatan }}</p>
+                                <p class="text-gold text-xs font-bold uppercase tracking-wider mt-0.5">{{ $ketua->posisi_inti }}</p>
                             </div>
                         </div>
                         <div class="h-10 w-0.5 bg-gold/50"></div>
@@ -96,7 +96,7 @@
                             @endif
                             <div class="text-left min-w-0">
                                 <h4 class="font-bold text-navy-dark text-sm md:text-base truncate">{{ $wakilKetua->nama_lengkap }}</h4>
-                                <p class="text-gold text-xs font-semibold uppercase tracking-wider mt-0.5">{{ $wakilKetua->jabatan }}</p>
+                                <p class="text-gold text-xs font-semibold uppercase tracking-wider mt-0.5">{{ $wakilKetua->posisi_inti }}</p>
                             </div>
                         </div>
                         <div class="h-10 w-0.5 bg-gold/30"></div>
@@ -120,7 +120,7 @@
                                     @endif
                                     <div class="text-left min-w-0">
                                         <h5 class="font-bold text-navy-dark text-sm truncate">{{ $s->nama_lengkap }}</h5>
-                                        <p class="text-gold text-[10px] font-semibold uppercase mt-0.5">{{ $s->jabatan }}</p>
+                                        <p class="text-gold text-[10px] font-semibold uppercase mt-0.5">{{ $s->posisi_inti }}</p>
                                     </div>
                                 </div>
                                 @empty
@@ -142,7 +142,7 @@
                                     @endif
                                     <div class="text-left min-w-0">
                                         <h5 class="font-bold text-navy-dark text-sm truncate">{{ $b->nama_lengkap }}</h5>
-                                        <p class="text-gold text-[10px] font-semibold uppercase mt-0.5">{{ $b->jabatan }}</p>
+                                        <p class="text-gold text-[10px] font-semibold uppercase mt-0.5">{{ $b->posisi_inti }}</p>
                                     </div>
                                 </div>
                                 @empty
@@ -205,7 +205,7 @@
 
                             {{-- Tombol Toggle Mobile --}}
                             <button @click="open = !open" class="md:hidden w-full py-2.5 bg-gray-100 hover:bg-gold/10 text-navy-dark text-xs font-bold rounded-xl mb-2 flex items-center justify-center gap-2 transition-colors">
-                                <span x-text="open ? 'Tutup Anggota' : 'Lihat Semua Anggota ({{ $bidang['anggota']->count() }})'"></span>
+                                <span x-text="open ? 'Tutup Anggota' : 'Lihat Semua Anggota'"></span>
                                 <svg class="w-4 h-4 transform transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
@@ -213,7 +213,7 @@
 
                             {{-- Anggota Bidang (Disembunyikan di mobile, muncul di desktop) --}}
                             <div x-show="open || window.innerWidth >= 768" x-collapse class="flex-grow">
-                                <span class="text-[9px] font-black uppercase tracking-wider text-gold block mb-2">Anggota ({{ $bidang['anggota']->count() }})</span>
+                                <span class="text-[9px] font-black uppercase tracking-wider text-gold block mb-2">Anggota</span>
                                 <div class="flex flex-col gap-2">
                                     @forelse($bidang['anggota'] as $member)
                                     <div class="bg-gray-50 border border-gray-100 rounded-xl p-2 flex items-center gap-2 transition-colors hover:border-gold/30">
@@ -281,10 +281,6 @@
                             <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-gold">Temukan orangnya</span>
                             <h3 class="text-lg font-black text-navy-dark mt-1">Daftar Anggota Aktif</h3>
                         </div>
-                        <span class="inline-flex items-center gap-2 self-start sm:self-auto rounded-full bg-gold/10 px-3 py-1.5 text-xs font-bold text-navy-dark">
-                            <span class="h-2 w-2 rounded-full bg-gold"></span>
-                            {{ $anggotaList->total() }} anggota
-                        </span>
                     </div>
                     <form action="{{ route('anggota.index') }}" method="GET" class="relative">
                         <input type="text" name="search" value="{{ $search }}" placeholder="Cari berdasarkan nama lengkap..."

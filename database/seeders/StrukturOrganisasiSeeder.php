@@ -16,20 +16,20 @@ class StrukturOrganisasiSeeder extends Seeder
         $anggotas = [
             // ===== POSISI INTI =====
             // Ketua
-            ['nama_lengkap' => 'Erik', 'nik' => '1234567890123001', 'divisi' => 'Keagamaan', 'jabatan' => 'Ketua', 'posisi_inti' => 'Ketua'],
+            ['nama_lengkap' => 'Erik', 'nik' => '1234567890123001', 'divisi' => 'Keagamaan', 'jabatan' => 'Koordinator Keagamaan', 'posisi_inti' => 'Ketua'],
             
             // Wakil Ketua
-            ['nama_lengkap' => 'Tamsil', 'nik' => '1234567890123002', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Wakil Ketua', 'posisi_inti' => 'Wakil Ketua'],
+            ['nama_lengkap' => 'Tamsil', 'nik' => '1234567890123002', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Koordinator Kepemudaan dan Olahraga', 'posisi_inti' => 'Wakil Ketua'],
             
             // Sekretaris 1 & 2
-            ['nama_lengkap' => 'Tio', 'nik' => '1234567890123003', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Sekretaris', 'posisi_inti' => 'Sekretaris 1'],
-            ['nama_lengkap' => 'Tansah', 'nik' => '1234567890123004', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Sekretaris', 'posisi_inti' => 'Sekretaris 2'],
+            ['nama_lengkap' => 'Tio', 'nik' => '1234567890123003', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Koordinator Humas dan Keamanan', 'posisi_inti' => 'Sekretaris 1'],
+            ['nama_lengkap' => 'Tansah', 'nik' => '1234567890123004', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Koordinator Seni Kreatif dan Medafor', 'posisi_inti' => 'Sekretaris 2'],
             
             // Bendahara 1 & 2
             ['nama_lengkap' => 'Rio', 'nik' => '1234567890123005', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Bendahara', 'posisi_inti' => 'Bendahara 1'],
             ['nama_lengkap' => 'Yoga', 'nik' => '1234567890123006', 'divisi' => 'Keagamaan', 'jabatan' => 'Bendahara', 'posisi_inti' => 'Bendahara 2'],
             
-            // ===== HUMAS DAN KEAMANAN (7 anggota, Tio jadi Ketua) =====
+            // ===== HUMAS DAN KEAMANAN (7 anggota termasuk koordinator) =====
             ['nama_lengkap' => 'Dian', 'nik' => '1234567890123407', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Randi', 'nik' => '1234567890123408', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Arif', 'nik' => '1234567890123409', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Anggota'],
@@ -37,7 +37,7 @@ class StrukturOrganisasiSeeder extends Seeder
             ['nama_lengkap' => 'Ogi', 'nik' => '1234567890123411', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Saeful', 'nik' => '1234567890123412', 'divisi' => 'Humas dan Keamanan', 'jabatan' => 'Anggota'],
 
-            // ===== SENI KREATIF DAN MEDAFOR (13 anggota, Tansah jadi Koordinator) =====
+            // ===== SENI KREATIF DAN MEDAFOR (13 anggota termasuk koordinator) =====
             ['nama_lengkap' => 'Ponda', 'nik' => '1234567890123413', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Candra', 'nik' => '1234567890123414', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Aung', 'nik' => '1234567890123415', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Anggota'],
@@ -51,7 +51,7 @@ class StrukturOrganisasiSeeder extends Seeder
             ['nama_lengkap' => 'Yayas', 'nik' => '1234567890123423', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Dika', 'nik' => '1234567890123424', 'divisi' => 'Seni Kreatif dan Medafor', 'jabatan' => 'Anggota'],
 
-            // ===== KEAGAMAAN (9 anggota, Erik jadi Ketua) =====
+            // ===== KEAGAMAAN (9 anggota termasuk koordinator) =====
             ['nama_lengkap' => 'Aena', 'nik' => '1234567890123425', 'divisi' => 'Keagamaan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Ketrin', 'nik' => '1234567890123426', 'divisi' => 'Keagamaan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Mukti', 'nik' => '1234567890123427', 'divisi' => 'Keagamaan', 'jabatan' => 'Anggota'],
@@ -60,7 +60,7 @@ class StrukturOrganisasiSeeder extends Seeder
             ['nama_lengkap' => 'Pudin', 'nik' => '1234567890123430', 'divisi' => 'Keagamaan', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Adil', 'nik' => '1234567890123431', 'divisi' => 'Keagamaan', 'jabatan' => 'Anggota'],
 
-            // ===== KEPEMUDAAN DAN OLAHRAGA (11 anggota, Tamsil jadi Wakil Ketua) =====
+            // ===== KEPEMUDAAN DAN OLAHRAGA (11 anggota termasuk koordinator) =====
             ['nama_lengkap' => 'Kalista', 'nik' => '1234567890123432', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Aldi', 'nik' => '1234567890123433', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Anggota'],
             ['nama_lengkap' => 'Guntur', 'nik' => '1234567890123434', 'divisi' => 'Kepemudaan dan Olahraga', 'jabatan' => 'Anggota'],
@@ -73,8 +73,11 @@ class StrukturOrganisasiSeeder extends Seeder
         ];
 
         foreach ($anggotas as $anggota) {
-            Anggota::updateOrCreate(
-                ['nik' => $anggota['nik']],
+            Anggota::firstOrCreate(
+                [
+                    'nama_lengkap' => $anggota['nama_lengkap'],
+                    'divisi' => $anggota['divisi'],
+                ],
                 array_merge($anggota, [
                     'jenis_kelamin' => 'L',
                     'status' => 'aktif',

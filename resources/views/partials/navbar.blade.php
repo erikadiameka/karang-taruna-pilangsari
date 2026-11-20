@@ -57,7 +57,7 @@
                 </form>
                 @else
                 <a href="{{ route('login') }}"
-                    class="hidden md:flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl transition-all duration-300 hover:scale-105">
+                    class="hidden md:flex items-center gap-2 border border-white/25 bg-white/10 hover:bg-white/20 text-white font-medium text-sm px-4 py-2.5 rounded-xl backdrop-blur-md transition-colors duration-300">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                         <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
@@ -109,7 +109,7 @@
                     </div>
                     @else
                     <a href="{{ route('login') }}"
-                        class="flex items-center justify-center gap-2 bg-gold text-navy-dark font-semibold text-sm px-4 py-2.5 rounded-xl mt-1">
+                        class="flex items-center justify-center gap-2 border border-white/15 bg-white/10 text-white font-medium text-sm px-4 py-2.5 rounded-xl mt-1">
                         Login
                     </a>
                     @endauth

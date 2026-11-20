@@ -27,24 +27,39 @@
         {{-- Logo --}}
         <div class="mb-12" data-aos="fade-up">
             <h2 class="text-2xl font-black text-navy-dark mb-6 flex items-center gap-3">
-               
                 Logo & Identitas
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 @foreach([
-                ['Logo Karang Taruna PNG', 'Format PNG transparan untuk penggunaan digital', 'PNG', '🖼️'],
-                ['Logo Karang Taruna SVG', 'Format vektor untuk penggunaan cetak', 'SVG', '✏️'],
-                ['Logo Desa Pilangsari', 'Logo resmi Desa Pilangsari', 'PNG', '🏘️'],
+                [
+                    'nama' => 'Logo Karang Taruna IKAPPI',
+                    'deskripsi' => 'Logo resmi IKAPPI dalam format PNG untuk penggunaan digital.',
+                    'format' => 'PNG',
+                    'file' => 'images/Logo2.png',
+                    'alt' => 'Logo Karang Taruna IKAPPI Desa Pilangsari',
+                ],
+                [
+                    'nama' => 'Logo Desa Pilangsari',
+                    'deskripsi' => 'Logo resmi Desa Pilangsari dalam format PNG.',
+                    'format' => 'PNG',
+                    'file' => 'images/logodesa.png',
+                    'alt' => 'Logo Desa Pilangsari',
+                ],
                 ] as $item)
-                <div class="bg-white rounded-2xl p-5 border border-gray-100 hover:shadow-md hover:border-gold/20 transition-all duration-300">
-                    <div class="w-12 h-12 bg-navy-dark rounded-xl flex items-center justify-center text-2xl mb-4">{{ $item[3] }}</div>
-                    <h3 class="font-bold text-navy-dark text-sm mb-1">{{ $item[0] }}</h3>
-                    <p class="text-gray-400 text-xs mb-4">{{ $item[1] }}</p>
+                <div class="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:shadow-lg hover:border-gold/30 transition-all duration-300">
+                    <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center border border-gray-100 p-2 mb-4 shadow-sm">
+                        <img src="{{ asset($item['file']) }}" alt="{{ $item['alt'] }}" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="font-bold text-navy-dark text-sm mb-1">{{ $item['nama'] }}</h3>
+                    <p class="text-gray-400 text-xs mb-5">{{ $item['deskripsi'] }}</p>
                     <div class="flex items-center justify-between">
-                        <span class="bg-gold/10 text-gold text-xs font-bold px-2 py-1 rounded-lg">{{ $item[2] }}</span>
-                        <a href="{{ asset('images/Logo.jpeg') }}" download
-                            class="flex items-center gap-1 bg-navy-dark hover:bg-navy text-white text-xs font-semibold px-3 py-2 rounded-lg transition-all">
-                            ⬇ Download
+                        <span class="bg-gold/10 text-gold text-xs font-bold px-2.5 py-1 rounded-lg">{{ $item['format'] }}</span>
+                        <a href="{{ asset($item['file']) }}" download
+                            class="inline-flex items-center gap-2 bg-navy-dark hover:bg-navy text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M5 17v3h14v-3" />
+                            </svg>
+                            Unduh
                         </a>
                     </div>
                 </div>
@@ -54,7 +69,12 @@
 
         {{-- Info (Butuh Dokumen Lain?) --}}
         <div class="bg-navy-dark rounded-3xl p-8 text-center mt-16" data-aos="fade-up">
-            <div class="text-4xl mb-4">📬</div>
+            <div class="w-12 h-12 mx-auto mb-4 rounded-2xl bg-gold/10 text-gold flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6" />
+                </svg>
+            </div>
             <h3 class="text-xl font-black text-white mb-3">Butuh Dokumen Lain?</h3>
             <p class="text-white/60 text-sm leading-relaxed mb-6 max-w-xl mx-auto">
                 Jika kamu membutuhkan dokumen atau file lain yang tidak tersedia di sini, silakan hubungi kami melalui halaman kontak atau kotak aspirasi.

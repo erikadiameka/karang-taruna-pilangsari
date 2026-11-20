@@ -5,52 +5,56 @@
 @section('content')
 <div class="space-y-6">
 
+    <div class="flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between" data-aos="fade-up">
+        <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-gold-dark">Panel pengelolaan</p>
+            <h2 class="mt-1 text-xl font-bold text-navy-dark sm:text-2xl">Ringkasan organisasi</h2>
+            <p class="mt-1 text-sm text-slate-500">Pantau kegiatan dan data Karang Taruna Pilangsari.</p>
+        </div>
+        <span class="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500">
+            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+            Tahun {{ date('Y') }}
+        </span>
+    </div>
+
     {{-- Stat Cards (Diubah jadi 3 kolom agar seimbang) --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         @foreach([
         [
         'label' => 'Anggota Aktif',
         'value' => $stats['anggota'],
-        'gradient' => 'from-blue-500 to-indigo-600',
-        'glow' => 'from-blue-400 to-indigo-400',
-        'color' => 'text-indigo-600 hover:text-indigo-800',
+        'color' => 'text-navy-dark hover:text-gold-dark',
         'route' => route('admin.anggota.index'),
-        'icon' => '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        'icon' => '<svg class="w-5 h-5 text-gold-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>'
         ],
         [
         'label' => 'Total Kegiatan',
         'value' => $stats['kegiatan'],
-        'gradient' => 'from-amber-500 to-orange-600',
-        'glow' => 'from-amber-400 to-orange-400',
-        'color' => 'text-orange-600 hover:text-orange-800',
+        'color' => 'text-navy-dark hover:text-gold-dark',
         'route' => route('admin.kegiatan.index'),
-        'icon' => '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        'icon' => '<svg class="w-5 h-5 text-gold-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>'
         ],
         [
         'label' => 'Total Galeri',
         'value' => $stats['galeri'],
-        'gradient' => 'from-purple-500 to-violet-600',
-        'glow' => 'from-purple-400 to-violet-400',
-        'color' => 'text-violet-600 hover:text-violet-800',
+        'color' => 'text-navy-dark hover:text-gold-dark',
         'route' => route('admin.galeri.index'),
-        'icon' => '<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+        'icon' => '<svg class="w-5 h-5 text-gold-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>'
         ],
         ] as $stat)
-        <a href="{{ $stat['route'] }}" class="glass-card p-5 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 flex flex-col justify-between bg-white border border-gray-200/50 relative overflow-hidden group" data-aos="fade-up">
-            <div class="absolute -right-10 -bottom-10 w-28 h-28 bg-gradient-to-br {{ $stat['glow'] }} rounded-full blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-
+        <a href="{{ $stat['route'] }}" class="glass-card p-5 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 flex flex-col justify-between bg-white border border-slate-200/80 group" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 80 }}">
             <div class="flex items-center justify-between mb-4 relative z-10">
                 <div>
-                    <span class="text-gray-500 text-xs font-semibold uppercase tracking-wider block">{{ $stat['label'] }}</span>
-                    <p class="text-3xl font-black text-gray-900 mt-1 leading-none">{{ $stat['value'] }}</p>
+                    <span class="text-slate-500 text-xs font-semibold uppercase tracking-wider block">{{ $stat['label'] }}</span>
+                    <p class="text-3xl font-bold text-navy-dark mt-1 leading-none">{{ $stat['value'] }}</p>
                 </div>
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br {{ $stat['gradient'] }} flex items-center justify-center shadow-md shadow-gray-200 group-hover:scale-110 transition-transform duration-300">
+                <div class="w-11 h-11 rounded-xl bg-gold/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                     {!! $stat['icon'] !!}
                 </div>
             </div>
@@ -69,14 +73,14 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div class="glass-card p-5 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-right">
             <h3 class="text-gray-800 font-semibold mb-4 flex items-center gap-2">
-                <span class="w-1.5 h-4 rounded-full bg-blue-500"></span>
+                <span class="w-1.5 h-4 rounded-full bg-gold"></span>
                 Kegiatan per Bulan {{ date('Y') }}
             </h3>
             <canvas id="kegiatanChart" height="200"></canvas>
         </div>
         <div class="glass-card p-5 bg-white border border-gray-200/50 hover:shadow-md transition-shadow duration-300" data-aos="fade-left">
             <h3 class="text-gray-800 font-semibold mb-4 flex items-center gap-2">
-                <span class="w-1.5 h-4 rounded-full bg-indigo-500"></span>
+                <span class="w-1.5 h-4 rounded-full bg-navy"></span>
                 Anggota per Divisi
             </h3>
             <canvas id="anggotaChart" height="200"></canvas>
@@ -102,9 +106,9 @@
             <div class="space-y-2">
                 @forelse($kegiatanMendatang as $k)
                 <div class="flex items-center gap-3 py-2.5 px-2 hover:bg-gray-50/70 rounded-xl transition-all duration-200 border border-transparent hover:border-gray-100">
-                    <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-xl p-1.5 text-center min-w-[42px] flex-shrink-0 shadow-sm shadow-blue-500/10">
-                        <p class="text-sm font-black leading-none">{{ $k->tanggal_mulai->format('d') }}</p>
-                        <p class="text-[9px] uppercase font-bold opacity-90 mt-0.5 leading-none">{{ $k->tanggal_mulai->format('M') }}</p>
+                    <div class="bg-gold/10 text-navy-dark border border-gold/20 rounded-xl p-1.5 text-center min-w-[42px] flex-shrink-0">
+                        <p class="text-sm font-bold leading-none">{{ $k->tanggal_mulai->format('d') }}</p>
+                        <p class="text-[9px] uppercase font-semibold mt-0.5 leading-none">{{ $k->tanggal_mulai->format('M') }}</p>
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-gray-800 text-sm font-medium truncate">{{ $k->nama }}</p>
@@ -130,8 +134,8 @@
             datasets: [{
                 label: 'Kegiatan',
                 data: @json(array_values($kegiatanBulanan)),
-                backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(212, 175, 55, 0.2)',
+                borderColor: '#B8961E',
                 borderWidth: 2,
                 borderRadius: 8,
             }]
@@ -176,7 +180,7 @@
             labels: @json(array_keys($anggotaPerDivisi)),
             datasets: [{
                 data: @json(array_values($anggotaPerDivisi)),
-                backgroundColor: ['#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'],
+                backgroundColor: ['#07112B', '#0B2A78', '#D4AF37', '#B8961E', '#64748B', '#94A3B8'],
                 borderWidth: 0,
             }]
         },

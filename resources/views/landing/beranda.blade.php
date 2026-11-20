@@ -6,6 +6,7 @@
 {{-- HERO --}}
 <section class="relative min-h-screen flex flex-col justify-center overflow-hidden"
     style="background: linear-gradient(to right, rgba(7,17,43,0.92) 0%, rgba(8,31,92,0.7) 50%, rgba(7,17,43,0.5) 100%), url('/images/About.png') center/cover no-repeat;">
+    @include('partials.padi-motif')
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
 
         <div class="inline-flex items-center gap-2 bg-white/10 border border-gold/40 text-white text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm" data-aos="fade-up">
@@ -43,24 +44,6 @@
 
     </div>
 </section>
-
-{{-- MARQUEE --}}
-@if($pengumuman->count())
-<div class="bg-navy-light border-y border-gold/20 py-4 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 flex items-center gap-4">
-        <div class="flex-shrink-0 bg-gold text-navy-dark font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-lg flex items-center gap-2">
-            📢 PENGUMUMAN
-        </div>
-        <div class="overflow-hidden flex-1">
-            <div class="marquee-content whitespace-nowrap text-white/80 text-sm">
-                @foreach($pengumuman as $p)
-                {{ $p->judul }} &nbsp;&nbsp;•&nbsp;&nbsp;
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 
 {{-- TENTANG --}}
 <section class="py-24 bg-white">
@@ -138,10 +121,10 @@
     </div>
 </section>
 
-{{-- AGENDA + BERITA --}}
+{{-- AGENDA KEGIATAN --}}
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div class="grid grid-cols-1 gap-10">
 
             {{-- Agenda Dinamis dari Database --}}
             <div data-aos="fade-up" data-aos-delay="100">
@@ -162,7 +145,10 @@
                     </div>
                     @else
                     <div class="relative h-32 bg-navy-light flex items-center justify-center text-white/50">
-                        <span class="text-3xl">📅</span>
+                        <svg class="h-8 w-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                            <path stroke-linecap="round" d="M16 3v4M8 3v4M3 10h18" />
+                        </svg>
                     </div>
                     @endif
 
@@ -188,51 +174,36 @@
                 </div>
                 @empty
                 <div class="bg-gray-50 rounded-xl p-6 text-center border border-gray-100">
-                    <p class="text-3xl mb-2">📅</p>
+                    <svg class="h-8 w-8 mx-auto mb-2 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="16" rx="2" />
+                        <path stroke-linecap="round" d="M16 3v4M8 3v4M3 10h18" />
+                    </svg>
                     <p class="text-gray-400 text-sm">Belum ada agenda kegiatan.</p>
                 </div>
                 @endforelse
-            </div>
 
-            {{-- Berita RSS / Eksternal --}}
-            <div data-aos="fade-up" data-aos-delay="300">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-lg font-bold text-navy-dark">Berita Nasional</h3>
-                    <a href="https://kompas.com" target="_blank" class="text-gold text-xs font-semibold hover:underline">Kompas.com →</a>
-                </div>
-
-                @if(($externalNews ?? collect())->count() > 0)
-                @foreach($externalNews as $r)
-                <a href="{{ $r->url }}" target="_blank"
-                    class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
-                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
-                    <div class="p-3 flex-1 min-w-0">
-                        <div class="text-gray-400 text-xs">{{ $r->published_at?->format('d M Y') }}</div>
-                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r->title }}</div>
-                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r->summary, 80) }}</div>
-                    </div>
-                </a>
-                @endforeach
-                @else
-                @forelse(($rssBerita ?? []) as $r)
-                <a href="{{ $r['link'] }}" target="_blank"
-                    class="flex gap-3 mb-4 bg-white rounded-xl border border-gray-100 hover:shadow-md hover:translate-x-1 transition-all duration-300 overflow-hidden block">
-                    <div class="w-20 h-20 bg-navy-light flex-shrink-0 flex items-center justify-center text-2xl">📰</div>
-                    <div class="p-3 flex-1 min-w-0">
-                        <div class="text-gray-400 text-xs">
-                            {{ !empty($r['published_at']) ? \Carbon\Carbon::parse($r['published_at'])->format('d M Y') : '' }}
+                <div class="mt-7 flex flex-col gap-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6" data-aos="fade-up">
+                    <div class="flex items-start gap-4">
+                        <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gold/10 text-gold">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true">
+                                <rect x="3" y="3" width="18" height="18" rx="5" />
+                                <circle cx="12" cy="12" r="4" />
+                                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                            </svg>
                         </div>
-                        <div class="font-semibold text-navy-dark text-sm mt-1 line-clamp-2 leading-snug">{{ $r['judul'] }}</div>
-                        <div class="text-gray-400 text-xs mt-1 line-clamp-2">{{ Str::limit($r['desc'], 80) }}</div>
+                        <div>
+                            <h4 class="font-bold text-navy-dark">Ikuti kegiatan IKAPPI</h4>
+                            <p class="mt-1 text-sm leading-relaxed text-gray-500">Kabar kegiatan lainnya tersedia di Instagram resmi kami.</p>
+                        </div>
                     </div>
-                </a>
-                @empty
-                <div class="bg-gray-50 rounded-xl p-6 text-center">
-                    <p class="text-3xl mb-2">📡</p>
-                    <p class="text-gray-400 text-sm">Berita tidak tersedia.</p>
+                    <a href="https://www.instagram.com/ikappi_pilangsari" target="_blank" rel="noopener noreferrer"
+                        class="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-navy-dark px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy">
+                        Lihat di Instagram
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
+                        </svg>
+                    </a>
                 </div>
-                @endforelse
-                @endif
             </div>
 
         </div>

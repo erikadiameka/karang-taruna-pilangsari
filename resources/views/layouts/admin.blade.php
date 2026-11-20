@@ -10,13 +10,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 font-sans" x-data="{ sidebarOpen: false }">
+<body class="bg-slate-50 font-sans text-slate-800" x-data="{ sidebarOpen: false }">
     <div class="flex min-h-screen">
 
         {{-- SIDEBAR --}}
         <aside class="fixed lg:static top-0 left-0 h-screen w-64 bg-navy flex-shrink-0 flex flex-col z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300"
             :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
-            style="background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);">
+            style="background: linear-gradient(180deg, #0b2a78 0%, #07112b 100%);">
 
             {{-- Logo (IKKAPII) --}}
             <div class="p-6 border-b border-white/10">
@@ -82,16 +82,6 @@
                         <path d="M16 3.13a4 4 0 010 7.75" />
                     </svg>
                     Anggota
-                </a>
-
-                <a href="{{ route('admin.pengumuman.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.pengumuman.*') ? 'active' : '' }}"
-                    @click="sidebarOpen = false">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                        <path d="M13.73 21a2 2 0 01-3.46 0" />
-                    </svg>
-                    Pengumuman
                 </a>
 
                 <a href="{{ route('admin.kontak.index') }}"
@@ -160,7 +150,7 @@
         {{-- MAIN CONTENT --}}
         <main class="flex-1 overflow-auto w-full">
             {{-- Top Bar --}}
-            <div class="bg-white border-b border-gray-200 px-4 lg:px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-10">
+            <div class="bg-white/90 backdrop-blur-xl border-b border-gray-200/80 px-4 lg:px-8 py-4 flex items-center justify-between shadow-sm sticky top-0 z-10">
                 <div class="flex items-center gap-4">
                     <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-gray-600 hover:text-gray-900">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">

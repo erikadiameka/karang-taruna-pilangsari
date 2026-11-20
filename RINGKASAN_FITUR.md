@@ -23,7 +23,6 @@ app/Http/Controllers/Admin/KegiatanController.php      [UPDATED]
 
 ### **2. Exports (Template Excel)**
 ```
-app/Exports/BeritaTemplateExport.php                   [NEW]
 app/Exports/KegiatanTemplateExport.php                 [NEW]
 ```
 
@@ -57,9 +56,6 @@ routes/web.php                                          [UPDATED]
 
 **Route baru:**
 ```
-GET    /dashboard/berita-import/form        admin.berita.import-form
-POST   /dashboard/berita-import             admin.berita.import
-GET    /dashboard/berita-template           admin.berita.template
 GET    /dashboard/kegiatan-import/form      admin.kegiatan.import-form
 POST   /dashboard/kegiatan-import           admin.kegiatan.import
 GET    /dashboard/kegiatan-template         admin.kegiatan.template
@@ -131,10 +127,10 @@ sample-berita.csv                                       [REFERENCE]
 
 | Aspek | Detail |
 |-------|--------|
-| **File Controllers** | 2 (BeritaController, KegiatanController) |
-| **Export Classes** | 2 (BeritaTemplateExport, KegiatanTemplateExport) |
-| **View Templates** | 2 (berita/import, kegiatan/import) |
-| **Routes** | 6 endpoints |
+| **File Controllers** | 1 (KegiatanController) |
+| **Export Classes** | 1 (KegiatanTemplateExport) |
+| **View Templates** | 1 (kegiatan/import) |
+| **Routes** | 3 endpoints |
 | **Format Support** | CSV, XLSX, XLS, TXT |
 | **Max File Size** | 5 MB |
 | **Validation** | Per-row validation |

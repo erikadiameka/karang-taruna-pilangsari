@@ -12,7 +12,7 @@ class RoleMiddleware
         if (!auth()->check()) {
             return redirect()->route('login');
         }
-        if (!in_array(auth()->user()->role, $roles)) {
+        if (!auth()->user()->is_active || !in_array(auth()->user()->role, $roles, true)) {
             abort(403, 'Akses ditolak.');
         }
         return $next($request);

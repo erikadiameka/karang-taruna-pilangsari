@@ -76,6 +76,29 @@
             {{ $kegiatan->links() }}
         </div>
 
+        <div class="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-sm" data-aos="fade-up">
+            <div class="flex items-start gap-4">
+                <div class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gold/10 text-gold">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="font-bold text-navy-dark">Ikuti kegiatan IKAPPI</h2>
+                    <p class="mt-1 text-sm leading-relaxed text-gray-500">Lihat dokumentasi kegiatan lainnya dan informasi terbaru di Instagram resmi kami.</p>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/ikappi_pilangsari" target="_blank" rel="noopener noreferrer"
+                class="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-xl bg-navy-dark px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy">
+                Kunjungi Instagram
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
+                </svg>
+            </a>
+        </div>
+
         {{-- 👇 TOMBOL KEMBALI KE BERANDA 👇 --}}
         <div class="mt-16 text-center hidden">
             <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 bg-navy-dark hover:bg-navy text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">

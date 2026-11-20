@@ -17,78 +17,102 @@
         body {
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
-            background: #07112B;
+            background:
+                radial-gradient(ellipse at 12% 90%, rgba(8, 31, 92, 0.08), transparent 34%),
+                radial-gradient(ellipse at 90% 8%, rgba(212, 175, 55, 0.12), transparent 30%),
+                #f3f5f9;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 24px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
-        /* Background decorations */
         body::before {
             content: '';
             position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            top: -200px;
-            right: -200px;
+            width: 420px;
+            height: 420px;
+            top: -300px;
+            left: -180px;
+            border: 1px solid rgba(7, 17, 43, 0.04);
             border-radius: 50%;
+            pointer-events: none;
         }
 
         body::after {
             content: '';
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(11, 42, 120, 0.4) 0%, transparent 70%);
-            bottom: -100px;
-            left: -100px;
+            width: 280px;
+            height: 280px;
+            right: -120px;
+            bottom: -150px;
+            border: 1px solid rgba(212, 175, 55, 0.16);
             border-radius: 50%;
+            pointer-events: none;
         }
 
         .login-card {
             width: 100%;
             max-width: 440px;
-            background: rgba(8, 31, 92, 0.3);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 28px;
-            padding: 48px 40px;
+            background: rgba(255, 255, 255, 0.76);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 40px;
             position: relative;
             z-index: 1;
+            box-shadow: 0 24px 70px rgba(7, 17, 43, 0.1);
+            animation: loginCardIn 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        }
+
+        @keyframes loginCardIn {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo-wrap {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 36px;
+            margin-bottom: 30px;
         }
 
         .logo-box {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, #D4AF37, #E8C84A);
-            border-radius: 20px;
+            width: 58px;
+            height: 58px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 17px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 16px 40px rgba(212, 175, 55, 0.35);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+        }
+
+        .logo-box img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
         }
 
         .logo-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            color: #fff;
+            color: #07112B;
         }
 
         .logo-sub {
             font-size: 11px;
-            color: #D4AF37;
+            color: #9a7a15;
             font-weight: 600;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -96,60 +120,59 @@
         }
 
         .divider {
-            width: 32px;
+            width: 28px;
             height: 2px;
-            background: #D4AF37;
-            margin: 12px auto 0;
+            background: rgba(212, 175, 55, 0.7);
+            margin: 10px auto 0;
             border-radius: 2px;
         }
 
         .form-heading {
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 6px;
+            font-size: 21px;
+            font-weight: 700;
+            color: #07112B;
+            margin-bottom: 5px;
         }
 
         .form-sub {
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
-            margin-bottom: 28px;
+            color: #778198;
+            margin-bottom: 25px;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
 
         .form-label {
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
+            color: #34415b;
+            margin-bottom: 7px;
         }
 
         .form-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 13px 16px;
-            color: #fff;
+            background: rgba(255, 255, 255, 0.84);
+            border: 1px solid #dfe4ed;
+            border-radius: 11px;
+            padding: 12px 14px;
+            color: #07112B;
             font-size: 14px;
             font-family: inherit;
             outline: none;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
         }
 
         .form-input:focus {
-            border-color: rgba(212, 175, 55, 0.6);
-            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(184, 150, 30, 0.75);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
         }
 
         .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.2);
+            color: #a0a8b8;
         }
 
         .form-row {
@@ -164,13 +187,13 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.4);
+            color: #68748a;
             cursor: pointer;
         }
 
         .forgot-link {
             font-size: 12px;
-            color: #D4AF37;
+            color: #8b6d10;
             text-decoration: none;
         }
 
@@ -180,27 +203,38 @@
 
         .btn-login {
             width: 100%;
-            background: linear-gradient(135deg, #D4AF37, #E8C84A);
-            color: #07112B;
-            font-weight: 800;
-            font-size: 15px;
-            padding: 14px;
-            border-radius: 12px;
+            background: #10224b;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 13px 16px;
+            border-radius: 11px;
             border: none;
             cursor: pointer;
             font-family: inherit;
-            transition: all 0.3s;
-            letter-spacing: 0.02em;
+            transition: background-color 0.2s, transform 0.2s;
             margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
         }
 
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+            background: #07112B;
+            transform: translateY(-1px);
         }
 
         .btn-login:active {
             transform: translateY(0);
+        }
+
+        .btn-login:focus-visible,
+        .back-link:focus-visible,
+        .forgot-link:focus-visible {
+            outline: 3px solid rgba(184, 150, 30, 0.45);
+            outline-offset: 3px;
+            border-radius: 5px;
         }
 
         .back-link {
@@ -208,31 +242,63 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            color: rgba(255, 255, 255, 0.3);
+            color: #7d8799;
             font-size: 12px;
             text-decoration: none;
-            margin-top: 28px;
+            margin-top: 24px;
             transition: color 0.2s;
         }
 
         .back-link:hover {
-            color: #D4AF37;
+            color: #07112B;
         }
 
         .error-msg {
-            color: #EF4444;
+            display: inline-block;
+            color: #a42b32;
+            background: rgba(164, 43, 50, 0.06);
+            border-radius: 7px;
             font-size: 12px;
-            margin-top: 6px;
+            margin-top: 7px;
+            padding: 5px 8px;
         }
 
         .success-msg {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10B981;
-            padding: 12px 16px;
-            border-radius: 10px;
+            background: rgba(22, 101, 52, 0.06);
+            border: 1px solid rgba(22, 101, 52, 0.15);
+            color: #166534;
+            padding: 11px 14px;
+            border-radius: 9px;
             font-size: 13px;
             margin-bottom: 20px;
+        }
+
+        .info-msg {
+            background: rgba(8, 31, 92, 0.045);
+            border: 1px solid rgba(8, 31, 92, 0.1);
+            color: #34415b;
+            padding: 11px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .login-card {
+                padding: 28px 22px;
+                border-radius: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .login-card {
+                animation: none;
+            }
         }
     </style>
 </head>
@@ -243,11 +309,7 @@
         {{-- Logo --}}
         <div class="logo-wrap">
             <div class="logo-box">
-                <svg width="38" height="38" viewBox="0 0 100 100" fill="none">
-                    <path d="M50 10 L60 35 L88 35 L66 52 L74 78 L50 62 L26 78 L34 52 L12 35 L40 35 Z" fill="#07112B" />
-                    <circle cx="50" cy="50" r="10" fill="#07112B" />
-                    <circle cx="50" cy="50" r="5" fill="#D4AF37" />
-                </svg>
+                <img src="{{ asset('images/ikkapii-logo.png') }}" alt="Logo IKAPPI Pilangsari">
             </div>
             <div class="logo-title">Karang Taruna</div>
             <div class="logo-sub">Desa Pilangsari</div>
@@ -255,12 +317,15 @@
         </div>
 
         {{-- Heading --}}
-        <div class="form-heading">Selamat Datang 👋</div>
+        <div class="form-heading">Selamat datang kembali</div>
         <div class="form-sub">Masuk ke panel admin untuk mengelola website</div>
 
         {{-- Status --}}
         @if(session('status'))
         <div class="success-msg">{{ session('status') }}</div>
+        @endif
+        @if(session('registration_closed'))
+        <div class="info-msg" role="status">{{ session('registration_closed') }}</div>
         @endif
 
         {{-- Form --}}
@@ -268,22 +333,22 @@
             @csrf
 
             <div class="form-group">
-                <label class="form-label">Email</label>
+                <label class="form-label" for="email">Email</label>
                 <input type="email" name="email" value="{{ old('email') }}"
-                    class="form-input" placeholder="admin@karangtaruna.com" required autofocus>
+                    id="email" class="form-input" placeholder="admin@karangtaruna.com" required autofocus autocomplete="username">
                 @error('email')<p class="error-msg">{{ $message }}</p>@enderror
             </div>
 
             <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" name="password"
-                    class="form-input" placeholder="••••••••" required>
+                <label class="form-label" for="password">Password</label>
+                <input type="password" name="password" id="password"
+                    class="form-input" placeholder="Masukkan password" required autocomplete="current-password">
                 @error('password')<p class="error-msg">{{ $message }}</p>@enderror
             </div>
 
             <div class="form-row">
                 <label class="remember-label">
-                    <input type="checkbox" name="remember" style="accent-color:#D4AF37;">
+                    <input type="checkbox" name="remember" style="accent-color:#10224b;">
                     Ingat saya
                 </label>
                 @if(Route::has('password.request'))
@@ -292,16 +357,16 @@
             </div>
 
             <button type="submit" class="btn-login">
-                Masuk ke Dashboard →
+                Masuk ke Dashboard
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
+                </svg>
             </button>
         </form>
 
         <div style="text-align:center; margin-top:20px;">
-            <p style="color:rgba(255,255,255,0.3); font-size:13px;">
-                Belum punya akun?
-                <a href="{{ route('register') }}" style="color:#D4AF37; text-decoration:none; font-weight:600;">
-                    Daftar sekarang
-                </a>
+            <p style="color:#7d8799; font-size:12px;">
+                Akun admin hanya dibuat oleh pengelola.
             </p>
         </div>
 
@@ -309,7 +374,7 @@
             ← Kembali ke halaman utama
         </a>
 
-        <p style="color:rgba(255,255,255,0.15); font-size:11px; text-align:center; margin-top:20px;">
+        <p style="color:#a0a8b8; font-size:11px; text-align:center; margin-top:20px;">
             © {{ date('Y') }} Karang Taruna Desa Pilangsari
         </p>
     </div>

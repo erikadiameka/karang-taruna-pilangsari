@@ -85,7 +85,7 @@
 </section>
 
 {{-- Struktur Organisasi --}}
-<section class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-20 md:py-24">
+<section id="struktur" class="relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white py-20 md:py-24">
     <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-gold/5 blur-3xl"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative text-center mb-14" data-aos="fade-up">
@@ -182,7 +182,7 @@
         {{-- TOMBOL KE HALAMAN ANGGOTA --}}
         <div class="text-center mt-16" data-aos="fade-up">
             <a href="{{ route('anggota.index') }}" class="inline-flex items-center gap-2 bg-navy-dark hover:bg-navy text-white font-bold py-3 px-6 sm:px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
-                Lihat Bagan & Daftar Anggota Lengkap
+                Lihat Daftar Anggota
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>

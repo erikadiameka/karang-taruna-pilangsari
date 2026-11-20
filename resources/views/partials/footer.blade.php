@@ -48,7 +48,6 @@
                     <a href="{{ route('beranda') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Beranda</a>
                     <a href="{{ route('tentang') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Tentang Kami</a>
                     <a href="{{ route('kegiatan.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kegiatan</a>
-                    <a href="{{ route('anggota.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Anggota</a>
                     <a href="{{ route('galeri.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Galeri</a>
                     <a href="{{ route('kontak') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kontak</a>
                 </div>
@@ -57,8 +56,9 @@
                 <div>
                     <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Tautan Cepat</h4>
                     <a href="{{ route('kegiatan.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Program Kerja</a>
-                    <a href="{{ route('dokumentasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Dokumentasi</a>
                     <a href="{{ route('unduhan') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Unduhan</a>
+                    <a href="{{ route('anggota.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Anggota</a>
+                    <a href="{{ route('potensi-desa') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Potensi Desa</a>
                     <a href="{{ route('aspirasi') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kotak Aspirasi</a>
                 </div>
             </div>

@@ -7,8 +7,8 @@
 {{-- Hero Section --}}
 <section style="background: linear-gradient(135deg, #07112B 0%, #081F5C 100%); padding: 8rem 0 4rem;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="section-badge mb-4 mx-auto" data-aos="fade-up" style="width: fit-content; display: flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.1); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; tracking-wider;">
-            <span class="w-1.5 h-1.5 bg-gold rounded-full" style="width: 6px; height: 6px; background-color: #D4AF37; border-radius: 9999px;"></span>
+        <div class="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold mb-4" data-aos="fade-up">
+            <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
             Partisipasi Publik
         </div>
         <h1 class="text-4xl md:text-5xl font-black text-white mt-4" data-aos="fade-up" data-aos-delay="100">
@@ -26,7 +26,7 @@
             
             {{-- Panduan & Info --}}
             <div class="lg:col-span-5" data-aos="fade-right">
-                <div class="section-badge mb-4" style="width: fit-content; display: flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.1); color: #D4AF37; border: 1px solid rgba(212, 175, 55, 0.2); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; tracking-wider;">
+                <div class="inline-flex items-center gap-2 rounded-full border border-gold/20 bg-gold/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold mb-4">
                     Suara Warga
                 </div>
                 <h2 class="text-3xl font-black text-navy-dark" style="color: #07112B;">Suara Anda, <br>Kemajuan <span class="text-gold" style="color: #D4AF37;">Bersama</span></h2>
@@ -35,23 +35,33 @@
                 </p>
                 
                 <div class="mt-8 space-y-6">
-                    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                    <div class="rounded-2xl border border-navy-dark/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                         <div class="flex items-center gap-3 mb-2">
-                            <span class="text-lg">🔒</span>
+                            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold/10 text-gold">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true">
+                                    <rect x="4" y="10" width="16" height="11" rx="2" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 10V7a4 4 0 118 0v3m-4 4v3" />
+                                </svg>
+                            </span>
                             <h4 class="font-bold text-navy-dark text-sm" style="color: #07112B;">Opsi Pengiriman Anonim</h4>
                         </div>
-                        <p class="text-gray-500 text-xs leading-relaxed">
-                            Anda dapat memilih untuk menyembunyikan identitas Anda (Anonim) jika merasa lebih nyaman. Privasi Anda terjamin.
+                        <p class="pl-[52px] text-gray-500 text-xs leading-relaxed">
+                            Jika memilih anonim, nama dan email akan diganti dengan identitas anonim. Hindari mencantumkan informasi pribadi dalam isi aspirasi.
                         </p>
                     </div>
 
-                    <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
+                    <div class="rounded-2xl border border-navy-dark/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                         <div class="flex items-center gap-3 mb-2">
-                            <span class="text-lg">⚡</span>
+                            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-gold/10 text-gold">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2" />
+                                </svg>
+                            </span>
                             <h4 class="font-bold text-navy-dark text-sm" style="color: #07112B;">Respons & Evaluasi Berkala</h4>
                         </div>
-                        <p class="text-gray-500 text-xs leading-relaxed">
-                            Kompilasi aspirasi warga akan dibahas dalam rapat koordinasi bulanan pengurus untuk dicarikan solusi atau diwujudkan dalam program kerja baru.
+                        <p class="pl-[52px] text-gray-500 text-xs leading-relaxed">
+                            Aspirasi yang diterima akan ditinjau oleh pengurus dan dapat menjadi bahan pertimbangan dalam penyusunan program.
                         </p>
                     </div>
                 </div>
@@ -59,8 +69,18 @@
 
             {{-- Formulir Aspirasi --}}
             <div class="lg:col-span-7" data-aos="fade-left">
-                <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-                    <h3 class="text-xl font-bold text-navy-dark mb-6" style="color: #07112B;">Formulir Aspirasi</h3>
+                <div class="rounded-3xl border border-gray-100 bg-white p-6 shadow-lg shadow-navy-dark/5 sm:p-8">
+                    <div class="mb-7 flex items-start gap-4 border-b border-gray-100 pb-5">
+                        <span class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-navy-dark text-gold">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 5.5A1.5 1.5 0 015.5 4h13A1.5 1.5 0 0120 5.5v13a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 18.5v-13zM8 9h8M8 13h8m-8 4h4" />
+                            </svg>
+                        </span>
+                        <div>
+                            <h3 class="text-xl font-bold text-navy-dark" style="color: #07112B;">Formulir Aspirasi</h3>
+                            <p class="mt-1 text-sm leading-relaxed text-gray-500">Sampaikan masukan Anda dengan jelas agar dapat ditindaklanjuti.</p>
+                        </div>
+                    </div>
 
                     @if(session('success'))
                     <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 text-sm">
@@ -78,9 +98,9 @@
                         <input type="hidden" name="pesan" id="real-pesan">
 
                         {{-- Anonim Checkbox --}}
-                        <div class="flex items-center gap-2 bg-gray-50 p-4 rounded-xl border border-gray-150 mb-2">
-                            <input type="checkbox" id="check-anonim" class="w-4 h-4 text-gold border-gray-300 rounded focus:ring-gold" onchange="toggleAnonim(this)">
-                            <label for="check-anonim" class="text-navy-dark text-xs font-semibold cursor-pointer" style="color: #07112B;">Kirim sebagai Anonim (Sembunyikan Identitas)</label>
+                        <div class="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4 mb-2">
+                            <input type="checkbox" id="check-anonim" class="h-4 w-4 rounded border-gray-300 text-gold focus:ring-gold" onchange="toggleAnonim(this)">
+                            <label for="check-anonim" class="cursor-pointer text-sm font-semibold text-navy-dark" style="color: #07112B;">Kirim sebagai anonim</label>
                         </div>
 
                         {{-- Nama & Email Inputs --}}
@@ -126,8 +146,11 @@
                                 class="w-full border border-gray-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/20 resize-none"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-navy-dark hover:bg-gold text-white hover:text-navy-dark font-semibold text-xs py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:scale-[1.01]" style="background-color: #07112B;">
-                            🚀 Kirim Aspirasi Anda →
+                        <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-navy-dark py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-gold hover:text-navy-dark hover:scale-[1.01]" style="background-color: #07112B;">
+                            Kirim Aspirasi
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6" />
+                            </svg>
                         </button>
                     </form>
                 </div>
