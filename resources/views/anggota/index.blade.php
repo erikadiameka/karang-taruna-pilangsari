@@ -3,40 +3,30 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 pb-20">
-    <a href="{{ route('tentang') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Kembali ke Tentang</a>
+    <a href="{{ route('tentang') }}" class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md fixed top-4 left-4 z-50 md:hidden">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Kembali
+    </a>
 
-    <section class="relative isolate overflow-hidden bg-navy-dark pt-28 pb-24">
+    <section class="relative isolate overflow-hidden bg-navy-dark pt-24 pb-20 md:pt-28 md:pb-24">
         <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full border border-gold/10"></div>
         <div class="pointer-events-none absolute -right-8 -top-20 h-72 w-72 rounded-full border border-gold/10"></div>
         <div class="pointer-events-none absolute -left-24 bottom-0 h-56 w-56 rounded-full bg-gold/5 blur-3xl"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center" data-aos="fade-up">
-                <div class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-gold mb-5">
+                <div class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-gold mb-4 sm:mb-5">
                     <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
                     Struktur Keanggotaan
                 </div>
-                <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
                     Struktur & <span class="text-gold">Anggota</span>
                 </h1>
-                <p class="text-white/65 mt-4 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+                <p class="text-white/65 mt-3 sm:mt-4 text-xs sm:text-sm md:text-base max-w-xl mx-auto leading-relaxed">
                     Mengenal lebih dekat kepengurusan dan anggota aktif Karang Taruna Desa Pilangsari.
                 </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto mt-10" data-aos="fade-up" data-aos-delay="100">
-                <div class="flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
-                    <span class="text-2xl font-black text-gold">{{ $anggotaList->total() }}</span>
-                    <span class="text-left text-[11px] font-medium leading-tight text-white/70">Anggota<br>aktif</span>
-                </div>
-                <div class="flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
-                    <span class="text-2xl font-black text-gold">{{ count($bidangMembers) }}</span>
-                    <span class="text-left text-[11px] font-medium leading-tight text-white/70">Bidang<br>organisasi</span>
-                </div>
-                <div class="flex items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-sm">
-                    <span class="text-2xl font-black text-gold">{{ $anggotaLain->count() }}</span>
-                    <span class="text-left text-[11px] font-medium leading-tight text-white/70">Anggota<br>lainnya</span>
-                </div>
             </div>
         </div>
     </section>
@@ -51,7 +41,7 @@
                 <div class="inline-flex max-w-full gap-1 rounded-2xl border border-gray-100 bg-white p-1.5 shadow-xl shadow-navy-dark/10">
                 <button @click="activeTab = 'bagan'"
                     :class="activeTab === 'bagan' ? 'bg-gold text-navy-dark shadow-lg scale-105' : 'bg-white text-navy-dark border border-gray-200 hover:bg-gray-100'"
-                    class="px-4 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center gap-2">
+                    class="px-3 sm:px-6 py-3 rounded-xl font-bold text-[11px] sm:text-sm transition-all duration-300 flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h7v5H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3zM6.5 12v4m11-8v4" />
                     </svg>
@@ -59,7 +49,7 @@
                 </button>
                 <button @click="activeTab = 'daftar'"
                     :class="activeTab === 'daftar' ? 'bg-gold text-navy-dark shadow-lg scale-105' : 'bg-white text-navy-dark border border-gray-200 hover:bg-gray-100'"
-                    class="px-4 sm:px-6 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 flex items-center gap-2">
+                    class="px-3 sm:px-6 py-3 rounded-xl font-bold text-[11px] sm:text-sm transition-all duration-300 flex items-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 19h6v-1a3 3 0 00-5.2-2M16 19H8m8 0v-1a4 4 0 00-8 0v1m0 0H2v-1a3 3 0 015.2-2M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 2a2 2 0 11-4 0 2 2 0 014 0zM7 9a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -73,7 +63,7 @@
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform translate-y-4"
                 x-transition:enter-end="opacity-100 transform translate-y-0"
-                class="space-y-12">
+                class="space-y-8 md:space-y-12">
 
                 <div class="flex flex-col items-center">
 
@@ -366,13 +356,13 @@
 
         </div>
 
-        {{-- TOMBOL BAWAH (DESKTOP) DIUBAH KE TENTANG --}}
+        {{-- TOMBOL BAWAH (DESKTOP) --}}
         <div class="text-center mt-16" data-aos="fade-up">
             <a href="{{ route('tentang') }}" class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md hidden md:inline-flex">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
-                Kembali 
+                Kembali
             </a>
         </div>
 
