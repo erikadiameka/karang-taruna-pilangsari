@@ -22,7 +22,6 @@ Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/tentang', fn() => view('landing.tentang'))->name('tentang');
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim');
-Route::get('/sejarah', fn() => view('landing.sejarah'))->name('sejarah');
 Route::get('/pengumuman', [App\Http\Controllers\Landing\PengumumanController::class, 'index'])->name('pengumuman.index');
 Route::get('/dasar-hukum', fn() => view('landing.dasar-hukum'))->name('dasar-hukum');
 Route::get('/unduhan', fn() => view('landing.unduhan'))->name('unduhan');
