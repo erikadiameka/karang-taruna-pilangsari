@@ -5,10 +5,8 @@
             {{-- 1. LOGO & SOSMED --}}
             <div class="lg:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#07112B">
-                            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18L20 8.5v7l-8 4-8-4v-7l8-4.32z" />
-                        </svg>
+                    <div class="w-11 h-11 bg-white rounded-xl p-1.5 border border-gold/40 shadow-md shadow-gold/10">
+                        <img src="{{ asset('images/Logo2.png') }}" alt="Logo Karang Taruna Desa Pilangsari" class="w-full h-full object-contain rounded-lg">
                     </div>
                     <div>
                         <p class="text-white font-bold text-sm">Karang Taruna</p>
@@ -50,6 +48,7 @@
                     <a href="{{ route('beranda') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Beranda</a>
                     <a href="{{ route('tentang') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Tentang Kami</a>
                     <a href="{{ route('kegiatan.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kegiatan</a>
+                    <a href="{{ route('anggota.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Anggota</a>
                     <a href="{{ route('galeri.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Galeri</a>
                     <a href="{{ route('kontak') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kontak</a>
                 </div>
@@ -68,10 +67,33 @@
             <div>
                 <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Kontak Kami</h4>
                 <div class="space-y-3 text-white/50 text-sm">
-                    <p>📍 Jl. Pilangsari No.01, Kec. Jatitujuh, Kab. Majalengka 45458</p>
-                    <p>📞 (0233) 123456</p>
-                    <p>✉️ karangtaruna.pilangsari@gmail.com</p>
-                    <p>🕐 Senin – Sabtu (08.00 – 17.00 WIB)</p>
+                    <div class="flex items-start gap-2.5">
+                        <svg class="w-4 h-4 mt-0.5 flex-shrink-0 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.2 7-11a7 7 0 10-14 0c0 5.8 7 11 7 11z" />
+                            <circle cx="12" cy="10" r="2.25" />
+                        </svg>
+                        <span>Jl. Pilangsari No.01, Kec. Jatitujuh, Kab. Majalengka 45458</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <svg class="w-4 h-4 flex-shrink-0 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5A2.5 2.5 0 015.5 3h1.2a1 1 0 01.95.68l1.2 3.6a1 1 0 01-.5 1.2l-1.6.8a11 11 0 005.17 5.17l.8-1.6a1 1 0 011.2-.5l3.6 1.2a1 1 0 01.68.95v1.2a2.5 2.5 0 01-2.5 2.5A13.7 13.7 0 013 5.5z" />
+                        </svg>
+                        <span>(0233) 123456</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <svg class="w-4 h-4 flex-shrink-0 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                            <rect x="3" y="5" width="18" height="14" rx="2" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6" />
+                        </svg>
+                        <span class="break-all">karangtaruna.pilangsari@gmail.com</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <svg class="w-4 h-4 flex-shrink-0 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8">
+                            <circle cx="12" cy="12" r="9" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2" />
+                        </svg>
+                        <span>Senin – Sabtu (08.00 – 17.00 WIB)</span>
+                    </div>
                 </div>
             </div>
 

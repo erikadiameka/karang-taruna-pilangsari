@@ -3,13 +3,6 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 pb-20">
-    <a href="{{ route('tentang') }}" class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md fixed top-4 left-4 z-50 md:hidden">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-        Kembali
-    </a>
-
     <section class="relative isolate overflow-hidden bg-navy-dark pt-24 pb-20 md:pt-28 md:pb-24">
         <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full border border-gold/10"></div>
         <div class="pointer-events-none absolute -right-8 -top-20 h-72 w-72 rounded-full border border-gold/10"></div>
@@ -354,16 +347,6 @@
 
             </div>
 
-        </div>
-
-        {{-- TOMBOL BAWAH (DESKTOP) --}}
-        <div class="text-center mt-16" data-aos="fade-up">
-            <a href="{{ route('tentang') }}" class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md hidden md:inline-flex">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-                Kembali
-            </a>
         </div>
 
     </div>

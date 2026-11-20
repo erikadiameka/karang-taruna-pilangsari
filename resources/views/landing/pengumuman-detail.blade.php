@@ -71,7 +71,7 @@
                 <div>
                     <p class="text-white/60 text-sm">Terakhir diperbarui: {{ $pengumuman->updated_at->format('d M Y H:i') }} WIB</p>
                 </div>
-                <a href="{{ route('pengumuman.index') }}" class="inline-flex items-center gap-2 text-gold hover:text-gold-light transition-colors font-semibold">
+                <a href="{{ route('pengumuman.index') }}" class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white px-3 py-2 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>

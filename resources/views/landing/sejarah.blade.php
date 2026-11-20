@@ -125,7 +125,6 @@
 
         <div class="text-center mt-10">
             <a href="{{ route('tentang') }}" class="btn-gold mr-3">Tentang Kami →</a>
-            <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 text-navy-dark hover:text-gold font-semibold text-sm transition-colors">← Beranda</a>
         </div>
     </div>
 </section>

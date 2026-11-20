@@ -43,6 +43,8 @@
 
     @if(request()->routeIs('beranda'))
     @include('partials.navbar')
+    @else
+    @include('partials.back-button')
     @endif
 
     <main class="page-enter">

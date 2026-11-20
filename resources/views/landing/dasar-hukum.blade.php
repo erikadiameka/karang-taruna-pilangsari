@@ -130,8 +130,7 @@
         </div>
 
         <div class="text-center mt-10">
-            <a href="{{ route('sejarah') }}" class="btn-gold mr-3">← Sejarah Organisasi</a>
-            <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 text-navy-dark hover:text-gold font-semibold text-sm transition-colors">🏠 Beranda</a>
+            <a href="{{ route('sejarah') }}" class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-navy-dark shadow-sm transition-all hover:border-gold hover:text-gold hover:shadow-md">← Sejarah Organisasi</a>
         </div>
     </div>
 </section>

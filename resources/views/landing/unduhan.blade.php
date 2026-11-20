@@ -62,9 +62,6 @@
             <a href="{{ route('kontak') }}" class="btn-gold">Hubungi Kami →</a>
         </div>
 
-        <div class="text-center mt-8">
-            <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 text-navy-dark hover:text-gold font-semibold text-sm transition-colors">← Kembali ke Beranda</a>
-        </div>
     </div>
 </section>
 

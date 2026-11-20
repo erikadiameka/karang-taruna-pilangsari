@@ -137,12 +137,6 @@
             </a>
         </div>
 
-        <div class="text-center mt-12">
-            <a href="{{ route('beranda') }}" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-navy-dark font-semibold text-sm px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-md shadow-gold/20" style="background-color: #D4AF37;">
-                ← Kembali ke Beranda
-            </a>
-        </div>
-        
     </div>
 </section>
 
