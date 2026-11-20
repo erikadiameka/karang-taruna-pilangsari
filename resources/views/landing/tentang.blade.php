@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tentang Kami — Karang Taruna Desa Pilangsari')
+@section('title', 'Tentang Kami — Karang Taruna IKAPPI Desa Pilangsari')
 
 @section('content')
 <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
@@ -13,10 +13,10 @@
             Tentang Kami
         </div>
         <h1 class="text-4xl md:text-5xl font-black text-white mt-4" data-aos="fade-up" data-aos-delay="100">
-            Karang Taruna <span class="text-gold">Desa Pilangsari</span>
+            Karang Taruna <span class="text-gold">IKAPPI</span>
         </h1>
         <p class="text-white/60 mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-            Organisasi sosial kepemudaan yang bergerak untuk kemajuan dan kesejahteraan masyarakat Desa Pilangsari.
+            Ikatan Pemuda Pemudi Pilangsari — Organisasi sosial kepemudaan yang bergerak untuk kemajuan dan kesejahteraan masyarakat Desa Pilangsari.
         </p>
     </div>
 </section>
@@ -28,34 +28,21 @@
             <div data-aos="fade-right">
                 <div class="section-badge mb-4">
                     <span class="w-1.5 h-1.5 bg-gold rounded-full"></span>
-                    Sejarah
+                    Sejarah Singkat
                 </div>
-                <h2 class="text-3xl font-black text-navy-dark">
+                <h2 class="text-3xl font-black text-navy-dark mb-6">
                     Berdiri Sejak <span class="text-gold">Tahun 2010</span>
                 </h2>
-                <p class="text-gray-500 text-sm leading-relaxed mt-4">
-                    Karang Taruna Desa Pilangsari adalah organisasi sosial kepemudaan sebagai wadah pengembangan generasi muda nonpartisan, yang tumbuh dan berkembang atas dasar kesadaran dan tanggung jawab sosial dari, oleh dan untuk masyarakat terutama generasi muda di Desa Pilangsari.
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">
+                    Karang Taruna <strong>IKAPPI (Ikatan Pemuda Pemudi Pilangsari)</strong> lahir dari semangat pemuda-pemudi desa yang ingin berkontribusi nyata bagi kemajuan masyarakat. Didirikan pada tahun <strong>2010</strong>, organisasi ini tumbuh dari kesadaran kolektif generasi muda akan pentingnya peran aktif dalam pembangunan Desa Pilangsari, Kecamatan Jatitujuh, Kabupaten Majalengka.
                 </p>
-                <p class="text-gray-500 text-sm leading-relaxed mt-4">
-                    Sejak berdiri, Karang Taruna Desa Pilangsari telah aktif melaksanakan berbagai program kegiatan sosial, pendidikan, ekonomi, seni budaya, dan olahraga untuk meningkatkan kualitas hidup masyarakat desa.
+                <p class="text-gray-500 text-sm leading-relaxed">
+                    Sejak berdiri, IKAPPI telah aktif melaksanakan berbagai program kegiatan sosial, pendidikan, ekonomi, seni budaya, dan olahraga. Mulai dari turnamen olahraga bergengsi seperti <strong>Ambrewek Super Cup</strong>, aksi peduli sesama melalui <strong>Bakti Sosial</strong>, hingga pelestarian tradisi leluhur seperti <strong>Sedekah Bumi</strong>.
                 </p>
-                <div class="grid grid-cols-2 gap-4 mt-8">
-                    @foreach([
-                    ['value' => '120+', 'label' => 'Anggota Aktif'],
-                    ['value' => '48+', 'label' => 'Kegiatan'],
-                    ['value' => '14+', 'label' => 'Tahun Berdiri'],
-                    ['value' => '4', 'label' => 'Bidang'],
-                    ] as $s)
-                    <div class="bg-navy-dark rounded-2xl p-5 text-center">
-                        <div class="text-2xl font-black text-gold">{{ $s['value'] }}</div>
-                        <div class="text-white/60 text-xs mt-1">{{ $s['label'] }}</div>
-                    </div>
-                    @endforeach
-                </div>
             </div>
             <div data-aos="fade-left">
                 <img src="{{ asset('images/tentang.jpeg') }}"
-                    alt="Karang Taruna" class="w-full rounded-2xl shadow-xl object-cover">
+                    alt="Karang Taruna IKAPPI" class="w-full rounded-2xl shadow-xl object-cover border-4 border-white">
             </div>
         </div>
     </div>
@@ -149,7 +136,7 @@
             </div>
         </div>
 
-        {{-- 👇 TOMBOL KE HALAMAN ANGGOTA 👇 --}}
+        {{-- TOMBOL KE HALAMAN ANGGOTA --}}
         <div class="text-center mt-16" data-aos="fade-up">
             <a href="{{ route('anggota.index') }}" class="inline-flex items-center gap-2 bg-navy-dark hover:bg-navy text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
                 Lihat Bagan & Daftar Anggota Lengkap

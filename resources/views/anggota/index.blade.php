@@ -3,7 +3,8 @@
 
 @section('content')
 <div class="min-h-screen bg-gray-50 pt-32 pb-20">
-    <a href="{{ route('beranda') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Beranda</a>
+    {{-- TOMBOL MOBILE DIUBAH KE TENTANG --}}
+    <a href="{{ route('tentang') }}" class="btn-gold md:hidden fixed top-4 left-4 z-50 px-3 py-2 rounded-full shadow">← Kembali ke Tentang</a>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -51,7 +52,6 @@
                     @if($ketua)
                     <div class="flex flex-col items-center w-full" data-aos="zoom-in">
                         <div class="relative bg-white border-2 border-gold rounded-2xl p-5 shadow-lg w-full max-w-sm flex items-center gap-4">
-                            <span class="absolute -top-3 right-4 bg-gold text-navy-dark text-[9px] font-black uppercase px-2.5 py-1 rounded-full tracking-wider">Ketua</span>
                             @if($ketua->foto)
                             <img src="{{ Storage::url($ketua->foto) }}" alt="{{ $ketua->nama_lengkap }}" class="w-16 h-16 rounded-full object-cover border-2 border-gold flex-shrink-0">
                             @else
@@ -91,7 +91,6 @@
                     {{-- 3. LEVEL SEKRETARIS & BENDAHARA --}}
                     <div class="w-full max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-
                             {{-- Kolom Sekretaris --}}
                             <div class="flex flex-col items-center gap-4 bg-gray-100/50 p-5 rounded-2xl border border-gray-200/50">
                                 <h4 class="text-xs font-black uppercase tracking-widest text-gold mb-1">Sekretariat</h4>
@@ -135,7 +134,6 @@
                                 <p class="text-xs text-gray-400 italic">Belum ditentukan</p>
                                 @endforelse
                             </div>
-
                         </div>
                     </div>
 
@@ -150,7 +148,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-6" data-aos="fade-up" data-aos-delay="300">
                         @foreach($bidangMembers as $bidangName => $bidang)
-                        <div class="bg-white border border-gray-200/60 rounded-2xl p-6 shadow-sm flex flex-col h-full">
+                        <div x-data="{ open: false }" class="bg-white border border-gray-200/60 rounded-2xl p-6 shadow-sm flex flex-col h-full">
 
                             {{-- Bidang Header (Tanpa Emoji) --}}
                             <div class="flex items-center border-b border-gray-100 pb-4 mb-4">
@@ -182,10 +180,18 @@
                                 @endif
                             </div>
 
-                            {{-- Anggota Bidang --}}
-                            <div>
+                            {{-- Tombol Toggle Mobile --}}
+                            <button @click="open = !open" class="md:hidden w-full py-2 bg-gray-100 hover:bg-gray-200 text-navy-dark text-xs font-bold rounded-lg mb-2 flex items-center justify-center gap-2 transition-colors">
+                                <span x-text="open ? 'Tutup Anggota' : 'Lihat Semua Anggota ({{ $bidang['anggota']->count() }})'"></span>
+                                <svg class="w-4 h-4 transform transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </button>
+
+                            {{-- Anggota Bidang (Disembunyikan di mobile, muncul di desktop) --}}
+                            <div x-show="open || window.innerWidth >= 768" x-collapse class="flex-grow">
                                 <span class="text-[9px] font-black uppercase tracking-wider text-gold block mb-2">Anggota ({{ $bidang['anggota']->count() }})</span>
-                                <div class="flex flex-col gap-2 flex-grow">
+                                <div class="flex flex-col gap-2">
                                     @forelse($bidang['anggota'] as $member)
                                     <div class="bg-gray-50 border border-gray-100/50 rounded-lg p-2 flex items-center gap-2">
                                         @if($member->foto)
@@ -297,10 +303,10 @@
 
         </div>
 
-        {{-- Bottom Back Button --}}
+        {{-- TOMBOL BAWAH (DESKTOP) DIUBAH KE TENTANG --}}
         <div class="text-center mt-16" data-aos="fade-up">
-            <a href="{{ route('beranda') }}" class="btn-gold hidden md:inline-flex">
-                ← Kembali ke Beranda
+            <a href="{{ route('tentang') }}" class="btn-gold hidden md:inline-flex">
+                ← Kembali ke Tentang
             </a>
         </div>
 

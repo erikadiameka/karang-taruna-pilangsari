@@ -49,16 +49,7 @@
 
                 <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Konten</p>
 
-                <a href="{{ route('admin.berita.index') }}"
-                    class="sidebar-item {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}"
-                    @click="sidebarOpen = false">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                        <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" />
-                        <line x1="9" y1="10" x2="15" y2="10" />
-                        <line x1="9" y1="14" x2="15" y2="14" />
-                    </svg>
-                    Berita
-                </a>
+               
 
                 <a href="{{ route('admin.kegiatan.index') }}"
                     class="sidebar-item {{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}"

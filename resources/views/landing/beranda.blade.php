@@ -147,15 +147,14 @@
             <div data-aos="fade-up" data-aos-delay="100">
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold text-navy-dark">Agenda Kegiatan</h3>
-                    <!-- Bisa tambahkan link ke halaman kegiatan publik di sini nanti -->
                 </div>
 
                 @forelse($kegiatanTerbaru as $k)
                 <div class="bg-white rounded-2xl overflow-hidden mb-4 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
                     @if($k->thumbnail)
                     <div class="relative h-48 overflow-hidden">
-                        {{-- UBAHAN DI SINI: Pakai asset('storage/...') --}}
-                        <img src="{{ asset('storage/' . $k->thumbnail) }}" alt="{{ $k->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {{-- UDAH DIBALIKIN KE STORAGE KARENA SYMLINK UDAH JALAN --}}
+                        <img src="{{ Storage::url($k->thumbnail) }}" alt="{{ $k->nama }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
 
                         <div class="absolute top-3 right-3 bg-gold text-navy-dark text-[10px] font-black uppercase px-3 py-1.5 rounded-lg tracking-widest shadow-lg">
                             {{ str_replace('_', ' ', $k->status) }}

@@ -63,9 +63,6 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
         Route::get('anggota/search', [\App\Http\Controllers\Admin\AnggotaController::class, 'autocomplete'])->name('anggota.search');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('berita', BeritaController::class, ['parameters' => ['berita' => 'berita']]);
-    Route::get('berita-import/form', [BeritaController::class, 'importForm'])->name('berita.import-form');
-    Route::post('berita-import', [BeritaController::class, 'import'])->name('berita.import');
-    Route::get('berita-template', [BeritaController::class, 'downloadTemplate'])->name('berita.template');
     Route::resource('kegiatan', KegiatanController::class, ['parameters' => ['kegiatan' => 'kegiatan']]);
     Route::get('kegiatan-import/form', [KegiatanController::class, 'importForm'])->name('kegiatan.import-form');
     Route::post('kegiatan-import', [KegiatanController::class, 'import'])->name('kegiatan.import');
@@ -96,3 +93,14 @@ Route::post('/webhook/news-fetch', function (Request $request) {
     \Artisan::call('fetch:national-news');
     return response('OK');
 });
+
+// ===== JEMBATAN PAKSA STORAGE =====
+use Illuminate\Support\Facades\File;
+
+Route::get('/storage/{path}', function ($path) {
+    $filePath = storage_path('app/public/' . $path);
+    if (!File::exists($filePath)) {
+        abort(404);
+    }
+    return response()->file($filePath);
+})->where('path', '.*');
