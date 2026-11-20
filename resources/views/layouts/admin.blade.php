@@ -49,8 +49,6 @@
 
                 <p class="text-white/40 text-xs uppercase tracking-widest font-semibold px-4 mb-3 mt-4">Konten</p>
 
-               
-
                 <a href="{{ route('admin.kegiatan.index') }}"
                     class="sidebar-item {{ request()->routeIs('admin.kegiatan.*') ? 'active' : '' }}"
                     @click="sidebarOpen = false">
@@ -178,13 +176,13 @@
 
             <div class="p-4 lg:p-8">
                 @if(session('success'))
-                <div class="bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-3 rounded-xl mb-6 text-sm">
+                <div class="bg-green-500/10 border border-green-500/20 text-green-600 px-4 py-3 rounded-xl mb-6 text-sm">
                     {{ session('success') }}
                 </div>
                 @endif
 
                 @if(session('error'))
-                <div class="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl mb-6 text-sm">
+                <div class="bg-red-500/10 border border-red-500/20 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm">
                     {{ session('error') }}
                 </div>
                 @endif
@@ -193,6 +191,8 @@
             </div>
         </main>
     </div>
+
+    @stack('scripts')
 </body>
 
 </html>

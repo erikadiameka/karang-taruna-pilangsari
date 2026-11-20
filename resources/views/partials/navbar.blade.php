@@ -17,9 +17,7 @@
                 @foreach([
                 ['beranda', 'Beranda'],
                 ['tentang', 'Tentang'],
-                
                 ['kegiatan.index', 'Kegiatan'],
-                ['berita.index', 'Berita'],
                 ['anggota.index', 'Anggota'],
                 ['kontak', 'Kontak'],
                 ] as [$route, $label])
@@ -83,7 +81,6 @@
                 ['beranda', 'Beranda'],
                 ['tentang', 'Tentang'],
                 ['kegiatan.index', 'Kegiatan'],
-                ['berita.index', 'Berita'],
                 ['anggota.index', 'Anggota'],
                 ['kontak', 'Kontak'],
                 ] as [$route, $label])

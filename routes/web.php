@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Landing\BerandaController;
-use App\Http\Controllers\Landing\BeritaController as LandingBerita;
 use App\Http\Controllers\Landing\KegiatanController as LandingKegiatan;
 use App\Http\Controllers\Landing\GaleriController as LandingGaleri;
 use App\Http\Controllers\Landing\AnggotaController as LandingAnggota;
 use App\Http\Controllers\Landing\PengumumanController as LandingPengumuman;
 use App\Http\Controllers\Landing\KontakController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\AnggotaController;
@@ -25,11 +25,6 @@ Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim')
 Route::get('/pengumuman', [App\Http\Controllers\Landing\PengumumanController::class, 'index'])->name('pengumuman.index');
 Route::get('/dasar-hukum', fn() => view('landing.dasar-hukum'))->name('dasar-hukum');
 Route::get('/unduhan', fn() => view('landing.unduhan'))->name('unduhan');
-
-Route::prefix('berita')->name('berita.')->group(function () {
-    Route::get('/', [LandingBerita::class, 'index'])->name('index');
-    Route::get('/{slug}', [LandingBerita::class, 'show'])->name('show');
-});
 
 Route::prefix('kegiatan')->name('kegiatan.')->group(function () {
     Route::get('/', [LandingKegiatan::class, 'index'])->name('index');
@@ -58,10 +53,9 @@ Route::get('/dashboard', function () {
 
 // ===== ADMIN =====
 Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admin,admin'])->group(function () {
-        // Autocomplete route for anggota search (used by admin UI)
-        Route::get('anggota/search', [\App\Http\Controllers\Admin\AnggotaController::class, 'autocomplete'])->name('anggota.search');
+    // Autocomplete route for anggota search (used by admin UI)
+    Route::get('anggota/search', [\App\Http\Controllers\Admin\AnggotaController::class, 'autocomplete'])->name('anggota.search');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('berita', BeritaController::class, ['parameters' => ['berita' => 'berita']]);
     Route::resource('kegiatan', KegiatanController::class, ['parameters' => ['kegiatan' => 'kegiatan']]);
     Route::get('kegiatan-import/form', [KegiatanController::class, 'importForm'])->name('kegiatan.import-form');
     Route::post('kegiatan-import', [KegiatanController::class, 'import'])->name('kegiatan.import');
@@ -69,7 +63,7 @@ Route::prefix('dashboard')->name('admin.')->middleware(['auth', 'role:super_admi
     Route::resource('galeri', GaleriController::class, ['parameters' => ['galeri' => 'galeri']]);
     Route::resource('anggota', AnggotaController::class, ['parameters' => ['anggota' => 'anggota']]);
     Route::resource('pengumuman', PengumumanController::class, ['parameters' => ['pengumuman' => 'pengumuman']]);
-    Route::resource('kontak', AdminKontakController::class)->only(['index','show','destroy']);
+    Route::resource('kontak', AdminKontakController::class)->only(['index', 'show', 'destroy']);
     Route::delete('kontak', [AdminKontakController::class, 'destroySelected'])->name('kontak.destroySelected');
     Route::delete('kontak/read', [AdminKontakController::class, 'destroyRead'])->name('kontak.destroyRead');
     Route::resource('users', UserController::class)->middleware('role:super_admin');
@@ -83,7 +77,6 @@ if (app()->environment('local')) {
 require __DIR__ . '/auth.php';
 
 // Webhook to trigger news fetch (protected by NEWS_FETCH_TOKEN env)
-use Illuminate\Http\Request;
 Route::post('/webhook/news-fetch', function (Request $request) {
     $token = $request->header('x-news-token') ?? $request->query('token');
     if (! $token || $token !== env('NEWS_FETCH_TOKEN')) {
@@ -94,8 +87,6 @@ Route::post('/webhook/news-fetch', function (Request $request) {
 });
 
 // ===== JEMBATAN PAKSA STORAGE =====
-use Illuminate\Support\Facades\File;
-
 Route::get('/storage/{path}', function ($path) {
     $filePath = storage_path('app/public/' . $path);
     if (!File::exists($filePath)) {

@@ -50,7 +50,6 @@
                     <a href="{{ route('beranda') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Beranda</a>
                     <a href="{{ route('tentang') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Tentang Kami</a>
                     <a href="{{ route('kegiatan.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kegiatan</a>
-                    <a href="{{ route('berita.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Berita</a>
                     <a href="{{ route('galeri.index') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Galeri</a>
                     <a href="{{ route('kontak') }}" class="block text-white/50 hover:text-gold text-sm mb-2.5 transition-colors">Kontak</a>
                 </div>
